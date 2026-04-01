@@ -1,202 +1,1306 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>강릉 여행 일정</title>
-    <style>
-        body {
-            font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
-            background: #f6f8fc;
-            margin: 0;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>놀이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        h1 {
-            text-align: center;
-            color: #2b4cff;
-        }
+:root {
+  --bg: #06080f;
+  --surface: #0d1220;
+  --surface2: #141c2e;
+  --border: #1e2c44;
+  --border-bright: #2d4060;
+  --text: #e8eaf6;
+  --text-dim: #5a6a88;
+  --text-mid: #8a9ab8;
+  --accent: #6c63ff;
+  --accent2: #00c8ff;
+  --danger: #ff4757;
+  --success: #00e08f;
+  --gold: #ffd060;
+  --glow-accent: rgba(108,99,255,0.35);
+  --glow-cyan: rgba(0,200,255,0.3);
+  --glow-danger: rgba(255,71,87,0.4);
+  --glow-gold: rgba(255,208,96,0.4);
+  --card-bg: #ffffff;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-        .box {
-            border: 2px solid #4caf50;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            background: #f9fff9;
-        }
+/* Background star effect */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 20%, rgba(108,99,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 60%, rgba(0,200,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 15%, rgba(108,99,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 80%, rgba(0,200,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 85%, rgba(255,208,96,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 40%, rgba(108,99,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 50%, rgba(0,200,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 45%, rgba(255,208,96,0.2) 0%, transparent 100%);
+  pointer-events: none; z-index: 0;
+}
 
-        .members {
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+/* ====== SCREENS ====== */
+.screen {
+  display: none; position: relative; z-index: 1;
+  width: 100%; max-width: 520px; padding: 24px;
+  animation: fadeInUp 0.4s ease;
+}
+.screen.active { display: flex; flex-direction: column; align-items: center; }
 
-        .role {
-            margin-top: 6px;
-            font-size: 14px;
-        }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-        h3 {
-            margin-top: 30px;
-            color: #333;
-            border-left: 6px solid #4c6ef5;
-            padding-left: 10px;
-        }
+/* ====== TITLE ====== */
+.game-title {
+  font-family: 'Cinzel', serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #a59bff 0%, #00c8ff 60%, #a59bff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  margin-bottom: 4px;
+}
+.game-subtitle {
+  font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 36px;
+}
 
-        ol li, ul li {
-            margin: 6px 0;
-            line-height: 1.6;
-        }
+/* ====== GLASS CARD ====== */
+.glass-card {
+  background: rgba(13,18,32,0.85);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(108,99,255,0.05);
+}
 
-        .highlight {
-            color: blueviolet;
-            font-weight: bold;
-        }
+/* ====== INPUTS ====== */
+input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  padding: 13px 16px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 12px;
+}
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow-accent);
+}
+input::placeholder { color: var(--text-dim); }
 
-        .tag {
-            background: #e8f0ff;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-right: 6px;
-            display: inline-block;
-        }
-    </style>
+/* ====== BUTTONS ====== */
+button {
+  border: none; border-radius: 12px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  font-weight: 600; padding: 13px 24px;
+  transition: all 0.2s; width: 100%;
+}
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #6c63ff, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 20px var(--glow-accent);
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--glow-accent);
+}
+.btn-secondary {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-mid);
+}
+.btn-secondary:hover:not(:disabled) { border-color: var(--border-bright); color: var(--text); }
+.btn-danger {
+  background: linear-gradient(135deg, #ff4757, #c0392b);
+  color: white; box-shadow: 0 4px 20px var(--glow-danger);
+}
+.btn-gold {
+  background: linear-gradient(135deg, #ffd060, #f0a500);
+  color: #1a1000; box-shadow: 0 4px 16px var(--glow-gold);
+}
+.btn-gold:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 24px var(--glow-gold); }
+
+/* ====== DIVIDER ====== */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-dim); font-size: 0.8rem;
+  margin: 16px 0;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ====== ROOM CODE ====== */
+.room-code-display {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.4rem; font-weight: 700;
+  letter-spacing: 10px; color: var(--accent2);
+  text-shadow: 0 0 20px var(--glow-cyan);
+  text-align: center; padding: 16px 0;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.room-code-display:hover { opacity: 0.75; }
+
+/* ====== PLAYER LIST ====== */
+.player-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+.player-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 14px;
+  animation: fadeInUp 0.3s ease;
+}
+.player-item .badge {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 100px;
+  margin-left: auto;
+}
+.badge-host { background: rgba(108,99,255,0.2); color: var(--accent); border: 1px solid var(--accent); }
+.badge-you { background: rgba(0,200,255,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
+
+/* ====== GAME SCREEN ====== */
+#game-screen {
+  display: none;
+  flex-direction: column;
+  height: 100vh; width: 100%;
+  max-width: 1100px; padding: 14px;
+  gap: 10px; position: relative; z-index: 1;
+  animation: fadeInUp 0.4s ease;
+}
+#game-screen.active { display: flex; }
+
+/* TOP BAR */
+.top-bar {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 12px 20px;
+  flex-shrink: 0;
+}
+.top-bar .level-info {
+  font-family: 'Cinzel', serif; font-size: 1rem;
+  color: var(--text-dim);
+}
+.top-bar .level-num {
+  font-size: 1.4rem; font-weight: 900; color: var(--accent2);
+  text-shadow: 0 0 16px var(--glow-cyan);
+}
+.stat-group { display: flex; align-items: center; gap: 6px; }
+.stat-icons { font-size: 1.1rem; letter-spacing: 2px; }
+.stat-label { font-size: 0.7rem; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.separator { width: 1px; height: 28px; background: var(--border); }
+.top-bar .ml-auto { margin-left: auto; }
+
+/* MAIN GAME AREA */
+.game-main {
+  display: flex; flex: 1; gap: 12px; min-height: 0;
+}
+
+/* PLAYERS COLUMN */
+.players-col {
+  display: flex; flex-direction: column; gap: 8px;
+  width: 160px; flex-shrink: 0;
+}
+.player-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.player-card-name {
+  font-size: 0.75rem; font-weight: 600; color: var(--text-mid);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mini-cards { display: flex; flex-wrap: wrap; gap: 3px; }
+.mini-card {
+  width: 20px; height: 29px;
+  background: linear-gradient(135deg, #3730a3, #6c63ff);
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.player-card-count {
+  font-size: 0.7rem; color: var(--text-dim);
+}
+
+/* CENTER AREA */
+.center-col {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  position: relative;
+}
+
+.pile-container {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.pile-label {
+  font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 600;
+}
+.pile-slot {
+  width: 110px; height: 150px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  background: radial-gradient(ellipse at center, rgba(108,99,255,0.04) 0%, transparent 70%);
+}
+.pile-card {
+  position: absolute;
+  width: 100px; height: 140px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem; font-weight: 900;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 40px rgba(108,99,255,0.15);
+  animation: dealCard 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: #111;
+}
+@keyframes dealCard {
+  from { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.pile-count {
+  font-size: 0.75rem; color: var(--text-dim);
+}
+
+/* EVENT LOG */
+.event-log {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px;
+  width: 200px; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 4px;
+  overflow-y: auto; height: 100%;
+  max-height: 250px;
+}
+.log-entry {
+  font-size: 0.75rem; line-height: 1.5; color: var(--text-mid);
+  border-bottom: 1px solid var(--border); padding-bottom: 4px;
+  animation: fadeInUp 0.2s ease;
+}
+.log-entry:last-child { border-bottom: none; }
+.log-entry.danger { color: #ff7b8a; }
+.log-entry.success { color: #6effc5; }
+.log-entry.gold { color: var(--gold); }
+
+/* BOTTOM AREA */
+.bottom-area {
+  display: flex; flex-direction: column; gap: 8px; flex-shrink: 0;
+}
+.my-cards-bar {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px 20px;
+}
+.my-cards-label {
+  font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 600; margin-bottom: 12px;
+}
+.my-cards-row {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  min-height: 90px; align-items: flex-end;
+}
+
+/* PLAY CARD */
+.play-card {
+  width: 64px; height: 88px;
+  background: #fff; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 900; color: #111;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  transition: transform 0.15s, box-shadow 0.15s;
+  user-select: none;
+  position: relative; top: 0;
+}
+.play-card:hover {
+  transform: translateY(-14px) scale(1.06);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.6), 0 0 20px var(--glow-accent);
+}
+.play-card:active { transform: translateY(-6px) scale(0.98); }
+
+.empty-hand { color: var(--text-dim); font-size: 0.85rem; margin: auto; }
+
+/* SHURIKEN BUTTON AREA */
+.action-bar {
+  display: flex; gap: 10px; justify-content: center;
+}
+.shuriken-btn {
+  max-width: 280px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ====== OVERLAYS ====== */
+.overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(6,8,15,0.88);
+  display: none; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+  animation: none;
+}
+.overlay.active {
+  display: flex;
+  animation: overlayIn 0.3s ease;
+}
+@keyframes overlayIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+.overlay-box {
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 24px; padding: 48px 40px;
+  text-align: center; max-width: 420px; width: 90%;
+  box-shadow: 0 0 80px rgba(0,0,0,0.8), 0 0 40px var(--glow-accent);
+  animation: boxPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes boxPop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.overlay-icon { font-size: 3.5rem; margin-bottom: 16px; }
+.overlay-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem; font-weight: 700;
+  margin-bottom: 8px; color: var(--text);
+}
+.overlay-sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 28px; line-height: 1.6; }
+
+/* VOTE DISPLAY */
+.vote-list {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: 24px;
+}
+.vote-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface2); border-radius: 8px;
+  padding: 8px 12px; font-size: 0.85rem;
+}
+.vote-icon { font-size: 1rem; width: 20px; }
+
+/* ====== TOAST ====== */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--surface2); border: 1px solid var(--border-bright);
+  color: var(--text); padding: 10px 20px;
+  border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+  z-index: 999; opacity: 0; transition: all 0.3s;
+  pointer-events: none; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ====== SHAKE ANIMATION ====== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+.shake { animation: shake 0.5s ease; }
+
+/* ====== PULSE HEART ====== */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+.pulse-heart { animation: heartbeat 0.4s ease; display: inline-block; }
+
+/* ====== STATUS MSG ====== */
+.status-msg {
+  font-size: 0.8rem; color: var(--text-dim);
+  text-align: center; margin-top: 8px;
+}
+
+/* Connecting state */
+#connecting-msg {
+  display: none; text-align: center; padding: 20px;
+  color: var(--text-dim); font-size: 0.9rem;
+}
+</style>
 </head>
 <body>
 
-<h1>🌊 강릉으로 떠나자!</h1>
-
-<div class="container">
-
-    <div class="box">
-        <div class="members">
-            김지을 | 류수정 | 박솔희 | 박희영 | 사윤진 | 양다희 | 이세원 | 채지원 | 최민경 | 최예원
-        </div>
-        <hr>
-        <div class="role">🎤 주최자 (레크레이션 담당) : <b>채지원</b></div>
-        <div class="role">🍽️ 맛집부장관 : <b>최민경</b></div>
-    </div>
-
-    <h3>📅 여행 일정</h3>
-    <ol>
-        <li>12:10 강릉 고속터미널 집합 (다희: 강릉역 / 예원: 14시 도착)</li>
-        <li>12:40 식당 이동</li>
-        <li>12:40 ~ 14:00 점심 식사</li>
-        <li>
-            14:00 ~ 15:30 관광 (중앙시장에서 먹을거 사가기!)
-            <br>① 바다 + 사진 + 장보기 (하나로마트 - 강릉축산농협점, 바다근처) 
-            <br>② 카페 + 관광 후 장보기 (하나로마트 - 강릉농협성남점, 시내근처)
-        </li>
-        <li>15:30 ~ 16:00 숙소 이동 (은가비 펜션)</li>
-        <li>16:00 ~ 16:20 짐 정리</li>
-        <li>
-            16:20 ~ 17:20  
-            <br>① 휴식 & 레크 준비  
-            <br>② 바다 산책
-        </li>
-        <li>17:30 ~ 19:30 저녁 + 정리</li>
-        <li>19:30 ~ 20:00 자유시간 & 미션 배부(자네 지금 뭐하는 겐가)</li>
-        <li>20:00 ~ 21:30 레크레이션 (팀 대결)</li>
-        <li>22:00 ~ 23:00 불꽃놀이 🎆</li>
-        <li>23:00 ~ 자유시간 (잠들면 낙서 ^^)</li>
-        <li>09:30 기상 & 정리 (진 팀 담당)</li>
-        <li>11:00 체크아웃</li>
-        <li>11:30 ~ 13:00 점심</li>
-        <li><span class="highlight">박지원 : 윤진이는 웃기는 녀석</span></li>
-    </ol>
-
-    <h3>🎮 레크레이션 후보</h3>
-    <ul>
-        <li>휴지 물 적셔 돈 걸기</li>
-        <li>탁구공 컵 넣기</li>
-        <li>주루마블</li>
-        <li>암흑 좀비</li>
-        <li>그대 지금 뭐하는 겐가</li>
-        <li>마피아 (feat. mc 솔희)</li>
-        <li>금지어 게임</li>
-        <li>소주/맥주 맞추기 (feat. 윤진이 장기자랑)</li>
-        <li>라이어 게임 (자네 지금 무엇을 먹었는가)</li>
-        <li>팀전에 X맨 숨어있기</li>
-        <li>말되는 말 하면 패배</li>
-        <li>연락 늦게 오는 사람 찾기</li>
-        <li>보물찾기</li>
-        <li>몸으로 말해요</li>
-        <li>보물찾기</li>
-        <li>... 추후 생각나면 추가</li>
-    </ul>
-
-    <h3>🍽️ 맛집 리스트</h3>
-    <ul>
-        <li>점심 장소 후보:</li>
-        <ol>
-            <li>빨간삼겹살 (웨이팅 각오)</li>
-            <li>강릉칼제비</li> 
-            <li>강문떡갈비</li>
-            <li>이모네생선찜</li>
-            <li>엄지네해물포차 - 꼬막비빔밥</li>
-            <li>이정희차돌두루치기</li>
-        </ol>
-        <li>간식 : 강릉 중앙시장 + 바베큐와 곁들일 회</li>
-        <li>저녁 : 바베큐</li>
-        <li>야식 : 사계절탕수육 / 배니닭강정</li>
-        <li>월요일 점심 : 동화가든 (짬뽕순두부)</li>
-        <li>카페 후보:</li>
-            <ol>
-                <li>카페초이 ☕ (소금빵 맛집)</li>
-                <li>만동제과</li> 
-                <li>인솔트베이커리</li>
-                <li>오프더월</li>
-                <li>파인파인 강릉점</li>
-            </ol>
-    </ul>
-    <h3>🛒 장보기 리스트 (중앙시장 / 하나로마트)</h3>
-    <div class="box">
-        <span class="tag">필수</span>
-        <ul>
-            <li>🥩 고기</li>
-            <li>🌭 소세지</li>
-            <li>🍜 라면 
-                (비빔면 / 국물라면 / 컵라면 중 선택)
-            </li>
-            <li>🍺 술 사기 (소주, 맥주, 기타 등등)</li>
-            <li>🥤 음료수</li>
-            <li>🍚 햇반 <b>6~9개</b></li>
-            <li>🥬 쌈 채소 (마늘, 상추, 깻잎)</li>
-            <li>🥣 쌈장 (제일 싼 거)</li>
-            <li>🍄 버섯 (구워 먹을 용)</li>
-            <li>🍡 마시멜로</li>
-            <li>🍪 과자</li>
-        </ul>
-
-        <span class="tag">준비물</span>
-        <ul>
-            <li>🍽️ 일회용 용기 (넓적 / 국그릇)</li>
-            <li>🥤 종이컵</li>
-            <li>🍶 소주컵 (선택)</li>
-            <li>🥢 나무 젓가락</li>
-            <li>🥄 일회용 숟가락</li>
-            <li>🧻 (선택) 물티슈</li>
-        </ul>
-    </div>
-    <h3>🔥 바베큐 비용</h3>
-    <div class="box">
-        <ul>
-            <li>기본 바베큐 비용 : <b>30,000원</b></li>
-            <li>추가 인원 비용 : 5,000원 × 6명</li>
-            <li class="highlight">총 바베큐 비용 : 60,000원</li>
-        </ul>
-    </div>
-
+<!-- ===================== SCREEN: NAME ENTRY ===================== -->
+<div id="screen-name" class="screen active">
+  <div class="game-title">더 마인드</div>
+  <div class="game-subtitle">The Mind</div>
+  <div class="glass-card" style="text-align:center;">
+    <p style="color:var(--text-dim); margin-bottom:20px; font-size:0.9rem;">플레이어 이름을 입력하세요</p>
+    <input id="name-input" placeholder="이름 (최대 10자)" maxlength="10"
+      onkeydown="if(event.key==='Enter') setName()">
+    <button class="btn-primary" onclick="setName()">계속하기 →</button>
+  </div>
 </div>
 
+<!-- ===================== SCREEN: LOBBY ===================== -->
+<div id="screen-lobby" class="screen">
+  <div class="game-title">더 마인드</div>
+  <div class="game-subtitle">The Mind</div>
+
+  <!-- Create / Join panel -->
+  <div id="lobby-main" class="glass-card" style="text-align:center; width:100%;">
+    <p style="color:var(--text-dim); margin-bottom:20px; font-size:0.9rem;">2~6명, 각자의 기기에서 접속하세요</p>
+    <button class="btn-primary" onclick="createRoom()" style="margin-bottom:8px;">🎮 방 만들기</button>
+    <div class="divider">또는</div>
+    <input id="room-input" placeholder="방 코드 6자리" maxlength="6"
+      style="text-align:center; text-transform:uppercase; font-family:'Space Mono',monospace; letter-spacing:4px;"
+      onkeydown="if(event.key==='Enter') joinRoom()">
+    <button class="btn-secondary" onclick="joinRoom()">🚀 참가하기</button>
+    <div id="connecting-msg">연결 중…</div>
+  </div>
+
+  <!-- Waiting room panel -->
+  <div id="lobby-waiting" style="display:none; width:100%;">
+    <div class="glass-card" style="text-align:center;">
+      <p style="color:var(--text-dim); font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">방 코드 (클릭하여 복사)</p>
+      <div class="room-code-display" id="display-room-code" onclick="copyRoomCode()">------</div>
+      <p style="color:var(--text-dim); font-size:0.75rem; margin-bottom:12px;">이 코드를 친구에게 알려주세요</p>
+      <div style="height:1px; background:var(--border); margin-bottom:16px;"></div>
+      <p style="color:var(--text-dim); font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px;">
+        참가자 <span id="player-count">1</span>명
+      </p>
+      <div class="player-list" id="player-list-el"></div>
+      <div id="lobby-actions" style="margin-top:16px;">
+        <button class="btn-primary" id="start-btn" onclick="hostStartGame()" style="display:none;">게임 시작</button>
+        <p class="status-msg" id="waiting-host-msg"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== GAME SCREEN ===================== -->
+<div id="game-screen">
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div>
+      <div class="level-info">레벨</div>
+      <span class="level-num" id="g-level">1</span>
+      <span style="color:var(--text-dim); font-size:0.85rem;">/<span id="g-max-level">12</span></span>
+    </div>
+    <div class="separator"></div>
+    <div class="stat-group">
+      <span class="stat-icons" id="lives-icons">❤️❤️</span>
+      <span class="stat-label">목숨</span>
+    </div>
+    <div class="separator"></div>
+    <div class="stat-group">
+      <span class="stat-icons" id="shuriken-icons">⭐</span>
+      <span class="stat-label">수리검</span>
+    </div>
+    <div class="ml-auto" style="color:var(--text-dim); font-size:0.8rem;" id="g-roomcode"></div>
+  </div>
+
+  <!-- Main game area -->
+  <div class="game-main">
+    <!-- Other players -->
+    <div class="players-col" id="other-players-col"></div>
+
+    <!-- Center: pile -->
+    <div class="center-col">
+      <div class="pile-container">
+        <div class="pile-label">낸 카드</div>
+        <div class="pile-slot" id="pile-slot">
+          <span style="color:var(--text-dim); font-size:0.75rem;">없음</span>
+        </div>
+        <div class="pile-count" id="pile-count"></div>
+      </div>
+    </div>
+
+    <!-- Event log -->
+    <div class="event-log" id="event-log">
+      <div class="log-entry" style="color:var(--text-dim); text-align:center;">— 게임 시작 —</div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom-area">
+    <div class="action-bar">
+      <button class="btn-gold shuriken-btn" id="shuriken-btn" onclick="proposeShuriken()">
+        🌟 수리검 사용 (<span id="g-shuriken-count">1</span>개)
+      </button>
+    </div>
+    <div class="my-cards-bar">
+      <div class="my-cards-label">내 카드 (<span id="my-card-count">0</span>장)</div>
+      <div class="my-cards-row" id="my-cards-row">
+        <div class="empty-hand">카드 없음</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== OVERLAY: Level Complete ====== -->
+<div class="overlay" id="overlay-level">
+  <div class="overlay-box">
+    <div class="overlay-icon">🎉</div>
+    <div class="overlay-title">레벨 클리어!</div>
+    <div class="overlay-sub" id="level-bonus-msg">멋진 호흡이었어요!</div>
+    <button class="btn-primary" id="next-level-btn" onclick="nextLevel()" style="display:none;">다음 레벨 →</button>
+    <p class="status-msg" id="waiting-next-msg" style="margin-top:8px;"></p>
+  </div>
+</div>
+
+<!-- ====== OVERLAY: Shuriken Vote ====== -->
+<div class="overlay" id="overlay-shuriken">
+  <div class="overlay-box">
+    <div class="overlay-icon">🌟</div>
+    <div class="overlay-title">수리검 제안</div>
+    <div class="overlay-sub">
+      <b id="shuriken-proposer-name" style="color:var(--gold)">?</b>님이 수리검 사용을 제안합니다.<br>
+      동의하면 각자 가장 낮은 카드를 버립니다.
+    </div>
+    <div class="vote-list" id="vote-list"></div>
+    <p style="color:var(--gold); font-weight:700; margin-bottom:16px; font-size:0.9rem;" id="shuriken-timer-display"></p>
+    <div style="display:flex; gap:10px;" id="shuriken-vote-btns">
+      <button class="btn-primary" onclick="voteShurikenYes()" style="flex:1;">✅ 동의</button>
+      <button class="btn-secondary" onclick="voteShurikenNo()" style="flex:1;">❌ 거부</button>
+    </div>
+    <p class="status-msg" id="my-vote-status"></p>
+  </div>
+</div>
+
+<!-- ====== OVERLAY: Game Over ====== -->
+<div class="overlay" id="overlay-gameover">
+  <div class="overlay-box">
+    <div class="overlay-icon">💀</div>
+    <div class="overlay-title">게임 오버</div>
+    <div class="overlay-sub">목숨이 모두 사라졌습니다.<br>다음엔 더 잘 할 수 있을 거예요!</div>
+    <button class="btn-secondary" onclick="returnToLobby()">로비로 돌아가기</button>
+  </div>
+</div>
+
+<!-- ====== OVERLAY: Game Won ====== -->
+<div class="overlay" id="overlay-gamewon">
+  <div class="overlay-box">
+    <div class="overlay-icon">🏆</div>
+    <div class="overlay-title" style="background:linear-gradient(135deg,#ffd060,#00c8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">마인드 클리어!</div>
+    <div class="overlay-sub">모든 레벨을 완료했습니다!<br>완벽한 텔레파시를 보여주셨어요!</div>
+    <button class="btn-primary" onclick="returnToLobby()">다시 하기</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== STATE ==========
+let myName = '', myId = '', isHost = false, roomId = '';
+let peer = null, hostConn = null;
+let peerConns = {}; // host: {peerId → DataConnection}
+
+let gs = {
+  players: [], playedCards: [], level: 1, maxLevel: 12,
+  lives: 2, shurikens: 1, phase: 'lobby',
+};
+let myCards = [];
+let allCards = {}; // host only
+let shurikenProposal = null; // {fromId, fromName, votes:{id:bool}}
+let shurikenTimerID = null, shurikenTimerInterval = null;
+let myVotedShuriken = false;
+
+// ========== UTILS ==========
+function toast(msg, dur = 3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), dur);
+}
+
+function addLog(msg, cls = '') {
+  const log = document.getElementById('event-log');
+  if (!log) return;
+  const d = document.createElement('div');
+  d.className = 'log-entry' + (cls ? ' ' + cls : '');
+  d.innerHTML = msg;
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+}
+
+function showScreen(id) {
+  ['screen-name','screen-lobby'].forEach(s => {
+    document.getElementById(s).classList.remove('active');
+  });
+  document.getElementById('game-screen').classList.remove('active');
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function showOverlay(id) {
+  document.querySelectorAll('.overlay').forEach(o => o.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function hideOverlays() {
+  document.querySelectorAll('.overlay').forEach(o => o.classList.remove('active'));
+}
+
+function generateRoomId() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  return Array.from({length:6}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
+}
+
+function getMaxLevels(n) { return n <= 2 ? 12 : n === 3 ? 10 : 8; }
+function getStartLives(n) { return Math.min(n + 1, 5); }
+
+function getCardColor(n) {
+  if (n <= 25) return '#3b82f6';
+  if (n <= 50) return '#10b981';
+  if (n <= 75) return '#f59e0b';
+  return '#ef4444';
+}
+
+function copyRoomCode() {
+  navigator.clipboard.writeText(roomId).catch(() => {});
+  toast('방 코드 복사됨: ' + roomId);
+}
+
+// ========== NAME SCREEN ==========
+function setName() {
+  const v = document.getElementById('name-input').value.trim();
+  if (!v) { toast('이름을 입력해주세요'); return; }
+  myName = v;
+  showScreen('screen-lobby');
+  document.getElementById('lobby-main').style.display = 'block';
+  document.getElementById('lobby-waiting').style.display = 'none';
+}
+
+// ========== PEER INIT ==========
+function initPeer(id, cb) {
+  peer = new Peer(id || undefined, {
+    debug: 0,
+    config: { iceServers: [{urls:'stun:stun.l.google.com:19302'}] }
+  });
+  peer.on('open', myPeerId => { myId = myPeerId; cb(myPeerId); });
+  peer.on('error', err => {
+    console.error(err);
+    if (err.type === 'unavailable-id') {
+      peer.destroy();
+      initPeer(generateRoomId(), cb);
+    } else {
+      toast('연결 오류: ' + err.message);
+      document.getElementById('connecting-msg').style.display = 'none';
+    }
+  });
+}
+
+// ========== CREATE ROOM ==========
+function createRoom() {
+  isHost = true;
+  const rid = generateRoomId();
+  document.getElementById('connecting-msg').style.display = 'block';
+  document.getElementById('connecting-msg').textContent = '방 생성 중…';
+
+  initPeer(rid, peerId => {
+    document.getElementById('connecting-msg').style.display = 'none';
+    myId = peerId;
+    roomId = peerId;
+    gs.players = [{ id: myId, name: myName, cardCount: 0 }];
+    peer.on('connection', onNewConnection);
+    showLobbyWaiting();
+  });
+}
+
+function onNewConnection(conn) {
+  conn.on('open', () => {
+    peerConns[conn.peer] = conn;
+    conn.on('data', data => handleHostReceive(data, conn.peer));
+    conn.on('close', () => handlePeerClose(conn.peer));
+    conn.on('error', () => handlePeerClose(conn.peer));
+  });
+}
+
+function handlePeerClose(peerId) {
+  if (!peerConns[peerId]) return;
+  delete peerConns[peerId];
+  gs.players = gs.players.filter(p => p.id !== peerId);
+  if (allCards[peerId]) delete allCards[peerId];
+  if (gs.phase === 'lobby') {
+    broadcastAll({ type: 'lobby_state', players: gs.players });
+    updateLobbyWaiting();
+  } else {
+    broadcastAll({ type: 'player_left', players: gs.players });
+    gs.players.forEach(p => {
+      if (p.id !== myId) renderOtherPlayers();
+    });
+  }
+}
+
+// ========== JOIN ROOM ==========
+function joinRoom() {
+  const code = document.getElementById('room-input').value.trim().toUpperCase();
+  if (code.length < 4) { toast('방 코드를 입력해주세요'); return; }
+  isHost = false;
+  roomId = code;
+  document.getElementById('connecting-msg').style.display = 'block';
+  document.getElementById('connecting-msg').textContent = '연결 중…';
+
+  initPeer(null, peerId => {
+    myId = peerId;
+    hostConn = peer.connect(roomId, { reliable: true });
+
+    const timeout = setTimeout(() => {
+      toast('방을 찾을 수 없습니다. 코드를 확인해주세요.');
+      document.getElementById('connecting-msg').style.display = 'none';
+      peer.destroy(); peer = null;
+    }, 7000);
+
+    hostConn.on('open', () => {
+      clearTimeout(timeout);
+      document.getElementById('connecting-msg').style.display = 'none';
+      hostConn.send({ type: 'join', name: myName });
+    });
+    hostConn.on('data', data => handleClientReceive(data));
+    hostConn.on('close', () => {
+      toast('호스트와 연결이 끊겼습니다');
+      returnToLobby();
+    });
+    hostConn.on('error', err => {
+      clearTimeout(timeout);
+      toast('연결 실패: ' + err.message);
+      document.getElementById('connecting-msg').style.display = 'none';
+    });
+  });
+}
+
+// ========== HOST: RECEIVE FROM CLIENTS ==========
+function handleHostReceive(data, fromId) {
+  if (data.type === 'join') {
+    if (gs.phase !== 'lobby') {
+      peerConns[fromId]?.send({ type: 'join_rejected', reason: '게임이 이미 시작되었습니다' });
+      return;
+    }
+    if (gs.players.length >= 6) {
+      peerConns[fromId]?.send({ type: 'join_rejected', reason: '방이 가득 찼습니다 (최대 6명)' });
+      return;
+    }
+    gs.players.push({ id: fromId, name: data.name, cardCount: 0 });
+    peerConns[fromId]?.send({ type: 'lobby_state', players: gs.players, roomId });
+    broadcastAll({ type: 'lobby_state', players: gs.players });
+    updateLobbyWaiting();
+    return;
+  }
+  if (data.type === 'play_card') {
+    if (gs.phase !== 'playing') return;
+    hostProcessCard(fromId, data.card);
+    return;
+  }
+  if (data.type === 'shuriken_propose') {
+    if (gs.phase !== 'playing' || gs.shurikens <= 0 || shurikenProposal) return;
+    hostStartShuriken(fromId, gs.players.find(p => p.id === fromId)?.name || '?');
+    return;
+  }
+  if (data.type === 'shuriken_vote') {
+    if (!shurikenProposal) return;
+    hostReceiveShurikenVote(fromId, data.vote);
+    return;
+  }
+  if (data.type === 'next_level_ack') {
+    // client acknowledges next level
+  }
+}
+
+// ========== CLIENT: RECEIVE FROM HOST ==========
+function handleClientReceive(data) {
+  if (data.type === 'join_rejected') {
+    toast(data.reason); peer?.destroy(); peer = null; return;
+  }
+  if (data.type === 'lobby_state') {
+    gs.players = data.players;
+    if (data.roomId) roomId = data.roomId;
+    showLobbyWaiting();
+    return;
+  }
+  if (data.type === 'game_start') {
+    Object.assign(gs, data.gameState);
+    myCards = data.myCards || [];
+    startGameUI(); return;
+  }
+  if (data.type === 'your_cards') {
+    myCards = data.cards;
+    renderMyCards(); return;
+  }
+  if (data.type === 'card_played') {
+    gs.playedCards = data.playedCards;
+    gs.players = data.players;
+    renderGameState();
+    addLog(`<b style="color:#a5f3fc">${data.playerName}</b>이(가) <b>${data.card}</b> 냄`, 'success');
+    animatePile(data.card);
+    return;
+  }
+  if (data.type === 'life_lost') {
+    gs.lives = data.lives; gs.playedCards = data.playedCards; gs.players = data.players;
+    renderGameState();
+    const discStr = data.discarded.map(d => `${d.name}의 ${d.card}`).join(', ');
+    addLog(`💔 <b style="color:#fca5a5">${data.playerName}</b>이(가) ${data.card} → 목숨 -1 (${discStr} 버려짐)`, 'danger');
+    animatePile(data.card);
+    document.getElementById('game-screen').classList.add('shake');
+    setTimeout(() => document.getElementById('game-screen').classList.remove('shake'), 600);
+    return;
+  }
+  if (data.type === 'game_over') {
+    gs.phase = 'gameOver'; showOverlay('overlay-gameover'); return;
+  }
+  if (data.type === 'level_complete') {
+    gs.lives = data.lives; gs.shurikens = data.shurikens; gs.phase = 'levelEnd';
+    renderTopBar();
+    document.getElementById('level-bonus-msg').textContent = data.bonusMsg || '훌륭한 팀워크!';
+    if (data.won) { showOverlay('overlay-gamewon'); }
+    else {
+      document.getElementById('next-level-btn').style.display = isHost ? 'block' : 'none';
+      document.getElementById('waiting-next-msg').textContent = isHost ? '' : '호스트가 다음 레벨을 시작하기를 기다리는 중…';
+      showOverlay('overlay-level');
+    }
+    return;
+  }
+  if (data.type === 'shuriken_propose') {
+    shurikenProposal = { fromId: data.fromId, fromName: data.fromName, votes: {} };
+    myVotedShuriken = false;
+    document.getElementById('shuriken-proposer-name').textContent = data.fromName;
+    document.getElementById('my-vote-status').textContent = '';
+    renderVoteList({});
+    showOverlay('overlay-shuriken');
+    startShurikenClientTimer();
+    return;
+  }
+  if (data.type === 'shuriken_vote_update') {
+    renderVoteList(data.votes);
+    return;
+  }
+  if (data.type === 'shuriken_used') {
+    gs.shurikens = data.shurikens; gs.players = data.players;
+    myCards = data.myCards ?? myCards;
+    clearShurikenTimer();
+    hideOverlays(); shurikenProposal = null;
+    renderGameState();
+    addLog('🌟 수리검! 각자 가장 낮은 카드 버림', 'gold');
+    return;
+  }
+  if (data.type === 'shuriken_cancelled') {
+    clearShurikenTimer();
+    hideOverlays(); shurikenProposal = null;
+    addLog('수리검 제안 취소');
+    return;
+  }
+  if (data.type === 'player_left') {
+    gs.players = data.players;
+    renderOtherPlayers();
+    toast('플레이어가 나갔습니다');
+    return;
+  }
+  if (data.type === 'return_to_lobby') {
+    returnToLobby(true); return;
+  }
+}
+
+// ========== BROADCAST ==========
+function broadcastAll(msg) {
+  Object.values(peerConns).forEach(c => { if (c.open) c.send(msg); });
+}
+function sendToPlayer(pid, msg) {
+  if (pid === myId) return handleClientReceive(msg);
+  if (peerConns[pid]?.open) peerConns[pid].send(msg);
+}
+
+// ========== LOBBY UI ==========
+function showLobbyWaiting() {
+  showScreen('screen-lobby');
+  document.getElementById('lobby-main').style.display = 'none';
+  document.getElementById('lobby-waiting').style.display = 'block';
+  document.getElementById('display-room-code').textContent = roomId;
+  updateLobbyWaiting();
+}
+
+function updateLobbyWaiting() {
+  document.getElementById('player-count').textContent = gs.players.length;
+  const list = document.getElementById('player-list-el');
+  list.innerHTML = gs.players.map((p, i) => {
+    const isMe = p.id === myId;
+    const hostBadge = i === 0 ? '<span class="badge badge-host">호스트</span>' : '';
+    const meBadge = isMe ? '<span class="badge badge-you">나</span>' : '';
+    return `<div class="player-item">
+      <span style="font-size:1.1rem">${i === 0 ? '👑' : '👤'}</span>
+      <span style="font-weight:600">${p.name}</span>
+      ${hostBadge}${meBadge}
+    </div>`;
+  }).join('');
+
+  const startBtn = document.getElementById('start-btn');
+  const hostMsg = document.getElementById('waiting-host-msg');
+  if (isHost) {
+    if (gs.players.length >= 2) {
+      startBtn.style.display = 'block';
+      startBtn.textContent = `게임 시작 (${gs.players.length}명)`;
+      hostMsg.textContent = '';
+    } else {
+      startBtn.style.display = 'none';
+      hostMsg.textContent = '최소 2명이 필요합니다. 친구를 초대하세요!';
+    }
+  } else {
+    startBtn.style.display = 'none';
+    hostMsg.textContent = '호스트가 게임을 시작하기를 기다리는 중…';
+  }
+}
+
+// ========== HOST: START GAME ==========
+function hostStartGame() {
+  const n = gs.players.length;
+  gs.maxLevel = getMaxLevels(n);
+  gs.lives = getStartLives(n);
+  gs.shurikens = 1;
+  gs.level = 1;
+  gs.playedCards = [];
+  gs.phase = 'playing';
+  dealCards();
+}
+
+function dealCards() {
+  // Shuffle 1-100
+  const deck = Array.from({length:100}, (_,i) => i+1);
+  for (let i = deck.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  // Deal gs.level cards per player
+  allCards = {};
+  gs.players.forEach((p, i) => {
+    allCards[p.id] = deck.slice(i * gs.level, (i+1) * gs.level).sort((a,b) => a-b);
+    gs.players[i] = { ...gs.players[i], cardCount: gs.level };
+  });
+
+  const baseState = {
+    players: gs.players, playedCards: [], level: gs.level,
+    maxLevel: gs.maxLevel, lives: gs.lives, shurikens: gs.shurikens, phase: 'playing',
+  };
+
+  // Send to clients
+  gs.players.forEach(p => {
+    const msg = { type: 'game_start', gameState: baseState, myCards: allCards[p.id] || [] };
+    sendToPlayer(p.id, msg);
+  });
+}
+
+// ========== HOST: PROCESS CARD ==========
+function hostProcessCard(fromId, card) {
+  const arr = allCards[fromId];
+  if (!arr || !arr.includes(card)) return;
+  const playerName = gs.players.find(p => p.id === fromId)?.name || '?';
+
+  // Collect discards (cards from other players lower than played card)
+  const discarded = [];
+  gs.players.forEach(p => {
+    if (p.id === fromId) return;
+    (allCards[p.id] || []).filter(c => c < card).forEach(c => {
+      discarded.push({ id: p.id, name: p.name, card: c });
+    });
+  });
+
+  // Remove played card
+  allCards[fromId] = arr.filter(c => c !== card);
+  // Remove discarded cards
+  discarded.forEach(d => {
+    allCards[d.id] = (allCards[d.id] || []).filter(c => c !== d.card);
+  });
+  // Add to pile
+  gs.playedCards = [...gs.playedCards, card];
+  // Update counts
+  gs.players = gs.players.map(p => ({ ...p, cardCount: (allCards[p.id] || []).length }));
+
+  if (discarded.length > 0) {
+    gs.lives--;
+    const lifeLostMsg = { type: 'life_lost', card, playerName, discarded, lives: gs.lives, playedCards: gs.playedCards, players: gs.players };
+
+    // Send updated cards to affected players
+    const affected = new Set([fromId, ...discarded.map(d => d.id)]);
+    affected.forEach(pid => {
+      sendToPlayer(pid, { type: 'your_cards', cards: allCards[pid] || [] });
+    });
+    broadcastAll(lifeLostMsg);
+    handleClientReceive(lifeLostMsg);
+
+    if (gs.lives <= 0) {
+      setTimeout(() => {
+        const msg = { type: 'game_over' };
+        broadcastAll(msg); handleClientReceive(msg);
+      }, 1200);
+      return;
+    }
+  } else {
+    const playedMsg = { type: 'card_played', card, playerName, playedCards: gs.playedCards, players: gs.players };
+    broadcastAll(playedMsg);
+    handleClientReceive(playedMsg);
+  }
+
+  // Check level complete
+  const remaining = Object.values(allCards).reduce((s, a) => s + a.length, 0);
+  if (remaining === 0) {
+    setTimeout(() => hostLevelComplete(), 900);
+  }
+}
+
+// ========== HOST: LEVEL COMPLETE ==========
+function hostLevelComplete() {
+  gs.phase = 'levelEnd';
+  const done = gs.level;
+  let bonusMsg = '';
+  if ([3, 6, 9].includes(done) && gs.lives < 10) { gs.lives++; bonusMsg += '❤️ 보너스 목숨 +1! '; }
+  if ([5, 8].includes(done) && gs.shurikens < 5) { gs.shurikens++; bonusMsg += '⭐ 보너스 수리검 +1!'; }
+  if (!bonusMsg) bonusMsg = '훌륭한 텔레파시!';
+
+  if (done >= gs.maxLevel) {
+    const msg = { type: 'level_complete', lives: gs.lives, shurikens: gs.shurikens, bonusMsg, won: true };
+    broadcastAll(msg); handleClientReceive(msg);
+  } else {
+    gs.level++;
+    const msg = { type: 'level_complete', lives: gs.lives, shurikens: gs.shurikens, bonusMsg, won: false };
+    broadcastAll(msg); handleClientReceive(msg);
+  }
+}
+
+function nextLevel() {
+  if (!isHost) return;
+  gs.playedCards = [];
+  gs.phase = 'playing';
+  hideOverlays();
+  dealCards();
+}
+
+// ========== SHURIKEN LOGIC (HOST) ==========
+function hostStartShuriken(fromId, fromName) {
+  shurikenProposal = { fromId, fromName, votes: { [fromId]: true } };
+  const msg = { type: 'shuriken_propose', fromId, fromName };
+  broadcastAll(msg);
+  handleClientReceive(msg);
+
+  shurikenTimerID = setTimeout(() => {
+    if (!shurikenProposal) return;
+    const cancel = { type: 'shuriken_cancelled' };
+    broadcastAll(cancel); handleClientReceive(cancel);
+    shurikenProposal = null;
+  }, 15000);
+}
+
+function hostReceiveShurikenVote(fromId, vote) {
+  if (!shurikenProposal) return;
+  shurikenProposal.votes[fromId] = vote;
+
+  const voteUpdate = { type: 'shuriken_vote_update', votes: { ...shurikenProposal.votes } };
+  broadcastAll(voteUpdate); handleClientReceive(voteUpdate);
+
+  if (vote === false) {
+    clearTimeout(shurikenTimerID);
+    const cancel = { type: 'shuriken_cancelled' };
+    broadcastAll(cancel); handleClientReceive(cancel);
+    shurikenProposal = null;
+    return;
+  }
+  const allYes = gs.players.every(p => shurikenProposal.votes[p.id] === true);
+  if (!allYes) return;
+
+  clearTimeout(shurikenTimerID);
+  gs.shurikens--;
+  const discarded = [];
+  gs.players.forEach(p => {
+    if ((allCards[p.id] || []).length > 0) {
+      const low = Math.min(...allCards[p.id]);
+      discarded.push({ id: p.id, name: p.name, card: low });
+      allCards[p.id] = allCards[p.id].filter(c => c !== low);
+    }
+  });
+  gs.players = gs.players.map(p => ({ ...p, cardCount: (allCards[p.id] || []).length }));
+
+  // Send each player their specific cards
+  gs.players.forEach(p => {
+    sendToPlayer(p.id, {
+      type: 'shuriken_used', shurikens: gs.shurikens,
+      players: gs.players, discarded, myCards: allCards[p.id] || [],
+    });
+  });
+  shurikenProposal = null;
+
+  // Check if all gone
+  const remaining = Object.values(allCards).reduce((s, a) => s + a.length, 0);
+  if (remaining === 0) setTimeout(() => hostLevelComplete(), 900);
+}
+
+// ========== GAME ACTIONS ==========
+function playCard(card) {
+  if (gs.phase !== 'playing') return;
+  if (isHost) hostProcessCard(myId, card);
+  else hostConn?.send({ type: 'play_card', card });
+}
+
+function proposeShuriken() {
+  if (gs.shurikens <= 0 || gs.phase !== 'playing' || shurikenProposal) return;
+  if (isHost) hostStartShuriken(myId, myName);
+  else hostConn?.send({ type: 'shuriken_propose' });
+}
+
+function voteShurikenYes() {
+  if (myVotedShuriken) return;
+  myVotedShuriken = true;
+  document.getElementById('my-vote-status').textContent = '✅ 동의했습니다. 다른 플레이어를 기다리는 중…';
+  document.getElementById('shuriken-vote-btns').style.display = 'none';
+  if (isHost) hostReceiveShurikenVote(myId, true);
+  else hostConn?.send({ type: 'shuriken_vote', vote: true });
+}
+
+function voteShurikenNo() {
+  myVotedShuriken = true;
+  if (isHost) hostReceiveShurikenVote(myId, false);
+  else hostConn?.send({ type: 'shuriken_vote', vote: false });
+  hideOverlays();
+}
+
+// ========== SHURIKEN CLIENT TIMER ==========
+function startShurikenClientTimer() {
+  let secs = 15;
+  const el = document.getElementById('shuriken-timer-display');
+  el.textContent = `⏱ ${secs}초 내 미응답 시 취소`;
+  clearShurikenTimer();
+  shurikenTimerInterval = setInterval(() => {
+    secs--;
+    if (secs <= 0) { clearShurikenTimer(); return; }
+    el.textContent = `⏱ ${secs}초 내 미응답 시 취소`;
+  }, 1000);
+}
+
+function clearShurikenTimer() {
+  clearInterval(shurikenTimerInterval);
+  shurikenTimerInterval = null;
+}
+
+// ========== RENDER ==========
+function startGameUI() {
+  hideOverlays();
+  ['screen-name','screen-lobby'].forEach(s => document.getElementById(s).classList.remove('active'));
+  const gs_el = document.getElementById('game-screen');
+  gs_el.classList.add('active');
+  document.getElementById('event-log').innerHTML = `<div class="log-entry" style="color:var(--text-dim);text-align:center;">— 레벨 ${gs.level} 시작 —</div>`;
+  document.getElementById('g-roomcode').textContent = '방: ' + roomId;
+  renderGameState();
+}
+
+function renderGameState() {
+  renderTopBar();
+  renderOtherPlayers();
+  renderPile();
+  renderMyCards();
+}
+
+function renderTopBar() {
+  document.getElementById('g-level').textContent = gs.level;
+  document.getElementById('g-max-level').textContent = gs.maxLevel;
+  document.getElementById('lives-icons').textContent = '❤️'.repeat(Math.max(0, gs.lives));
+  document.getElementById('shuriken-icons').textContent = '⭐'.repeat(Math.max(0, gs.shurikens));
+  const sBtn = document.getElementById('shuriken-btn');
+  sBtn.disabled = gs.shurikens <= 0 || gs.phase !== 'playing';
+  document.getElementById('g-shuriken-count').textContent = gs.shurikens;
+}
+
+function renderOtherPlayers() {
+  const col = document.getElementById('other-players-col');
+  const others = gs.players.filter(p => p.id !== myId);
+  col.innerHTML = others.map(p => {
+    const minis = Array(p.cardCount).fill('<div class="mini-card"></div>').join('');
+    return `<div class="player-card">
+      <div class="player-card-name">👤 ${p.name}</div>
+      <div class="mini-cards">${minis}</div>
+      <div class="player-card-count">${p.cardCount}장</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPile() {
+  const slot = document.getElementById('pile-slot');
+  const count = document.getElementById('pile-count');
+  if (gs.playedCards.length === 0) {
+    slot.innerHTML = '<span style="color:var(--text-dim); font-size:0.75rem;">없음</span>';
+    count.textContent = '';
+  } else {
+    const last = gs.playedCards[gs.playedCards.length - 1];
+    slot.innerHTML = `<div class="pile-card" style="color:${getCardColor(last)}">${last}</div>`;
+    count.textContent = `총 ${gs.playedCards.length}장 냄`;
+  }
+}
+
+function animatePile(card) {
+  const slot = document.getElementById('pile-slot');
+  slot.innerHTML = `<div class="pile-card" style="color:${getCardColor(card)}">${card}</div>`;
+}
+
+function renderMyCards() {
+  const row = document.getElementById('my-cards-row');
+  document.getElementById('my-card-count').textContent = myCards.length;
+  if (myCards.length === 0) {
+    row.innerHTML = '<div class="empty-hand">카드 없음</div>';
+    return;
+  }
+  const sorted = [...myCards].sort((a,b) => a-b);
+  row.innerHTML = sorted.map(card =>
+    `<div class="play-card" onclick="playCard(${card})" style="color:${getCardColor(card)}" title="클릭해서 ${card} 내기">${card}</div>`
+  ).join('');
+}
+
+function renderVoteList(votes) {
+  const list = document.getElementById('vote-list');
+  list.innerHTML = gs.players.map(p => {
+    const v = votes[p.id];
+    const icon = v === true ? '✅' : v === false ? '❌' : '⏳';
+    return `<div class="vote-item"><span class="vote-icon">${icon}</span><span>${p.name}${p.id === myId ? ' (나)' : ''}</span></div>`;
+  }).join('');
+}
+
+// ========== RETURN TO LOBBY ==========
+function returnToLobby(fromHost = false) {
+  hideOverlays();
+  document.getElementById('game-screen').classList.remove('active');
+  gs.phase = 'lobby'; gs.playedCards = []; myCards = []; allCards = {};
+  shurikenProposal = null; clearShurikenTimer();
+
+  if (isHost) {
+    gs.players = [{ id: myId, name: myName, cardCount: 0 }];
+    Object.values(peerConns).forEach(c => c.open && c.send({ type: 'return_to_lobby' }));
+    showLobbyWaiting();
+  } else {
+    // Client - show fresh lobby
+    if (peer) { peer.destroy(); peer = null; }
+    hostConn = null; peerConns = {};
+    showScreen('screen-lobby');
+    document.getElementById('lobby-main').style.display = 'block';
+    document.getElementById('lobby-waiting').style.display = 'none';
+  }
+}
+</script>
 </body>
 </html>
