@@ -1,124 +1,1210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>멘토님 롤링페이퍼</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>💗김홍철 멘토님께💗</h1>
-    <div class="memo-container">
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-멘토님 안녕하세요,
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>채지원 포트폴리오</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;700&display=swap");
 
-2달 동안 프로젝트 진행에 많은 도움과 조언 주셔서 감사했습니다! 
-DID를 포함 여러모로 도전적이고, 처음 예상하셨던 것과는 다른 방향으로 흘러온 프로젝트지만 언제나 은은한 지지를 보내주셔서 든든했습니다:)
-개발 외적으로도 항상 고민하는 취업과 실무에 대해 많은 조언 주신 것도 큰 도움이 되었습니다!
-이제는 좋은 형처럼 느껴지는 것 같습니다:) 언젠간 인연이 이어져서 같은 회사에서 일 하게 되는 날도 상상해보고 있습니다. 
-프로젝트 끝까지 잘 마무리하도록 하겠습니다. 그동안 정말 감사했습니다!
-        </textarea>
-        <div class="author">-정선우(팀장)-</div>
+    :root{
+      --bg-1:#f5efe6;
+      --bg-2:#e8f1f2;
+      --ink:#1f2933;
+      --muted:#5c6770;
+      --line:rgba(31,41,51,0.12);
+      --accent:#c76d3b;
+      --accent-2:#3b6fc7;
+      --accent-soft:rgba(199,109,59,.10);
+      --accent-soft-2:rgba(59,111,199,.10);
+      --card:rgba(255,255,255,.76);
+      --card-strong:rgba(255,255,255,.88);
+      --shadow:0 18px 55px rgba(0,0,0,.13);
+      --radius:26px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Noto Sans KR","Malgun Gothic",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 650px at 10% 10%, #fff6ea 0%, transparent 58%),
+        radial-gradient(900px 700px at 90% 18%, #e6f4ff 0%, transparent 58%),
+        radial-gradient(700px 500px at 80% 90%, #edf6ef 0%, transparent 52%),
+        linear-gradient(135deg,var(--bg-1),var(--bg-2));
+      overflow:hidden;
+    }
+
+    .grain{
+      position:fixed; inset:0; pointer-events:none; opacity:.06;
+      background-image:
+        radial-gradient(circle at 20% 20%, #000 0.8px, transparent 0.9px),
+        radial-gradient(circle at 80% 40%, #000 0.8px, transparent 0.9px),
+        radial-gradient(circle at 40% 70%, #000 0.8px, transparent 0.9px);
+      background-size: 22px 22px, 26px 26px, 28px 28px;
+      mix-blend-mode:multiply;
+    }
+
+    .deck{
+      position:relative;
+      width:100vw; height:100vh;
+      display:flex; align-items:center; justify-content:center;
+      padding:4vw;
+    }
+
+    .slide{
+      position:relative;
+      width:min(1180px, 94vw);
+      height:min(710px, 88vh);
+      display:none;
+      overflow:hidden;
+      border-radius:var(--radius);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+      border:1px solid rgba(255,255,255,.55);
+      padding:clamp(24px, 3vw, 42px);
+      grid-template-rows:auto 1fr auto;
+      gap:16px;
+    }
+    .slide.active{display:grid; animation: rise .45s ease-out}
+    @keyframes rise{
+      from{transform:translateY(14px) scale(.992); opacity:0}
+      to{transform:translateY(0) scale(1); opacity:1}
+    }
+
+    .progress{
+      position:absolute; top:0; left:0; height:6px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      width:0%; transition:width .3s ease;
+      z-index:10; border-radius:0 0 8px 0;
+    }
+
+    .topbar{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+      position:relative; z-index:2;
+    }
+    .eyebrow{
+      font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
+      font-weight:700;
+    }
+    .page{
+      font-size:12px; color:var(--muted);
+      background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.7);
+      padding:6px 12px; border-radius:999px;
+      box-shadow:0 6px 18px rgba(0,0,0,.05); white-space:nowrap;
+    }
+
+    h1,h2,h3,h4{ margin:0; font-family:"Noto Serif KR",serif; letter-spacing:-.02em; }
+    h1{font-size:clamp(32px,4.5vw,54px); line-height:1.12}
+    h2{font-size:clamp(24px,3.2vw,40px); line-height:1.2}
+    h3{font-size:clamp(18px,2vw,26px); line-height:1.28}
+    h4{font-size:15px; line-height:1.35}
+    p{ margin:0; color:var(--muted); font-size:clamp(14px,1.3vw,17px); line-height:1.7; }
+    ul{margin:0; padding-left:1.1em}
+    li{ margin:.3em 0; color:var(--ink); font-size:clamp(14px,1.3vw,16px); line-height:1.6; }
+
+    /* === PROFILE PHOTO (cover + closing) === */
+    .profile-photo-wrap{
+      width: 120px;
+      height: 160px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(31,41,51,.06);
+      border: 3px solid rgba(255,255,255,.9);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      flex-shrink: 0;
+    }
+
+    /* === IMAGE SLOT (placeholder + real image) === */
+    .img-slot{
+      border-radius:16px;
+      background:rgba(31,41,51,.05);
+      border:2px dashed rgba(31,41,51,.18);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+      padding:14px 12px;
+      gap:6px;
+      min-height:90px;
+      position:relative;
+      overflow:hidden;
+    }
+    .img-slot::before{
+      content:''; position:absolute; inset:0;
+      background:repeating-linear-gradient(
+        -45deg, transparent, transparent 8px,
+        rgba(0,0,0,.025) 8px, rgba(0,0,0,.025) 9px
+      );
+      pointer-events:none;
+    }
+    .img-slot .slot-icon{
+      font-size:22px; opacity:.35; position:relative; z-index:1;
+    }
+    .img-slot .slot-label{
+      font-size:12px; font-weight:700; color:var(--muted);
+      line-height:1.4; position:relative; z-index:1;
+    }
+    .img-slot .slot-sub{
+      font-size:11px; color:var(--muted); opacity:.7;
+      line-height:1.3; position:relative; z-index:1;
+    }
+    .img-slot.tall{ min-height:160px; }
+    .img-slot.short{ min-height:64px; }
+
+    /* 실제 이미지가 로드되면 슬롯 스타일 덮어씀 */
+    .img-slot.loaded{
+      border:none;
+      background:transparent;
+      padding:0;
+    }
+    .img-slot.loaded::before{ display:none; }
+    .img-slot.loaded .slot-placeholder{ display:none; }
+    .img-slot img.portfolio-img{
+      width:100%; height:100%;
+      object-fit:cover;
+      border-radius:14px;
+      display:none; /* JS로 로드 성공 시 표시 */
+    }
+    .img-slot.loaded img.portfolio-img{ display:block; }
+
+    /* === LAYOUT === */
+    .hero{
+      display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:end;
+      position:relative; z-index:2;
+    }
+    .hero h1 span{color:var(--accent-2)}
+    .hero-copy{display:flex; flex-direction:column; gap:16px}
+    .hero-meta{
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
+    }
+
+    .glass, .card, .mini, .stat, .feature, .timeline-item{
+      background:var(--card-strong);
+      border:1px solid rgba(255,255,255,.78);
+      box-shadow:0 10px 25px rgba(0,0,0,.06);
+    }
+    .glass{
+      border-radius:24px; padding:20px;
+      display:flex; flex-direction:column; gap:12px; min-height:100%;
+      justify-content:space-between;
+    }
+    .meta-item{
+      padding:12px 14px; border-radius:16px;
+      background:rgba(255,255,255,.72); border:1px solid rgba(31,41,51,.06);
+    }
+    .meta-label{font-size:11px; color:var(--muted); margin-bottom:4px}
+    .meta-value{font-size:14px; font-weight:600; color:var(--ink); word-break:break-all}
+
+    .tags{display:flex; flex-wrap:wrap; gap:8px}
+    .tag{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 12px; border-radius:999px;
+      font-size:13px; font-weight:600;
+      background:rgba(59,111,199,.11); color:var(--accent-2);
+      border:1px solid rgba(59,111,199,.15);
+    }
+    .tag.warm{
+      background:rgba(199,109,59,.11); color:var(--accent);
+      border-color:rgba(199,109,59,.15);
+    }
+
+    .shape,.shape2,.shape3{
+      position:absolute; border-radius:50%; filter:blur(5px); pointer-events:none;
+    }
+    .shape{width:300px;height:300px;left:-120px;bottom:-120px;background:radial-gradient(circle at 35% 35%,rgba(199,109,59,.24),transparent 68%)}
+    .shape2{width:260px;height:260px;right:-70px;top:-80px;background:radial-gradient(circle at 45% 45%,rgba(59,111,199,.22),transparent 68%)}
+    .shape3{width:220px;height:220px;right:22%;bottom:-95px;background:radial-gradient(circle at 45% 45%,rgba(104,174,123,.17),transparent 68%)}
+
+    .section-grid{
+      display:grid; grid-template-columns:1.05fr .95fr; gap:20px; min-height:0;
+    }
+    .col{display:flex; flex-direction:column; gap:14px; min-height:0; overflow:hidden;}
+    .card{ padding:18px 20px; border-radius:20px; }
+    .lead{font-size:17px; color:var(--ink); font-weight:600; line-height:1.6;}
+
+    .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px;}
+    .stat{
+      border-radius:18px; padding:16px;
+      display:flex; flex-direction:column; gap:6px; justify-content:space-between;
+      min-height:100px;
+    }
+    .stat .num{font-size:26px; font-weight:800; letter-spacing:-.02em; color:var(--ink);}
+    .stat .desc{font-size:13px; line-height:1.5; color:var(--muted);}
+
+    .timeline{display:flex; flex-direction:column; gap:10px;}
+    .timeline-item{
+      border-radius:16px; padding:14px 16px;
+      display:grid; grid-template-columns:108px 1fr; gap:12px; align-items:start;
+    }
+    .time{font-size:12px; font-weight:700; color:var(--accent-2); padding-top:2px;}
+    .time-title{font-size:15px; font-weight:700; margin-bottom:4px;}
+    .time-desc{font-size:13px; color:var(--muted); line-height:1.5;}
+
+    .feature-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+    .feature{
+      border-radius:16px; padding:16px;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .feature strong{font-size:15px;}
+    .feature p{font-size:13px;}
+
+    .stack-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+    .stack-box{
+      border-radius:16px; padding:16px;
+      background:rgba(255,255,255,.78); border:1px solid rgba(31,41,51,.06);
+    }
+    .stack-box h4{margin-bottom:8px; color:var(--ink);}
+    .stack-box p{font-size:13px;}
+
+    /* === PROJECT SLIDES === */
+    .project-hero{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:18px; align-items:stretch;
+    }
+    .project-title{display:flex; flex-direction:column; gap:10px;}
+    .project-title .sub{font-size:13px; color:var(--muted); line-height:1.5;}
+    .pill-row{display:flex; flex-wrap:wrap; gap:6px;}
+    .pill{
+      padding:5px 10px; border-radius:999px; font-size:11px; font-weight:700;
+      background:rgba(31,41,51,.06); color:var(--ink);
+    }
+    .project-highlights{
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
+    }
+    .mini{ border-radius:16px; padding:14px; }
+    .mini .k{font-size:11px; color:var(--muted); margin-bottom:4px;}
+    .mini .v{font-size:14px; font-weight:700; line-height:1.45;}
+
+    .quote{
+      padding:14px 16px;
+      border-left:4px solid var(--accent);
+      background:var(--accent-soft);
+      border-radius:14px;
+      color:var(--ink);
+      font-size:14px; line-height:1.65;
+    }
+
+    /* === BEFORE/AFTER TABLE === */
+    .ba-table{ width:100%; border-collapse:separate; border-spacing:0; }
+    .ba-table th{
+      background:rgba(31,41,51,.06); padding:8px 12px;
+      font-size:12px; font-weight:700; color:var(--muted);
+      text-align:left;
+    }
+    .ba-table th:first-child{ border-radius:10px 0 0 0; }
+    .ba-table th:last-child{ border-radius:0 10px 0 0; }
+    .ba-table td{ padding:8px 12px; font-size:13px; border-bottom:1px solid rgba(31,41,51,.06); }
+    .ba-table td:first-child{ color:var(--muted); font-weight:600; }
+    .ba-table .before{ color:var(--muted); }
+    .ba-table .after{ color:#1a7a45; font-weight:700; }
+    .ba-table .note{ color:var(--muted); font-size:11px; }
+
+    /* === SKILLS === */
+    .skill-row{
+      display:flex; align-items:center; gap:12px;
+      padding:10px 14px; border-radius:14px;
+      background:rgba(255,255,255,.72); border:1px solid rgba(31,41,51,.06);
+      margin-bottom:8px;
+    }
+    .skill-name{ font-size:14px; font-weight:700; color:var(--ink); min-width:140px; }
+    .stars{ font-size:14px; letter-spacing:1px; min-width:90px; }
+    .skill-desc{ font-size:13px; color:var(--muted); line-height:1.4; }
+
+    /* === FOOTER === */
+    .footer-note{
+      display:flex; justify-content:space-between; align-items:center; gap:16px;
+      color:#77818a; font-size:12px;
+      position:relative; z-index:2;
+    }
+
+    /* === NAV === */
+    .nav{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      display:flex; align-items:center; gap:12px;
+      padding:10px 16px; border-radius:999px;
+      background:rgba(255,255,255,.72);
+      box-shadow:0 16px 40px rgba(0,0,0,.12);
+      border:1px solid rgba(255,255,255,.75);
+      backdrop-filter: blur(10px); z-index:100;
+    }
+    .nav button{
+      border:none; cursor:pointer; border-radius:999px;
+      padding:9px 14px; font-size:13px; font-weight:700;
+      background:var(--accent); color:#fff;
+    }
+    .nav button.secondary{background:#b6bec7; color:#14202b;}
+    .dots{display:flex; gap:6px;}
+    .dot{ width:8px; height:8px; border-radius:50%; background:#c8cfd6; cursor:pointer; }
+    .dot.active{background:var(--accent-2);}
+    .hint{font-size:12px; color:#6d7882;}
+
+    /* === PRINT === */
+    body, p, li, .meta-value, .desc, .time-desc, .sub, .lead, .quote {
+      word-break: keep-all; overflow-wrap: break-word; line-break: strict;
+    }
+    @media print{
+      @page{ size: A4 landscape; margin: 0; }
+      html, body{ width:297mm; height:auto; overflow:visible; }
+      body{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .deck{ display:block; width:auto; height:auto; padding:0; }
+      .slide{
+        display:grid !important; width:297mm; height:210mm;
+        margin:0; border-radius:0; box-shadow:none; border:none;
+        backdrop-filter:none; break-after: page; page-break-after: always;
+      }
+      .slide:last-child{ break-after: auto; }
+      .nav{ display:none !important; }
+      .grain{ display:none !important; }
+    }
+    @media (max-width: 980px){
+      .slide{height:min(760px, 92vh); padding:20px;}
+      .hero,.section-grid,.project-hero{grid-template-columns:1fr;}
+      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr;}
+      .timeline-item{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="deck">
+  <div class="progress" id="progress"></div>
+
+  <!-- ===== 01 COVER ===== -->
+  <section class="slide active">
+    <div class="shape"></div><div class="shape2"></div><div class="shape3"></div>
+    <div class="topbar">
+      <div class="eyebrow">Full Stack Portfolio</div>
+      <div class="page">01 / 11</div>
+    </div>
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="tags">
+          <span class="tag warm">React · TypeScript · Spring Boot</span>
+          <span class="tag">시스템 경계 설계</span>
+        </div>
+        <h1>채지원<br><span>Portfolio</span></h1>
+        <p class="lead">시스템 경계 문제를 설계로 풀어내는 풀스택 개발자. 프론트엔드와 백엔드를 분리하지 않고 데이터 흐름 전체를 설계합니다.</p>
+        <div class="quote">FE-BE 경계에서 발생하는 문제를 직접 분석하고 해결하며, 설계 의사결정에 근거를 남기는 개발자입니다.</div>
       </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-안녕하세요 김홍철 멘토님! 
-
-지난 3달 동안 저희 팀의 멘토가 되어주셔서 정말 감사합니다. 
-이렇게 규모가 큰 프로젝트는 처음이라 걱정도 많았는데, 격주 멘토링마다 저희가 나아가야 할 방향을 자세히 지도해주셔서 너무 좋았습니다. 
-진심으로 감사드립니다. ㅜㅜ
-평일에 여유되실 때 회사로 초대해주시면 또 식사 같이 하고 싶습니당.
-
-p.s. 그리고 멘토님 티스토리랑 취준 QA 오카방도 항상 잘 보고 있어요 👍🥹👍 감사합니당
-        </textarea>
-        <div class="author">-채민주(부팀장)-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-멘토님 안녕하세요!
-
-처음 뵌 게 엊그제 같은데 벌써 마지막이라니 실감이 잘 나지 않네요.
-초반에 우왕좌왕하며 방향을 잡지 못하던 저희를 올바른 길로 이끌어 주셔서 정말 감사드립니다!
-비록 마지막 멘토링에 함께하지는 못했지만, 언젠가 좋은 곳에서 다시 뵐 수 있으면 좋겠습니다!
-홍철 멘토님 덕분에 든든했고, 많은 것을 배울 수 있었습니다. 진심으로 감사드립니다 :-)
-        </textarea>
-        <div class="author">-김지수-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-안녕하세요 김홍철 멘토님.
-
-부트캠프를 수강하면서 다양한 고민이 생기던 시기에 멘토님과의 시간이 많은 도움이 되었습니다. 
-개발자로서 앞으로 어떤 방향으로 성장해나가야 할지, 어떤 관점을 가져야 하는지 생각할 수 있었습니다. 
-특히 실무에서의 경험을 바탕으로 해주신 조언들이 앞으로 실무를 준비하는 데 큰 기준점이 될 것 같습니다.
-
-바쁘신 와중에도 시간을 내주시고 진심 어린 조언을 들려주셔서 감사합니다. 
-앞으로도 건강하시고 좋은 일들 가득하시길 바랍니다.
-        </textarea>
-        <div class="author">-문재연-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-안녕하세요 멘토님! 손민지입니다.
-
-프로젝트 진행한 지난 2개월 반 동안 멘토님 덕분에 정말 많이 성장한 것 같습니다.
-프로젝트에 관한 조언 뿐만 아니라, 취업에 대한 조언도 아낌없이 해 주셔서 정말 감사했습니다.
-멘토님 덕분에 이번 캠프 참여하길 잘했다는 생각이 드는 것 같아요 ㅎㅎㅎ
-다시 한 번 감사드리고, 앞으로도 멘토님께 배운 것들을 잘 이어가며 성장해 나가겠습니다. 앞으로도 좋은 소식 들려드릴 수 있도록 노력할게요!
-        </textarea>
-        <div class="author">-손민지-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-멘토님 안녕하세요. 공공 조 팀원 이정빈입니다.
-
-프로젝트 기간 동안 바쁘신데도 시간 내주셔서 멘토링 활동해 주셔서 정말 많은 도움이 되었습니다. 
-여러 협업 도구들의 사용방법과 프로젝트의 진행 방향을 제시해 주셔서 프로젝트가 수월하게 진행된 것 같고, 이전 프로젝트에서 도움받지 못한 부분을 채워주셔서 정말 감사했습니다.
-
-프로젝트 멘토님으로 만나게 되었지만, 프로젝트 이후에도 인생 멘토로서 인연을 이어가면 좋겠습니다. 감사합니다!
-        </textarea>
-        <div class="author">-이정빈-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-안녕하세요, 김홍철 멘토님.
-
-먼저, 두세 달이라는 긴 시간 동안 진심으로 감사드린다는 말씀을 전하고 싶습니다. 
-여러 가지 정보도 아낌없이 공유해주시고, 궁금한 점이 있을 때마다 친절하게 답변해주셔서 정말 많은 도움이 되었습니다.
-
-특히, 프로젝트 초반 아이디에이션 단계에서 멘토님께서 분위기를 잘 풀어주시고, 저희 아이디어를 긍정적으로 받아들여주셔서 큰 힘이 되었습니다. 
-멘토님의 넓은 시야 덕분에 저 역시 더 다양한 관점에서 생각해볼 수 있었던 것 같습니다.
-
-프로젝트를 진행하면서 중간중간 멘토님께서 주신 조언을 모두 반영하지 못하거나, 방향이 달라지는 경우도 있었는데, 그럴 때마다 저희를 존중해주시고, 프로젝트가 제대로 진행될 수 있도록 신경 써주셔서 감사했습니다.
-
-이번 부트캠프를 통해 얻은 것 중에서 꿀벌멘토님과의 인연이 가장 큰 소득 중 하나라고 생각합니다. 
-여기서 끝이 아니라 앞으로도 계속 좋은 인연으로 이어나갈 수 있었으면 좋겠습니다. 
-앞으로도 가끔 연락드리며 조언 구할 수 있으면 정말 감사하겠습니다.
-        </textarea>
-        <div class="author">-채지원-</div>
-      </div>
-      <div class="memo">
-        <textarea readonly placeholder="내용을 입력하세요">
-안녕하세요 멘토님. 
-
-프로젝트를 진행하면서 여러 가지 많은 고민들이 있었고, 같이 고민을 하면서 해결해나가는 과정들이 좋았습니다. 
-조언을 해주신 부분도 프로젝트에 녹아들면서 완성도를 높여갈 수 있었던 것 같습니다. 
-좀 더 고민을 공유했다면 더 원활히 잘 진행될 수 있었을까 하는 아쉬움도 남습니다. 
-
-앞으로 연락을 계속하면서 인연을 유지해나갔으면 좋겠습니다.
-        </textarea>
-        <div class="author">-황민우-</div>
+      <div class="glass">
+        <div class="profile-photo-slot" style="display:flex;justify-content:center;margin-bottom:10px;">
+          <div class="profile-photo-wrap">
+            <img id="profile-cover-img" class="portfolio-img" src="images/profile.jpg" alt="프로필 사진"
+                 style="display:none; width:100%; height:100%; object-fit:cover; object-position:top center;"
+                 onload="this.style.display='block'; document.getElementById('profile-cover-placeholder').style.display='none';"
+                 onerror="">
+            <div id="profile-cover-placeholder" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+              <div style="font-size:28px;opacity:.35;">👤</div>
+              <div style="font-size:11px;font-weight:700;color:#5c6770;">프로필 사진</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-meta" style="grid-template-columns:1fr 1fr; gap:8px;">
+          <div class="meta-item" style="grid-column:1/3;">
+            <div class="meta-label">학력</div>
+            <div class="meta-value">경기대학교 생명과학+컴퓨터공학 복수전공<br>2020.03 — 2025.02</div>
+          </div>
+          <div class="meta-item" style="grid-column:1/3;">
+            <div class="meta-label">교육</div>
+            <div class="meta-value" style="font-size:13px;">KSEB 3기 · LG CNS AM Inspire Camp 1기 · SSAFY 14기<br>2023.11 ~ 2026.06</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">이메일</div>
+            <div class="meta-value">ppg0226@naver.com</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">GitHub</div>
+            <div class="meta-value">github.com/jiwon0226</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="photo-section">
-      <h2>추억이 담긴 사진들</h2>
-      <div class="photos">
-        <img src="img/photo1.jpg" alt="추억1" />
-        <img src="img/photo2.jpg" alt="추억2" />
-        <img src="img/photo3.jpg" alt="추억3" />
-        <!-- 필요에 따라 더 추가 -->
+    <div class="footer-note">
+      <span>Full Stack Developer</span>
+      <span>채지원</span>
+    </div>
+  </section>
+
+  <!-- ===== 02 ABOUT ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Overview</div>
+      <div class="page">02 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h2>한눈에 보는 프로필</h2>
+        <div class="card">
+          <p>3개의 집중형 부트캠프와 10개 이상의 팀 프로젝트를 거치며, 단순 구현을 넘어 서비스 구조를 설계하고 문제를 수치로 해결하는 개발자로 성장했습니다. 프론트엔드 감각 위에 백엔드·인프라 경험을 더해 실제 서비스 완성도를 높이는 역할을 맡아왔습니다.</p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="num">10+</div>
+            <div class="desc">팀 프로젝트 경험<br>기획부터 배포까지 수행</div>
+          </div>
+          <div class="stat">
+            <div class="num">3</div>
+            <div class="desc">집중형 부트캠프 수료<br>웹·모바일·클라우드 실전</div>
+          </div>
+          <div class="stat">
+            <div class="num">대상</div>
+            <div class="desc">LG CNS AM Inspire Camp<br>최종 프로젝트 1위</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h3 style="margin-bottom:10px;">핵심 강점</h3>
+          <div class="feature-list">
+            <div class="feature">
+              <strong>시스템 경계 설계</strong>
+              <p>Three.js·React, Unity·React, GeoJSON·게임좌표 등 다중 시스템 경계에서 발생하는 문제 6건 직접 해결.</p>
+            </div>
+            <div class="feature">
+              <strong>DB 쿼리 최적화</strong>
+              <p>N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). Bulk Fetch + Memory Mapping 패턴 적용.</p>
+            </div>
+            <div class="feature">
+              <strong>도메인 지식 기반 설계</strong>
+              <p>주식시장 운영시간을 코드 로직에 반영해 일일 API 호출 60% 감소. 도메인 규칙이 코드를 설명하는 개발자.</p>
+            </div>
+            <div class="feature">
+              <strong>풀스택 시야</strong>
+              <p>FE만 가능한 것에 전달하지 않고, BE에서 데이터가 어떻게 흐르는지 파악하고 FE 설계에 반영.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+    <div class="footer-note">
+      <span>Summary</span>
+      <span>About Me</span>
+    </div>
+  </section>
+
+  <!-- ===== 03 SKILLS ===== -->
+  <section class="slide">
+    <div class="shape3"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Tech Stack</div>
+      <div class="page">03 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h2>기술 스택</h2>
+        <div class="skill-row">
+          <div class="skill-name">React</div>
+          <div class="stars">★★★★☆</div>
+          <div class="skill-desc">Three.js 연동, 인증 인터셉터, 커스텀 훅, 성능 최적화</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Java / Spring Boot</div>
+          <div class="stars">★★★☆☆</div>
+          <div class="skill-desc">REST API, Spring Security(JWT), Spring Cloud, 스케줄러</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">JavaScript / TypeScript</div>
+          <div class="stars">★★★☆☆</div>
+          <div class="skill-desc">SPA 구축, 타입 안전 컴포넌트 설계, 비동기 처리</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Vue.js / React Native</div>
+          <div class="stars">★★★☆☆</div>
+          <div class="skill-desc">Pinia 상태관리, Bare RN 마이그레이션, FCM 알림</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">MySQL / Redis</div>
+          <div class="stars">★★★☆☆ / ★★☆☆☆</div>
+          <div class="skill-desc">N+1 해결, ERD 설계, 실시간 카운터, 캐시/fallback 전략</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Docker / AWS</div>
+          <div class="stars">★★☆☆☆</div>
+          <div class="skill-desc">docker-compose, GitLab CI/CD, S3 Presigned URL, EC2</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h3 style="margin-bottom:12px;">기술을 다루는 방식</h3>
+          <ul>
+            <li>새로운 도구를 빠르게 익히되, 사용 이유와 제약을 먼저 파악합니다.</li>
+            <li>기능 구현보다 데이터 흐름과 상태 정합성을 먼저 설계합니다.</li>
+            <li>문제 해결 시 원인→선택지→결정 근거를 남기는 습관이 있습니다.</li>
+            <li>FE·BE·인프라 사이의 번역자 역할을 자주 맡았습니다.</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:4px;">
+          <h3 style="margin-bottom:12px;">협업 도구</h3>
+          <div class="tags" style="margin-bottom:14px;">
+            <span class="tag">Git</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">GitLab</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Jira</span>
+            <span class="tag">Notion</span>
+          </div>
+          <h3 style="margin-bottom:10px; font-size:15px;">숙련도 기준</h3>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
+              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★★★☆</span>
+              <span style="color:#5c6770;">핵심 개발 담당, 코드 리뷰·최적화</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
+              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★★☆☆</span>
+              <span style="color:#5c6770;">독립적 개발, 문서 활용하여 최적화</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
+              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★☆☆☆</span>
+              <span style="color:#5c6770;">문서 참고하여 프로젝트 참여</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Tech & Collaboration</span>
+      <span>Stack</span>
+    </div>
+  </section>
+
+  <!-- ===== 04 EDUCATION & AWARDS ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Education & Awards</div>
+      <div class="page">04 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h2>교육 이수</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time">2025.07 — 2026.06</div>
+            <div>
+              <div class="time-title">삼성청년SW·AI아카데미(SSAFY) 14기</div>
+              <div class="time-desc">Java 웹 개발, Vue.js, TypeScript, AI 활용. 알고리즘 A형 전공자 수료 인증 요건 달성, 빅데이터 분산 프로젝트 우수상, 이달의 동료상, CS스터디 우수상.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2024.12 — 2025.06</div>
+            <div>
+              <div class="time-title">LG CNS AM Inspire Camp 1기</div>
+              <div class="time-desc">클라우드 아키텍처, MSA 설계, Docker·Kubernetes, CI/CD 중심 실무형 교육. 최종 프로젝트 경연 대상 수상.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2023.12 — 2024.11</div>
+            <div>
+              <div class="time-title">KSEB 3기 (623시간)</div>
+              <div class="time-desc">React 기반 프론트엔드, UI/UX 설계, API 연동 실습 중심 교육.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="time">2020.03 — 2025.02</div>
+            <div>
+              <div class="time-title">경기대학교 — 생명과학+컴퓨터공학 복수전공</div>
+              <div class="time-desc">자료구조, 알고리즘, OS, 컴퓨터비전, 캡스톤 설계. 복수전공생 커뮤니티 직접 생성 운영.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h2>수상 및 성과</h2>
+        <div class="stats" style="grid-template-columns:1fr 1fr;">
+          <div class="stat">
+            <div class="num">대상</div>
+            <div class="desc">LG CNS AM Inspire Camp 1기<br>최종 프로젝트 경연 1위</div>
+          </div>
+          <div class="stat">
+            <div class="num">A형</div>
+            <div class="desc">SSAFY 알고리즘 역량 인증<br>전공자 수료 인증 요건 달성</div>
+          </div>
+          <div class="stat">
+            <div class="num">우수상</div>
+            <div class="desc">SSAFY 14기 2학기<br>빅데이터 분산 도메인 프로젝트</div>
+          </div>
+          <div class="stat">
+            <div class="num">동상</div>
+            <div class="desc">한국정보기술학회 하계학술대회<br>Byte The Blue · 미용 예약 통합 플랫폼</div>
+          </div>
+          <div class="stat">
+            <div class="num">IH</div>
+            <div class="desc">OPIc Intermediate High<br>2025.08 취득</div>
+          </div>
+        </div>
+        <div class="card">
+          <p>학습 과정에서 끝내지 않고, 결과물을 대회·발표·문서화 형태로 마무리해 성과로 연결해왔습니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Growth Journey</span>
+      <span>Education</span>
+    </div>
+  </section>
+
+  <!-- ===== 05 PROJECT 01 — 버블팝업 개요 ===== -->
+  <section class="slide">
+    <div class="shape2"></div><div class="shape3"></div>
+    <div class="topbar">
+      <div class="eyebrow">Project 01 — Overview</div>
+      <div class="page">05 / 11</div>
+    </div>
+    <div class="project-hero">
+      <div class="project-title">
+        <h2>버블팝업</h2>
+        <p class="sub">실시간 팝업스토어 경영 시뮬레이션 · React 19 · TypeScript · Three.js(React Three Fiber) · Spring Boot · Redis · Spark · Kafka</p>
+        <div class="pill-row">
+          <span class="pill">3D 서울 지도</span>
+          <span class="pill">실시간 게임 서버</span>
+          <span class="pill">Unity·React 하이브리드</span>
+          <span class="pill">온디맨드 계산 아키텍처</span>
+        </div>
+        <div class="quote">GeoJSON Douglas-Peucker 적용으로 좌표 포인트 60% 감소. Three.js·React 하이브리드 구조에서 발생한 시스템 경계 문제 6건 직접 해결.</div>
+        <div class="project-highlights" style="margin-top:4px;">
+          <div class="mini">
+            <div class="k">내 역할</div>
+            <div class="v">기획·설계 참여, FE 담당 — 3D 지도, Unity·React 하이브리드 UI, 인증 시스템, 랜딩 페이지, BE 일부 참여</div>
+          </div>
+          <div class="mini">
+            <div class="k">팀 구성</div>
+            <div class="v">6인 (풀스택 5명 + 인프라·Unity 1명) / 2026.01~진행중</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="img-slot tall">
+          <img class="portfolio-img" src="images/bubble_main.png" alt="서비스 대표 화면"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🗺️</div>
+            <div class="slot-label">서비스 대표 화면</div>
+            <div class="slot-sub">3D 서울 지도 + Unity 게임 플레이 화면 또는 랜딩 페이지 스크린샷</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/bubble_ui.png" alt="게임 UI 화면"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🎮</div>
+            <div class="slot-label">게임 UI 화면</div>
+            <div class="slot-sub">액션 모달 + 대시보드 + 알림 시스템</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Realtime · 3D Visualization · Architecture</span>
+      <span>Bubble Pop-Up 01</span>
+    </div>
+  </section>
+
+  <!-- ===== 06 PROJECT 01 — 버블팝업 기술/문제해결 ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Project 01 — Tech & Problem Solving</div>
+      <div class="page">06 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h3>구현 사항 (본인 구현)</h3>
+        <div class="card" style="flex:1;">
+          <ul>
+            <li><strong>3D 서울 지도:</strong> 서울시 공공 GeoJSON 직접 가공. Douglas-Peucker(epsilon=0.15)로 좌표 포인트 60% 감소. 게임 지역 8개 매핑, 한강 메시 생성(18점 경계 좌표 연결).</li>
+            <li><strong>Unity+React 하이브리드 UI:</strong> Unity 3D 배경 위 React 레이어를 bg-transparent로 커버. 액션 시스템(할인·긴급발주·홍보·나누기·팝업이전) 5개 모달, ModalWrapper 공통 애니메이션 분리.</li>
+            <li><strong>인증 시스템:</strong> axios 401 interceptor에 isRefreshing + failedQueue 큐 패턴 도입. 동시 401 발생 시 refresh 1번만 호출, 무한루프 방지.</li>
+            <li><strong>인터랙티브 랜딩 페이지:</strong> 비주얼 10회 이상 이터레이션. 글래스모피즘 스타일 일관 적용.</li>
+          </ul>
+        </div>
+        <h3 style="margin-top:4px;">문제 해결: z-index 충돌</h3>
+        <div class="card">
+          <table class="ba-table">
+            <tr><th>항목</th><th class="before">Before</th><th class="after">After</th></tr>
+            <tr><td>모달 노출</td><td class="before">3D 라벨에 가려 클릭 불가</td><td class="after">정상 노출 및 클릭 가능</td></tr>
+            <tr><td>좌표 포인트</td><td class="before">[누락: 원본 수치]</td><td class="after">약 60% 감소</td></tr>
+          </table>
+          <p style="font-size:12px; margin-top:8px; color:var(--muted);">해결: drei zIndexRange={[1,0]} 파라미터 + pointer-events-none 적용</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="img-slot tall">
+          <img class="portfolio-img" src="images/bubble_arch.png" alt="시스템 아키텍처 다이어그램"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🏗️</div>
+            <div class="slot-label">시스템 아키텍처 다이어그램</div>
+            <div class="slot-sub">React · Unity · Spring Boot · Redis · Kafka · Spark 구성도<br>설계 역량을 가장 직접적으로 증명</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/bubble_map_diff.png" alt="3D 서울 지도 Before/After"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🗾</div>
+            <div class="slot-label">3D 서울 지도 Before/After</div>
+            <div class="slot-sub">V1 실패본 vs V3 GeoJSON 기반 완성본 비교</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/bubble_auth_code.png" alt="인증 흐름 코드 스니펫 또는 Lighthouse 결과"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">📐</div>
+            <div class="slot-label">인증 흐름 코드 스니펫 또는 Lighthouse 결과</div>
+            <div class="slot-sub">failedQueue 패턴 핵심 코드 또는 성능 측정 캡처</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Problem Solving · System Design</span>
+      <span>Bubble Pop-Up 02</span>
+    </div>
+  </section>
+
+  <!-- ===== 07 PROJECT 02 — 아마Get돈 ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Project 02</div>
+      <div class="page">07 / 11</div>
+    </div>
+    <div class="project-hero">
+      <div class="project-title">
+        <h2>아마Get돈</h2>
+        <p class="sub">초보 투자자 금융 학습 플랫폼 · React 18 · TypeScript · lightweight-charts · Spring Boot 3 · JPA · Redis · FastAPI</p>
+        <div class="pill-row">
+          <span class="pill">FE + BE 동시 담당</span>
+          <span class="pill">N+1 해결</span>
+          <span class="pill">폴링 최적화</span>
+          <span class="pill">업적 시스템</span>
+        </div>
+        <div class="quote">N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). 장 마감 후 폴링 중단으로 일일 API 호출 ~50,000건 → ~20,000건(60% 감소).</div>
+        <div style="margin-top:8px;">
+          <table class="ba-table">
+            <tr><th>지표</th><th>Before</th><th>After</th></tr>
+            <tr><td>일일 API 호출 (장 마감 후)</td><td class="before">~50,000건</td><td class="after">~20,000건 (60% 감소)</td></tr>
+          </table>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="img-slot" style="min-height:140px;">
+          <img class="portfolio-img" src="images/amagetdon_main.png" alt="서비스 대표 화면"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">📈</div>
+            <div class="slot-label">서비스 대표 화면</div>
+            <div class="slot-sub">캔들 차트 + 투자 페이지 + 업적 페이지 스크린샷</div>
+          </div>
+        </div>
+        <div class="project-highlights">
+          <div class="mini">
+            <div class="k">FE 구현</div>
+            <div class="v">투자 페이지, 학습, 업적, AI 성향분석, 헤더, 라우트 가드</div>
+          </div>
+          <div class="mini">
+            <div class="k">BE 구현</div>
+            <div class="v">학습 로드맵 API (N+1 해결), 업적 시스템 (Redis), AI 성향분석 프록시</div>
+          </div>
+          <div class="mini">
+            <div class="k">핵심 설계</div>
+            <div class="v">복합키 설계, 파생 상태 실시간 계산, Redis+DB 이원화</div>
+          </div>
+          <div class="mini">
+            <div class="k">협업</div>
+            <div class="v">에러 코드 표준화(401/403/404), Custom Event 패턴</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/amagetdon_query.png" alt="DB 쿼리 수 개선 증거"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">📊</div>
+            <div class="slot-label">DB 쿼리 수 개선 증거</div>
+            <div class="slot-sub">DB 로그 또는 쿼리 모니터링 도구 캡처</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Performance · Domain Design · Full Stack</span>
+      <span>아마Get돈</span>
+    </div>
+  </section>
+
+  <!-- ===== 08 PROJECT 02 — 아마Get돈 상세 ===== -->
+  <section class="slide">
+    <div class="shape3"></div><div class="shape"></div>
+    <div class="topbar">
+      <div class="eyebrow">Project 02 — Detail</div>
+      <div class="page">08 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h3>6가지 기술적 의사결정</h3>
+        <div class="feature-list">
+          <div class="feature">
+            <strong>① N+1 해결 (Bulk Fetch + Memory Mapping)</strong>
+            <p>챕터별 진행 내역 도회 → Map O(1) 루프 조회로 전환. DB 쿼리 ~100번 → 2번.</p>
+          </div>
+          <div class="feature">
+            <strong>② 복합키 설계 (내부 static class)</strong>
+            <p>user_id + chapter_id 복합키. 소규모 프로젝트에서 가시성 우선 판단으로 내부 static class 방식 선택.</p>
+          </div>
+          <div class="feature">
+            <strong>③ 순차 잠금 해제 알고리즘</strong>
+            <p>파생 데이터 저장 대신 매 요청마다 실시간 계산. prevCompleted 플래그 기반 구현.</p>
+          </div>
+          <div class="feature">
+            <strong>④ 업적 시스템 (Redis + 상수 클래스)</strong>
+            <p>빈번한 카운터는 Redis, 영구 기록은 DB. AchievementIdCode 상수 클래스로 하드코딩 제거.</p>
+          </div>
+          <div class="feature">
+            <strong>⑤ usePolling 커스텀 훅 (장 마감 자동 중단)</strong>
+            <p>평일 09:00~15:30 체크 함수 작성. 컴포넌트별 폴링 주기 분리(1초·7초·6분).</p>
+          </div>
+          <div class="feature">
+            <strong>⑥ Custom Event 패턴 (헤더 상태 동기화)</strong>
+            <p>헤더 정보만을 위한 전역 상태 도입은 과하다 판단. window.dispatchEvent 기반 느슨한 결합.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="img-slot tall">
+          <img class="portfolio-img" src="images/amagetdon_arch.png" alt="시스템 아키텍처 다이어그램"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🏗️</div>
+            <div class="slot-label">시스템 아키텍처 다이어그램</div>
+            <div class="slot-sub">FE · BE · FastAPI · Redis · DB 구성도. 설계 역량 증명</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/amagetdon_erd.png" alt="ERD (데이터베이스 설계도)"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🗄️</div>
+            <div class="slot-label">ERD (데이터베이스 설계도)</div>
+            <div class="slot-sub">복합키, 업적 테이블 구조. DB 설계 역량 증명</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Architecture · Optimization · Decision Making</span>
+      <span>아마Get돈 Detail</span>
+    </div>
+  </section>
+
+  <!-- ===== 09 PROJECT 03 — KEYWE ===== -->
+  <section class="slide">
+    <div class="shape3"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Project 03</div>
+      <div class="page">09 / 11</div>
+    </div>
+    <div class="project-hero">
+      <div class="project-title">
+        <h2>KEYWE</h2>
+        <p class="sub">DID 기반 병원 통합 출입증 모바일 앱 · React Native (Bare) · Zustand · FCM · Credo</p>
+        <div class="pill-row">
+          <span class="pill">Bare RN 마이그레이션 주도</span>
+          <span class="pill">DID 신기술</span>
+          <span class="pill">대상 수상</span>
+          <span class="pill">평균 103ms / 에러율 0.01%</span>
+        </div>
+        <div class="quote">LG CNS AM Inspire Camp 1기 최종 경연 대상(1위) 수상. 평균 응답속도 103ms·에러율 0.01% 달성. Expo 제약 분석 후 Bare RN 전환 주도, 실사용 트러블슈팅 6케이스 직접 해결.</div>
+        <div class="project-highlights" style="margin-top:8px;">
+          <div class="mini">
+            <div class="k">핵심 역할</div>
+            <div class="v">UI/UX 설계, 출입증·알림·마이페이지 구현, Bare RN 마이그레이션 주도</div>
+          </div>
+          <div class="mini">
+            <div class="k">기술 선택</div>
+            <div class="v">Credo(DID) 라이브러리 네이티브 접근 필요 → Expo 제약 확인 후 Bare RN 전환</div>
+          </div>
+          <div class="mini">
+            <div class="k">트러블슈팅</div>
+            <div class="v">알림 미갱신, 배지 동기화, 로그인 유지 실패, 인증 모달 UX 불안정 6건 해결</div>
+          </div>
+          <div class="mini">
+            <div class="k">팀 구성</div>
+            <div class="v">8인 (FE 웹 2명, FE 앱 2명, BE 3명, INFRA 1명) / 2025.04~06</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="img-slot" style="min-height:180px;">
+          <img class="portfolio-img" src="images/keywe_screens.png" alt="모바일 앱 주요 화면 (3장)"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">📱</div>
+            <div class="slot-label">모바일 앱 주요 화면 (3장)</div>
+            <div class="slot-sub">로그인 · 출입증 · 알림 목록 화면. 실제 모바일 앱 UI 증명</div>
+          </div>
+        </div>
+        <div class="img-slot">
+          <img class="portfolio-img" src="images/keywe_flip.png" alt="출입증 Flip 애니메이션"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-icon">🔄</div>
+            <div class="slot-label">출입증 Flip 애니메이션</div>
+            <div class="slot-sub">DID 인증 응답 시각화 장면 또는 코드 스니펫</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Mobile App · Security UX · DID</span>
+      <span>KEYWE</span>
+    </div>
+  </section>
+
+  <!-- ===== 10 OTHER PROJECTS ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar">
+      <div class="eyebrow">Other Projects</div>
+      <div class="page">10 / 11</div>
+    </div>
+    <div class="section-grid">
+      <div class="col">
+        <h2>그 외 프로젝트</h2>
+        <div class="feature-list">
+          <div class="feature">
+            <strong>EatIt</strong>
+            <p>식단 분석 + CS 게이미피케이션 서비스. AWS 배포·HTTPS·DNS 전 과정 직접 수행. gainedHp rollback 로직 설계. 중도 합류 상황에서 빠른 적응.</p>
+          </div>
+          <div class="feature">
+            <strong>MealLink</strong>
+            <p>레시피·식단·구매 통합 서비스. 기획 주도, ERD 및 API 명세, 정규화 vs 비정규화 의사결정 기록. 인수인계 준비 후 이동.</p>
+          </div>
+          <div class="feature">
+            <strong>취업봇다리 / 취업레고</strong>
+            <p>채용 정보 분석 서비스 + MSA·AWS 확장. FE 아키텍처, S3 Presigned URL, LG CNS 미니프로젝트 팀 비공식 1위 달성.</p>
+          </div>
+          <div class="feature">
+            <strong>Byte The Blue / 견벳팅 / Sky Step</strong>
+            <p>감정 분석 채팅 서비스(한국정보기술학회 동상), 도메인 기반 설계, Unity 물리엔진 디버깅 등 폭넓은 실습 경험 축적.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <h3 style="margin-bottom:10px;">대내외 활동</h3>
+          <ul>
+            <li>복수전공생 커뮤니티를 직접 모집·운영하며 정보 격차 해소와 제도 개선에 기여</li>
+            <li>K-MOOC ABMM 학습그룹 최우수상 수상</li>
+            <li>진로 멘토단 활동으로 커리큘럼 기획과 설명 역량 강화</li>
+            <li>OPIc IH 취득 (2025.08, 유효기간 2027.08)</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:4px;">
+          <h3 style="margin-bottom:10px;">일하는 태도</h3>
+          <p>필요한 것이 없으면 직접 만들고, 부족한 부분은 빠르게 학습으로 메웁니다. 프로젝트에서는 구현자에 머무르지 않고 구조를 정리하고 팀이 움직일 수 있도록 돕는 역할을 자주 맡았습니다. 설계 의사결정을 기록으로 남기는 습관이 있습니다.</p>
+        </div>
+        <div class="card" style="margin-top:4px;">
+          <h3 style="margin-bottom:10px;">프로젝트에서 배운 것</h3>
+          <ul>
+            <li>기획부터 배포까지 전 과정을 경험하며, 각 단계가 다음 단계에 미치는 영향을 체감</li>
+            <li>팀원 간 기술 수준 차이를 인수인계 문서와 코드 리뷰로 해소한 경험</li>
+            <li>중도 합류·이동 상황에서도 빠르게 코드베이스를 파악하고 기여하는 적응력</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>Projects & Activities</span>
+      <span>Beyond Core</span>
+    </div>
+  </section>
+
+  <!-- ===== 11 CLOSING ===== -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div><div class="shape3"></div>
+    <div class="topbar">
+      <div class="eyebrow">Closing</div>
+      <div class="page">11 / 11</div>
+    </div>
+    <div class="hero" style="align-items:center;">
+      <div class="hero-copy">
+        <div class="tags">
+          <span class="tag warm">감사합니다</span>
+          <span class="tag">채지원</span>
+        </div>
+        <h1>시스템 경계를<br>설계하는 개발자</h1>
+        <p class="lead">FE-BE 경계를 직접 설계하고, 어려운 문제를 수치로 풀어내는 풀스택 개발자입니다. 설계 의사결정에 근거를 만들고, 그 과정을 기록으로 남깁니다.</p>
+        <div class="quote">기술을 배우는 속도보다, 문제를 끝까지 붙드는 힘으로 증명하겠습니다.</div>
+      </div>
+      <div class="glass" style="justify-content:center; gap:20px;">
+        <h3 style="margin-bottom:4px;">Contact</h3>
+        <div class="hero-meta" style="grid-template-columns:1fr;">
+          <div class="meta-item">
+            <div class="meta-label">이메일</div>
+            <div class="meta-value" style="font-size:18px;">ppg0226@naver.com</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">GitHub</div>
+            <div class="meta-value" style="font-size:18px;">github.com/jiwon0226</div>
+          </div>
+        </div>
+        <div class="tags" style="margin-top:8px;">
+          <span class="tag warm">React</span>
+          <span class="tag warm">TypeScript</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">풀스택</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span>감사합니다</span>
+      <span>End</span>
+    </div>
+  </section>
+
+</div><!-- /.deck -->
+
+<div class="nav" aria-label="슬라이드 네비게이션">
+  <button class="secondary" id="prev">이전</button>
+  <div class="dots" id="dots"></div>
+  <span class="hint">← → / Space / Swipe</span>
+  <button id="next">다음</button>
+</div>
+
+<script>
+  // ── 이미지 자동 확장자 감지 ──────────────────────────────────────
+  // jpg → jpeg → png → webp → gif 순서로 시도.
+  // portfolio-img 클래스를 가진 모든 img 태그에 적용.
+  const EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+  function tryLoadImage(img) {
+    const base = img.src.replace(/\.[^.]+$/, '');
+    let tried = 0;
+
+    function attempt(ext) {
+      const t = new Image();
+      t.onload = () => {
+        img.src = t.src;
+        // 프로필 사진 슬롯 (id 기준)
+        if (img.id === 'profile-cover-img') {
+          img.style.display = 'block';
+          const ph = document.getElementById('profile-cover-placeholder');
+          if (ph) ph.style.display = 'none';
+        } else if (img.id === 'profile-closing-img') {
+          img.style.display = 'block';
+          const ph = document.getElementById('profile-closing-placeholder');
+          if (ph) ph.style.display = 'none';
+        } else {
+          // 일반 슬롯
+          img.parentElement.classList.add('loaded');
+        }
+      };
+      t.onerror = () => {
+        tried++;
+        if (tried < EXTS.length) attempt(EXTS[tried]);
+        // 모두 실패 → 플레이스홀더 유지
+      };
+      t.src = base + '.' + ext;
+    }
+
+    attempt(EXTS[0]);
+  }
+
+  document.querySelectorAll('img.portfolio-img').forEach(tryLoadImage);
+  // ────────────────────────────────────────────────────────────────
+
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const progress = document.getElementById("progress");
+  const dotsWrap = document.getElementById("dots");
+  let index = 0;
+
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.addEventListener("click", () => go(i));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function go(next){
+    slides[index].classList.remove("active");
+    dots[index].classList.remove("active");
+    index = (next + slides.length) % slides.length;
+    slides[index].classList.add("active");
+    dots[index].classList.add("active");
+    progress.style.width = (((index + 1) / slides.length) * 100) + "%";
+  }
+
+  go(0);
+
+  document.getElementById("prev").addEventListener("click", () => go(index - 1));
+  document.getElementById("next").addEventListener("click", () => go(index + 1));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") go(index + 1);
+    if (e.key === "ArrowLeft" || e.key === "PageUp") go(index - 1);
+  });
+
+  let startX = null;
+  document.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; });
+  document.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) go(diff > 0 ? index + 1 : index - 1);
+    startX = null;
+  });
+</script>
+<!--
+=======================================================
+ 📁 이미지 폴더 설정 방법
+=======================================================
+이 HTML 파일과 같은 위치에 "images" 폴더를 만들고
+아래 이름으로 이미지를 넣으면 자동으로 반영됩니다.
+
+★ 확장자는 자유 — jpg / jpeg / png / webp / gif 모두 가능
+  예) profile.jpg  profile.png  profile.webp  모두 OK
+
+[필수 - 높은 우선순위]
+  images/profile          → 프로필 사진 (슬라이드 01, 11)
+  images/bubble_main      → 버블팝업 서비스 대표 화면 (슬라이드 05)
+  images/bubble_arch      → 버블팝업 시스템 아키텍처 다이어그램 (슬라이드 06)
+  images/bubble_map_diff  → 3D 서울 지도 V1 vs V3 Before/After (슬라이드 06)
+  images/amagetdon_main   → 아마겟돈 서비스 대표 화면 (슬라이드 07)
+  images/amagetdon_query  → DB 쿼리 수 개선 증거 캡처 (슬라이드 07)
+  images/keywe_screens    → KEYWE 모바일 앱 화면 3장 (슬라이드 09)
+  images/keywe_jmeter     → JMeter 테스트 결과 캡처 103ms (슬라이드 09)
+
+[권장 - 중간 우선순위]
+  images/bubble_ui        → 버블팝업 게임 UI 화면 (슬라이드 05)
+  images/bubble_auth_code → 인증 흐름 코드 스니펫 또는 Lighthouse (슬라이드 06)
+  images/amagetdon_arch   → 아마겟돈 시스템 아키텍처 다이어그램 (슬라이드 08)
+  images/amagetdon_erd    → 아마겟돈 ERD (슬라이드 08)
+  images/keywe_flip       → KEYWE 출입증 Flip 애니메이션 (슬라이드 09)
+
+[선택 - 낮은 우선순위]
+  images/skills_chart     → 기술 스택 레이더/숙련도 차트 (슬라이드 03)
+  images/bubble_qr        → 버블팝업 시연 영상 QR (슬라이드 06)
+  images/amagetdon_qr     → 아마겟돈 시연 영상 QR (슬라이드 08)
+  images/award_lgcns      → LG CNS 대상 수상 인증서 또는 사진 (슬라이드 10)
+
+이미지 없는 슬롯은 점선 플레이스홀더가 그대로 유지됩니다.
+권장 이미지 크기: 가로 1200px 이하, 용량 500KB 이하
+=======================================================
+-->
+</body>
 </html>
