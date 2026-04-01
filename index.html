@@ -59,7 +59,7 @@
       width:min(1180px, 94vw);
       height:min(710px, 88vh);
       display:none;
-      overflow:auto;
+      overflow:hidden;
       border-radius:var(--radius);
       background:var(--card);
       box-shadow:var(--shadow);
@@ -67,9 +67,49 @@
       border:1px solid rgba(255,255,255,.55);
       padding:clamp(24px, 3vw, 42px);
       grid-template-rows:auto 1fr auto;
-      gap:16px;
+      gap:0;
     }
-    .slide.active{display:grid; animation: rise .45s ease-out}
+    .slide .topbar{
+      position:sticky; top:0; z-index:5;
+      background:transparent;
+      padding-bottom:12px;
+      flex-shrink:0;
+    }
+    .slide .slide-body{
+      flex:1; overflow-y:auto; overflow-x:hidden;
+      padding:4px 0;
+      min-height:0;
+    }
+    .slide .slide-body::-webkit-scrollbar{width:5px;}
+    .slide .slide-body::-webkit-scrollbar-track{background:transparent;}
+    .slide .slide-body::-webkit-scrollbar-thumb{background:rgba(31,41,51,.15); border-radius:3px;}
+    .slide .slide-body::-webkit-scrollbar-thumb:hover{background:rgba(31,41,51,.3);}
+    .slide .slide-body{scrollbar-width:thin; scrollbar-color:rgba(31,41,51,.15) transparent;}
+    .slide .footer-note{
+      position:sticky; bottom:0; z-index:5;
+      background:transparent;
+      padding-top:10px;
+      flex-shrink:0;
+    }
+    .scroll-hint{
+      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+      z-index:6; pointer-events:none;
+      opacity:0; font-size:36px; color:rgba(199,109,59,.35);
+      letter-spacing:12px;
+      animation: hintBounce 3s ease-in-out forwards;
+    }
+    @keyframes hintBounce{
+      0%{opacity:0; transform:translateX(-50%) translateY(0);}
+      8%{opacity:.45;}
+      18%{transform:translateX(-50%) translateY(14px);}
+      28%{transform:translateX(-50%) translateY(0);}
+      38%{transform:translateX(-50%) translateY(14px);}
+      48%{transform:translateX(-50%) translateY(0);}
+      58%{transform:translateX(-50%) translateY(10px);}
+      68%{transform:translateX(-50%) translateY(0); opacity:.35;}
+      100%{opacity:0; transform:translateX(-50%) translateY(0);}
+    }
+    .slide.active{display:flex; flex-direction:column; animation: rise .45s ease-out}
     @keyframes rise{
       from{transform:translateY(14px) scale(.992); opacity:0}
       to{transform:translateY(0) scale(1); opacity:1}
@@ -221,7 +261,7 @@
     .section-grid{
       display:grid; grid-template-columns:1.05fr .95fr; gap:20px; min-height:0;
     }
-    .col{display:flex; flex-direction:column; gap:14px; min-height:0; overflow:hidden;}
+    .col{display:flex; flex-direction:column; gap:14px; min-height:0; overflow:visible; flex-shrink:0;}
     .card{ padding:18px 20px; border-radius:20px; }
     .lead{font-size:17px; color:var(--ink); font-weight:600; line-height:1.6;}
 
@@ -350,12 +390,14 @@
       body{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .deck{ display:block; width:auto; height:auto; padding:0; }
       .slide{
-        display:grid !important; width:297mm; height:210mm;
+        display:flex !important; flex-direction:column; width:297mm; height:210mm;
+        min-height:210mm; max-height:210mm;
         margin:0; border-radius:0; box-shadow:none; border:none;
         backdrop-filter:none; break-after: page; page-break-after: always;
         overflow:hidden;
       }
       .slide:last-child{ break-after: auto; }
+      .slide .slide-body{ overflow:hidden; }
       .nav{ display:none !important; }
       .grain{ display:none !important; }
     }
@@ -413,6 +455,7 @@
       <div class="eyebrow">Full Stack Portfolio</div>
       <div class="page">01 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="hero">
       <div class="hero-copy">
         <div class="tags">
@@ -466,6 +509,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Full Stack Developer</span>
       <span>채지원</span>
@@ -479,6 +523,7 @@
       <div class="eyebrow">Overview</div>
       <div class="page">02 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>한눈에 보는 프로필</h2>
@@ -542,6 +587,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Summary</span>
       <span>About Me</span>
@@ -555,6 +601,7 @@
       <div class="eyebrow">Tech Stack</div>
       <div class="page">03 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>기술 스택</h2>
@@ -627,6 +674,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Tech & Collaboration</span>
       <span>Stack</span>
@@ -640,6 +688,7 @@
       <div class="eyebrow">Education & Awards</div>
       <div class="page">04 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>교육 이수</h2>
@@ -703,6 +752,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Growth Journey</span>
       <span>Education</span>
@@ -716,6 +766,7 @@
       <div class="eyebrow">Project 01 — Overview</div>
       <div class="page">05 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
         <h2>버블팝업</h2>
@@ -763,6 +814,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Realtime · 3D Visualization · Architecture</span>
       <span>Bubble Pop-Up 01</span>
@@ -776,6 +828,7 @@
       <div class="eyebrow">Project 01 — Tech & Problem Solving</div>
       <div class="page">06 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h3>FE 구현</h3>
@@ -824,6 +877,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Problem Solving · System Design</span>
       <span>Bubble Pop-Up 02</span>
@@ -837,6 +891,7 @@
       <div class="eyebrow">Project 02</div>
       <div class="page">07 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
         <h2>아마Get돈</h2>
@@ -886,6 +941,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Performance · Domain Design · Full Stack</span>
       <span>아마Get돈</span>
@@ -899,6 +955,7 @@
       <div class="eyebrow">Project 02 — Detail</div>
       <div class="page">08 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h3>6가지 기술적 의사결정</h3>
@@ -948,6 +1005,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Architecture · Optimization · Decision Making</span>
       <span>아마Get돈 Detail</span>
@@ -961,6 +1019,7 @@
       <div class="eyebrow">Project 03</div>
       <div class="page">09 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
         <h2>KEYWE</h2>
@@ -1010,6 +1069,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Mobile App · Security UX · DID</span>
       <span>KEYWE</span>
@@ -1023,6 +1083,7 @@
       <div class="eyebrow">Other Projects</div>
       <div class="page">10 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>그 외 프로젝트</h2>
@@ -1070,6 +1131,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="footer-note">
       <span>Projects & Activities</span>
       <span>Beyond Core</span>
@@ -1083,6 +1145,7 @@
       <div class="eyebrow">Closing</div>
       <div class="page">11 / 11</div>
     </div>
+    <div class="slide-body">
     <div class="hero" style="align-items:center;">
       <div class="hero-copy">
         <div class="tags">
@@ -1112,6 +1175,7 @@
           <span class="tag">풀스택</span>
         </div>
       </div>
+    </div>
     </div>
     <div class="footer-note">
       <span>감사합니다</span>
@@ -1183,6 +1247,28 @@
     return dot;
   });
 
+  function showScrollHint(slide){
+    // 기존 힌트 제거
+    const old = slide.querySelector('.scroll-hint');
+    if(old) old.remove();
+    const body = slide.querySelector('.slide-body');
+    if(!body) return;
+    // 스크롤 가능한지 체크
+    setTimeout(() => {
+      if(body.scrollHeight > body.clientHeight + 10){
+        body.scrollTop = 0;
+        const hint = document.createElement('div');
+        hint.className = 'scroll-hint';
+        hint.textContent = '▾ ▾ ▾';
+        slide.appendChild(hint);
+        // 애니메이션 끝나면 제거
+        hint.addEventListener('animationend', () => hint.remove());
+        // 스크롤하면 즉시 제거
+        body.addEventListener('scroll', () => hint.remove(), {once:true});
+      }
+    }, 500);
+  }
+
   function go(next){
     slides[index].classList.remove("active");
     dots[index].classList.remove("active");
@@ -1190,6 +1276,7 @@
     slides[index].classList.add("active");
     dots[index].classList.add("active");
     progress.style.width = (((index + 1) / slides.length) * 100) + "%";
+    showScrollHint(slides[index]);
   }
 
   go(0);
