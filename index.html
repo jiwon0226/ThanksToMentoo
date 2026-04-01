@@ -59,7 +59,7 @@
       width:min(1180px, 94vw);
       height:min(710px, 88vh);
       display:none;
-      overflow:hidden;
+      overflow:auto;
       border-radius:var(--radius);
       background:var(--card);
       box-shadow:var(--shadow);
@@ -108,8 +108,8 @@
 
     /* === PROFILE PHOTO (cover + closing) === */
     .profile-photo-wrap{
-      width: 120px;
-      height: 160px;
+      width: 150px;
+      height: 195px;
       border-radius: 18px;
       overflow: hidden;
       background: rgba(31,41,51,.06);
@@ -161,10 +161,10 @@
       padding:0;
     }
     .img-slot.loaded::before{ display:none; }
-    .img-slot.loaded .slot-placeholder{ display:none; }
+    .img-slot.loaded .slot-placeholder{ display:none !important; }
     .img-slot img.portfolio-img{
       width:100%; height:100%;
-      object-fit:cover;
+      object-fit:contain;
       border-radius:14px;
       display:none; /* JS로 로드 성공 시 표시 */
     }
@@ -353,16 +353,51 @@
         display:grid !important; width:297mm; height:210mm;
         margin:0; border-radius:0; box-shadow:none; border:none;
         backdrop-filter:none; break-after: page; page-break-after: always;
+        overflow:hidden;
       }
       .slide:last-child{ break-after: auto; }
       .nav{ display:none !important; }
       .grain{ display:none !important; }
     }
     @media (max-width: 980px){
-      .slide{height:min(760px, 92vh); padding:20px;}
+      .slide{height:auto; min-height:min(710px, 88vh); padding:20px;}
       .hero,.section-grid,.project-hero{grid-template-columns:1fr;}
-      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr;}
+      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr 1fr;}
       .timeline-item{grid-template-columns:1fr;}
+      .col{overflow:visible;}
+      .profile-photo-wrap{min-width:120px !important; min-height:155px !important;}
+    }
+    @media (max-width: 640px){
+      body{overflow:auto;}
+      .deck{padding:2vw; height:auto; min-height:100vh;}
+      .slide{
+        width:100%; height:auto; min-height:auto;
+        border-radius:16px; padding:16px;
+        grid-template-rows:auto auto auto;
+      }
+      h1{font-size:28px;}
+      h2{font-size:22px;}
+      h3{font-size:17px;}
+      .hero,.section-grid,.project-hero{gap:14px;}
+      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr;}
+      .stats{grid-template-columns:repeat(3,1fr);}
+      .skill-row{flex-direction:column; align-items:flex-start; gap:4px;}
+      .skill-name{min-width:auto;}
+      .stars{min-width:auto;}
+      .nav{padding:8px 12px; gap:8px; bottom:10px;}
+      .nav button{padding:7px 10px; font-size:12px;}
+      .hint{display:none;}
+      .ba-table th, .ba-table td{padding:6px 8px; font-size:11px;}
+      .profile-photo-wrap{min-width:100px !important; min-height:130px !important;}
+      .meta-value{font-size:13px !important;}
+      .page{font-size:11px; padding:4px 8px;}
+      .footer-note{font-size:11px;}
+      .pill{font-size:10px; padding:4px 8px;}
+      .tag{font-size:11px; padding:4px 10px;}
+      .quote{font-size:13px; padding:10px 12px;}
+      .mini .v{font-size:13px;}
+      .img-slot{min-height:120px !important;}
+      .img-slot.tall{min-height:140px !important;}
     }
   </style>
 </head>
@@ -388,9 +423,9 @@
         <p class="lead">시스템 경계 문제를 설계로 풀어내는 풀스택 개발자. 프론트엔드와 백엔드를 분리하지 않고 데이터 흐름 전체를 설계합니다.</p>
         <div class="quote">FE-BE 경계에서 발생하는 문제를 직접 분석하고 해결하며, 설계 의사결정에 근거를 남기는 개발자입니다.</div>
       </div>
-      <div class="glass">
-        <div class="profile-photo-slot" style="display:flex;justify-content:center;margin-bottom:10px;">
-          <div class="profile-photo-wrap">
+      <div class="glass" style="flex-direction:column; gap:14px;">
+        <div style="display:flex; gap:16px; align-items:center;">
+          <div class="profile-photo-wrap" style="min-width:150px; height:auto; min-height:195px;">
             <img id="profile-cover-img" class="portfolio-img" src="images/profile.jpg" alt="프로필 사진"
                  style="display:none; width:100%; height:100%; object-fit:cover; object-position:top center;"
                  onload="this.style.display='block'; document.getElementById('profile-cover-placeholder').style.display='none';"
@@ -400,23 +435,33 @@
               <div style="font-size:11px;font-weight:700;color:#5c6770;">프로필 사진</div>
             </div>
           </div>
+          <div style="display:flex; flex-direction:column; gap:8px; flex:1;">
+            <div class="meta-item">
+              <div class="meta-label">성격</div>
+              <div class="meta-value">열정가득 ENFP</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">이메일</div>
+              <div class="meta-value">ppg0226@naver.com</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">GitHub</div>
+              <div class="meta-value">github.com/jiwon0226</div>
+            </div>
+          </div>
         </div>
-        <div class="hero-meta" style="grid-template-columns:1fr 1fr; gap:8px;">
-          <div class="meta-item" style="grid-column:1/3;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div class="meta-item">
+            <div class="meta-label">희망 직무</div>
+            <div class="meta-value" style="font-size:13px;">풀스택 개발자 · 백엔드 개발자</div>
+          </div>
+          <div class="meta-item">
             <div class="meta-label">학력</div>
-            <div class="meta-value">경기대학교 생명과학+컴퓨터공학 복수전공<br>2020.03 — 2025.02</div>
+            <div class="meta-value" style="font-size:13px;">경기대학교 생명과학 · 컴퓨터공학 복수전공<br>2020.03 - 2025.02</div>
           </div>
-          <div class="meta-item" style="grid-column:1/3;">
+          <div class="meta-item">
             <div class="meta-label">교육</div>
-            <div class="meta-value" style="font-size:13px;">KSEB 3기 · LG CNS AM Inspire Camp 1기 · SSAFY 14기<br>2023.11 ~ 2026.06</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">이메일</div>
-            <div class="meta-value">ppg0226@naver.com</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">GitHub</div>
-            <div class="meta-value">github.com/jiwon0226</div>
+            <div class="meta-value" style="font-size:13px;">KSEB 3기 · LG CNS AM Inspire Camp 1기 · SSAFY 14기<br>2023.11 - 2026.06</div>
           </div>
         </div>
       </div>
@@ -454,6 +499,16 @@
             <div class="desc">LG CNS AM Inspire Camp<br>최종 프로젝트 1위</div>
           </div>
         </div>
+        <div class="card" style="margin-top:4px;">
+          <h4 style="margin-bottom:6px;">대학생활</h4>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:12px; color:var(--muted); line-height:1.5;">
+            <span class="pill" style="font-size:11px;">융합과학대학 학생회 차장</span>
+            <span class="pill" style="font-size:11px;">학과 2학년 대표</span>
+            <span class="pill" style="font-size:11px;">뮤지컬 동아리 배우, 조연출</span>
+            <span class="pill" style="font-size:11px;">볼링 동아리</span>
+            <span class="pill" style="font-size:11px;">캘리그라피 동아리</span>
+          </div>
+        </div>
       </div>
       <div class="col">
         <div class="card">
@@ -474,6 +529,14 @@
             <div class="feature">
               <strong>풀스택 시야</strong>
               <p>FE만 가능한 것에 전달하지 않고, BE에서 데이터가 어떻게 흐르는지 파악하고 FE 설계에 반영.</p>
+            </div>
+            <div class="feature">
+              <strong>분위기 메이커</strong>
+              <p>팀 분위기를 부드럽게 만든다는 평가를 여러 팀에서 받음. 뮤지컬 동아리 조연출 경험으로 조율 역량 체득.</p>
+            </div>
+            <div class="feature">
+              <strong>끈기 + 주도성</strong>
+              <p>없으면 직접 만드는 사고방식. 복수전공생 커뮤니티 직접 생성, 학과 대표·학생회 차장 등 주도적 활동.</p>
             </div>
           </div>
         </div>
@@ -613,10 +676,10 @@
       </div>
       <div class="col">
         <h2>수상 및 성과</h2>
-        <div class="stats" style="grid-template-columns:1fr 1fr;">
+        <div class="stats" style="grid-template-columns:1fr 1fr 1fr;">
           <div class="stat">
             <div class="num">대상</div>
-            <div class="desc">LG CNS AM Inspire Camp 1기<br>최종 프로젝트 경연 1위</div>
+            <div class="desc">LG CNS AM Inspire Camp 1기<br>최종 프로젝트 1위</div>
           </div>
           <div class="stat">
             <div class="num">A형</div>
@@ -624,11 +687,11 @@
           </div>
           <div class="stat">
             <div class="num">우수상</div>
-            <div class="desc">SSAFY 14기 2학기<br>빅데이터 분산 도메인 프로젝트</div>
+            <div class="desc">SSAFY 14기 2학기<br>빅데이터 분산 프로젝트</div>
           </div>
           <div class="stat">
             <div class="num">동상</div>
-            <div class="desc">한국정보기술학회 하계학술대회<br>Byte The Blue · 미용 예약 통합 플랫폼</div>
+            <div class="desc">한국정보기술학회<br>Byte The Blue · 미용 예약 통합</div>
           </div>
           <div class="stat">
             <div class="num">IH</div>
@@ -656,7 +719,7 @@
     <div class="project-hero">
       <div class="project-title">
         <h2>버블팝업</h2>
-        <p class="sub">실시간 팝업스토어 경영 시뮬레이션 · React 19 · TypeScript · Three.js(React Three Fiber) · Spring Boot · Redis · Spark · Kafka</p>
+        <p class="sub">서울시 유동인구·교통량 데이터와 뉴스 데이터 기반 실시간 팝업스토어 경영 시뮬레이션 · SSAFY 빅데이터 분산 도메인 우수상<br>React 19 · TypeScript · Three.js(React Three Fiber) · Spring Boot · Redis · Spark · Kafka</p>
         <div class="pill-row">
           <span class="pill">3D 서울 지도</span>
           <span class="pill">실시간 게임 서버</span>
@@ -667,11 +730,15 @@
         <div class="project-highlights" style="margin-top:4px;">
           <div class="mini">
             <div class="k">내 역할</div>
-            <div class="v">기획·설계 참여, FE 담당 — 3D 지도, Unity·React 하이브리드 UI, 인증 시스템, 랜딩 페이지, BE 일부 참여</div>
+            <div class="v">기획·설계 참여, FE — 3D 지도, Unity·React 하이브리드 UI, 인증 시스템, 랜딩 페이지, BE — 액션 도메인 개발 참여</div>
           </div>
           <div class="mini">
             <div class="k">팀 구성</div>
-            <div class="v">6인 (풀스택 5명 + 인프라·Unity 1명) / 2026.01~진행중</div>
+            <div class="v">6인 (풀스택 5명 + 인프라·Unity 1명) / 2026.03~2026.04</div>
+          </div>
+          <div class="mini" style="grid-column:1/3;">
+            <div class="k">핵심 설계</div>
+            <div class="v">온디맨드 계산 아키텍처 — 10초 틱 상시 계산 대신, 액션/이벤트/재접속 시점에만 구간 계산. Redis(실시간 상태) + MySQL(영구 저장) 이원화.<br>FE 연출용 계산 → 서버 응답 덮어쓰기(서버 권한형)</div>
           </div>
         </div>
       </div>
@@ -681,9 +748,8 @@
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🗺️</div>
+
             <div class="slot-label">서비스 대표 화면</div>
-            <div class="slot-sub">3D 서울 지도 + Unity 게임 플레이 화면 또는 랜딩 페이지 스크린샷</div>
           </div>
         </div>
         <div class="img-slot">
@@ -691,9 +757,8 @@
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🎮</div>
+
             <div class="slot-label">게임 UI 화면</div>
-            <div class="slot-sub">액션 모달 + 대시보드 + 알림 시스템</div>
           </div>
         </div>
       </div>
@@ -713,13 +778,20 @@
     </div>
     <div class="section-grid">
       <div class="col">
-        <h3>구현 사항 (본인 구현)</h3>
-        <div class="card" style="flex:1;">
+        <h3>FE 구현</h3>
+        <div class="card">
           <ul>
-            <li><strong>3D 서울 지도:</strong> 서울시 공공 GeoJSON 직접 가공. Douglas-Peucker(epsilon=0.15)로 좌표 포인트 60% 감소. 게임 지역 8개 매핑, 한강 메시 생성(18점 경계 좌표 연결).</li>
-            <li><strong>Unity+React 하이브리드 UI:</strong> Unity 3D 배경 위 React 레이어를 bg-transparent로 커버. 액션 시스템(할인·긴급발주·홍보·나누기·팝업이전) 5개 모달, ModalWrapper 공통 애니메이션 분리.</li>
-            <li><strong>인증 시스템:</strong> axios 401 interceptor에 isRefreshing + failedQueue 큐 패턴 도입. 동시 401 발생 시 refresh 1번만 호출, 무한루프 방지.</li>
-            <li><strong>인터랙티브 랜딩 페이지:</strong> 비주얼 10회 이상 이터레이션. 글래스모피즘 스타일 일관 적용.</li>
+            <li><strong>3D 서울 지도:</strong> 공공 GeoJSON 직접 가공. Douglas-Peucker로 좌표 60% 감소. 한강 메시 생성.</li>
+            <li><strong>Unity+React 하이브리드 UI:</strong> bg-transparent 레이어. 액션 5개 모달, ModalWrapper 공통화.</li>
+            <li><strong>인증 시스템:</strong> 401 interceptor + failedQueue 큐 패턴. 무한루프 방지.</li>
+          </ul>
+        </div>
+        <h3 style="margin-top:4px;">BE 설계 · 액션 도메인</h3>
+        <div class="card">
+          <ul>
+            <li><strong>온디맨드 계산 아키텍처:</strong> 유입률·판매가 변경 시점을 구간으로 나누고, 액션/이벤트/재접속 시에만 계산. 상시 계산 대비 불필요 연산 제거.</li>
+            <li><strong>역할 분리:</strong> FE는 화면 연출용 값 자체 계산 → 서버 응답으로 덮어쓰기. BE가 최종 상태 확정(서버 권한형).</li>
+            <li><strong>트러블슈팅:</strong> Spark score 스케일 불일치로 손님 수 0 → 틱 로그 추적 후 계산식 재설계. 시즌 시작 지연 시 게임 시간 밀림 → startTime 실시간 갱신으로 해결.</li>
           </ul>
         </div>
         <h3 style="margin-top:4px;">문제 해결: z-index 충돌</h3>
@@ -727,9 +799,8 @@
           <table class="ba-table">
             <tr><th>항목</th><th class="before">Before</th><th class="after">After</th></tr>
             <tr><td>모달 노출</td><td class="before">3D 라벨에 가려 클릭 불가</td><td class="after">정상 노출 및 클릭 가능</td></tr>
-            <tr><td>좌표 포인트</td><td class="before">[누락: 원본 수치]</td><td class="after">약 60% 감소</td></tr>
+            <tr><td>좌표 포인트</td><td class="before">[원본 수치]</td><td class="after">약 60% 감소</td></tr>
           </table>
-          <p style="font-size:12px; margin-top:8px; color:var(--muted);">해결: drei zIndexRange={[1,0]} 파라미터 + pointer-events-none 적용</p>
         </div>
       </div>
       <div class="col">
@@ -738,9 +809,8 @@
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🏗️</div>
+
             <div class="slot-label">시스템 아키텍처 다이어그램</div>
-            <div class="slot-sub">React · Unity · Spring Boot · Redis · Kafka · Spark 구성도<br>설계 역량을 가장 직접적으로 증명</div>
           </div>
         </div>
         <div class="img-slot">
@@ -748,19 +818,8 @@
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🗾</div>
+
             <div class="slot-label">3D 서울 지도 Before/After</div>
-            <div class="slot-sub">V1 실패본 vs V3 GeoJSON 기반 완성본 비교</div>
-          </div>
-        </div>
-        <div class="img-slot">
-          <img class="portfolio-img" src="images/bubble_auth_code.png" alt="인증 흐름 코드 스니펫 또는 Lighthouse 결과"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">📐</div>
-            <div class="slot-label">인증 흐름 코드 스니펫 또는 Lighthouse 결과</div>
-            <div class="slot-sub">failedQueue 패턴 핵심 코드 또는 성능 측정 캡처</div>
           </div>
         </div>
       </div>
@@ -781,33 +840,14 @@
     <div class="project-hero">
       <div class="project-title">
         <h2>아마Get돈</h2>
-        <p class="sub">초보 투자자 금융 학습 플랫폼 · React 18 · TypeScript · lightweight-charts · Spring Boot 3 · JPA · Redis · FastAPI</p>
+        <p class="sub">한국투자증권 API 기반 투자 초보자를 위한 모의 투자 · 학습 · 업적 서비스. 핵심 서비스 설계 및 개발 주도<br>React 18 · TypeScript · lightweight-charts · Spring Boot 3 · JPA · Redis · FastAPI</p>
         <div class="pill-row">
           <span class="pill">FE + BE 동시 담당</span>
           <span class="pill">N+1 해결</span>
           <span class="pill">폴링 최적화</span>
           <span class="pill">업적 시스템</span>
         </div>
-        <div class="quote">N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). 장 마감 후 폴링 중단으로 일일 API 호출 ~50,000건 → ~20,000건(60% 감소).</div>
-        <div style="margin-top:8px;">
-          <table class="ba-table">
-            <tr><th>지표</th><th>Before</th><th>After</th></tr>
-            <tr><td>일일 API 호출 (장 마감 후)</td><td class="before">~50,000건</td><td class="after">~20,000건 (60% 감소)</td></tr>
-          </table>
-        </div>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="img-slot" style="min-height:140px;">
-          <img class="portfolio-img" src="images/amagetdon_main.png" alt="서비스 대표 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">📈</div>
-            <div class="slot-label">서비스 대표 화면</div>
-            <div class="slot-sub">캔들 차트 + 투자 페이지 + 업적 페이지 스크린샷</div>
-          </div>
-        </div>
-        <div class="project-highlights">
+        <div class="project-highlights" style="margin-top:6px;">
           <div class="mini">
             <div class="k">FE 구현</div>
             <div class="v">투자 페이지, 학습, 업적, AI 성향분석, 헤더, 라우트 가드</div>
@@ -821,18 +861,27 @@
             <div class="v">복합키 설계, 파생 상태 실시간 계산, Redis+DB 이원화</div>
           </div>
           <div class="mini">
-            <div class="k">협업</div>
-            <div class="v">에러 코드 표준화(401/403/404), Custom Event 패턴</div>
+            <div class="k">팀 구성</div>
+            <div class="v">6인 / 2026.01~2026.02</div>
           </div>
         </div>
-        <div class="img-slot">
-          <img class="portfolio-img" src="images/amagetdon_query.png" alt="DB 쿼리 수 개선 증거"
+        <div class="quote" style="margin-top:6px;">N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). 장 마감 후 폴링 중단으로 일일 API 호출 60% 감소.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="img-slot" style="flex:1;">
+          <img class="portfolio-img" src="images/amagetdon_main.png" alt="서비스 대표 화면"
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">📊</div>
-            <div class="slot-label">DB 쿼리 수 개선 증거</div>
-            <div class="slot-sub">DB 로그 또는 쿼리 모니터링 도구 캡처</div>
+            <div class="slot-label">서비스 대표 화면</div>
+          </div>
+        </div>
+        <div class="img-slot" style="flex:1;">
+          <img class="portfolio-img" src="images/amagetdon_sub.png" alt="학습/업적 화면"
+               onload="this.parentElement.classList.add('loaded')"
+               onerror="">
+          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+            <div class="slot-label">학습/업적 화면</div>
           </div>
         </div>
       </div>
@@ -881,24 +930,20 @@
         </div>
       </div>
       <div class="col">
-        <div class="img-slot tall">
+        <div class="img-slot" style="flex:1;">
           <img class="portfolio-img" src="images/amagetdon_arch.png" alt="시스템 아키텍처 다이어그램"
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🏗️</div>
             <div class="slot-label">시스템 아키텍처 다이어그램</div>
-            <div class="slot-sub">FE · BE · FastAPI · Redis · DB 구성도. 설계 역량 증명</div>
           </div>
         </div>
-        <div class="img-slot">
+        <div class="img-slot" style="flex:1;">
           <img class="portfolio-img" src="images/amagetdon_erd.png" alt="ERD (데이터베이스 설계도)"
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🗄️</div>
             <div class="slot-label">ERD (데이터베이스 설계도)</div>
-            <div class="slot-sub">복합키, 업적 테이블 구조. DB 설계 역량 증명</div>
           </div>
         </div>
       </div>
@@ -942,29 +987,25 @@
           </div>
           <div class="mini">
             <div class="k">팀 구성</div>
-            <div class="v">8인 (FE 웹 2명, FE 앱 2명, BE 3명, INFRA 1명) / 2025.04~06</div>
+            <div class="v">8인 (FE 웹 2명, FE 앱 2명, BE 3명, INFRA 1명) / 2025.04~2025.06</div>
           </div>
         </div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="img-slot" style="min-height:180px;">
-          <img class="portfolio-img" src="images/keywe_screens.png" alt="모바일 앱 주요 화면 (3장)"
+      <div style="display:flex; flex-direction:row; gap:10px;">
+        <div class="img-slot" style="flex:1; min-height:200px;">
+          <img class="portfolio-img" src="images/keywe_screens.png" alt="모바일 앱 주요 화면"
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">📱</div>
-            <div class="slot-label">모바일 앱 주요 화면 (3장)</div>
-            <div class="slot-sub">로그인 · 출입증 · 알림 목록 화면. 실제 모바일 앱 UI 증명</div>
+            <div class="slot-label">모바일 앱 주요 화면</div>
           </div>
         </div>
-        <div class="img-slot">
+        <div class="img-slot" style="flex:1; min-height:200px;">
           <img class="portfolio-img" src="images/keywe_flip.png" alt="출입증 Flip 애니메이션"
                onload="this.parentElement.classList.add('loaded')"
                onerror="">
           <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-icon">🔄</div>
             <div class="slot-label">출입증 Flip 애니메이션</div>
-            <div class="slot-sub">DID 인증 응답 시각화 장면 또는 코드 스니펫</div>
           </div>
         </div>
       </div>
@@ -988,19 +1029,23 @@
         <div class="feature-list">
           <div class="feature">
             <strong>EatIt</strong>
-            <p>식단 분석 + CS 게이미피케이션 서비스. AWS 배포·HTTPS·DNS 전 과정 직접 수행. gainedHp rollback 로직 설계. 중도 합류 상황에서 빠른 적응.</p>
+            <p>식단 분석 + CS 게이미피케이션 서비스. AWS 배포·HTTPS·DNS 전 과정 직접 수행. gainedHp rollback 로직 설계.</p>
+            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.11~2026.12 · Vue.js · Spring Boot · MySQL · AWS EC2</p>
           </div>
           <div class="feature">
             <strong>MealLink</strong>
-            <p>레시피·식단·구매 통합 서비스. 기획 주도, ERD 및 API 명세, 정규화 vs 비정규화 의사결정 기록. 인수인계 준비 후 이동.</p>
+            <p>레시피·식단·구매 통합 서비스. 기획 주도, ERD 및 API 명세, 정규화 vs 비정규화 의사결정 기록.</p>
+            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.11~2025.11 · Vue.js · Spring Boot · MySQL</p>
           </div>
           <div class="feature">
             <strong>취업봇다리 / 취업레고</strong>
             <p>채용 정보 분석 서비스 + MSA·AWS 확장. FE 아키텍처, S3 Presigned URL, LG CNS 미니프로젝트 팀 비공식 1위 달성.</p>
+            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.02~2025.03 · React · Spring Boot · Spring Cloud · AWS · Docker</p>
           </div>
           <div class="feature">
             <strong>Byte The Blue / 견벳팅 / Sky Step</strong>
-            <p>감정 분석 채팅 서비스(한국정보기술학회 동상), 도메인 기반 설계, Unity 물리엔진 디버깅 등 폭넓은 실습 경험 축적.</p>
+            <p>감정 분석 채팅 서비스(한국정보기술학회 동상), 도메인 기반 설계, Unity 물리엔진 디버깅.</p>
+            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2023.12~2024.07 · React · Spring Boot · Unity · Python</p>
           </div>
         </div>
       </div>
@@ -1016,13 +1061,10 @@
         </div>
         <div class="card" style="margin-top:4px;">
           <h3 style="margin-bottom:10px;">일하는 태도</h3>
-          <p>필요한 것이 없으면 직접 만들고, 부족한 부분은 빠르게 학습으로 메웁니다. 프로젝트에서는 구현자에 머무르지 않고 구조를 정리하고 팀이 움직일 수 있도록 돕는 역할을 자주 맡았습니다. 설계 의사결정을 기록으로 남기는 습관이 있습니다.</p>
-        </div>
-        <div class="card" style="margin-top:4px;">
-          <h3 style="margin-bottom:10px;">프로젝트에서 배운 것</h3>
           <ul>
-            <li>기획부터 배포까지 전 과정을 경험하며, 각 단계가 다음 단계에 미치는 영향을 체감</li>
-            <li>팀원 간 기술 수준 차이를 인수인계 문서와 코드 리뷰로 해소한 경험</li>
+            <li>필요한 것이 없으면 직접 만들고, 부족한 부분은 빠르게 학습으로 메움</li>
+            <li>구현자에 머무르지 않고 구조를 정리하고 팀이 움직일 수 있도록 돕는 역할</li>
+            <li>기획부터 배포까지 전 과정 경험, 설계 의사결정을 기록으로 남기는 습관</li>
             <li>중도 합류·이동 상황에서도 빠르게 코드베이스를 파악하고 기여하는 적응력</li>
           </ul>
         </div>
