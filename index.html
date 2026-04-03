@@ -1,445 +1,214 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>채지원 포트폴리오</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>채지원 포트폴리오 v3</title>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;700&display=swap");
-
     :root{
-      --bg-1:#f5efe6;
-      --bg-2:#e8f1f2;
-      --ink:#1f2933;
-      --muted:#5c6770;
-      --line:rgba(31,41,51,0.12);
-      --accent:#c76d3b;
-      --accent-2:#3b6fc7;
-      --accent-soft:rgba(199,109,59,.10);
-      --accent-soft-2:rgba(59,111,199,.10);
-      --card:rgba(255,255,255,.76);
-      --card-strong:rgba(255,255,255,.88);
-      --shadow:0 18px 55px rgba(0,0,0,.13);
-      --radius:26px;
+      --bg-1:#f5efe6;--bg-2:#e8f1f2;--ink:#1f2933;--muted:#5c6770;
+      --accent:#c76d3b;--accent-2:#3b6fc7;
+      --accent-soft:rgba(199,109,59,.10);--accent-soft-2:rgba(59,111,199,.10);
+      --accent-soft-g:rgba(34,139,78,.10);
+      --card:rgba(255,255,255,.76);--card-strong:rgba(255,255,255,.88);
+      --shadow:0 18px 55px rgba(0,0,0,.13);--radius:26px;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Noto Sans KR","Malgun Gothic",sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(1100px 650px at 10% 10%, #fff6ea 0%, transparent 58%),
-        radial-gradient(900px 700px at 90% 18%, #e6f4ff 0%, transparent 58%),
-        radial-gradient(700px 500px at 80% 90%, #edf6ef 0%, transparent 52%),
+    body{margin:0;font-family:"Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);
+      background:radial-gradient(1100px 650px at 10% 10%,#fff6ea 0%,transparent 58%),
+        radial-gradient(900px 700px at 90% 18%,#e6f4ff 0%,transparent 58%),
+        radial-gradient(700px 500px at 80% 90%,#edf6ef 0%,transparent 52%),
         linear-gradient(135deg,var(--bg-1),var(--bg-2));
-      overflow:hidden;
-    }
-
-    .grain{
-      position:fixed; inset:0; pointer-events:none; opacity:.06;
-      background-image:
-        radial-gradient(circle at 20% 20%, #000 0.8px, transparent 0.9px),
-        radial-gradient(circle at 80% 40%, #000 0.8px, transparent 0.9px),
-        radial-gradient(circle at 40% 70%, #000 0.8px, transparent 0.9px);
-      background-size: 22px 22px, 26px 26px, 28px 28px;
-      mix-blend-mode:multiply;
-    }
-
-    .deck{
-      position:relative;
-      width:100vw; height:100vh;
-      display:flex; align-items:center; justify-content:center;
-      padding:4vw;
-    }
-
-    .slide{
-      position:relative;
-      width:min(1180px, 94vw);
-      height:min(710px, 88vh);
-      display:none;
-      overflow:hidden;
-      border-radius:var(--radius);
-      background:var(--card);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(14px);
-      border:1px solid rgba(255,255,255,.55);
-      padding:clamp(24px, 3vw, 42px);
-      grid-template-rows:auto 1fr auto;
-      gap:0;
-    }
-    .slide .topbar{
-      position:sticky; top:0; z-index:5;
-      background:transparent;
-      padding-bottom:12px;
-      flex-shrink:0;
-    }
-    .slide .slide-body{
-      flex:1; overflow-y:auto; overflow-x:hidden;
-      padding:4px 0;
-      min-height:0;
-    }
+      overflow:hidden;}
+    .grain{position:fixed;inset:0;pointer-events:none;opacity:.06;
+      background-image:radial-gradient(circle at 20% 20%,#000 .8px,transparent .9px),
+        radial-gradient(circle at 80% 40%,#000 .8px,transparent .9px),
+        radial-gradient(circle at 40% 70%,#000 .8px,transparent .9px);
+      background-size:22px 22px,26px 26px,28px 28px;mix-blend-mode:multiply;}
+    .deck{position:relative;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:4vw;}
+    .slide{position:relative;width:min(1180px,94vw);height:min(710px,88vh);display:none;overflow:hidden;
+      border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.55);
+      padding:clamp(24px,3vw,42px);}
+    .slide .topbar{position:sticky;top:0;z-index:5;background:transparent;padding-bottom:12px;flex-shrink:0;}
+    .slide .slide-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:4px 0;min-height:0;}
     .slide .slide-body::-webkit-scrollbar{width:5px;}
-    .slide .slide-body::-webkit-scrollbar-track{background:transparent;}
-    .slide .slide-body::-webkit-scrollbar-thumb{background:rgba(31,41,51,.15); border-radius:3px;}
-    .slide .slide-body::-webkit-scrollbar-thumb:hover{background:rgba(31,41,51,.3);}
-    .slide .slide-body{scrollbar-width:thin; scrollbar-color:rgba(31,41,51,.15) transparent;}
-    .slide .footer-note{
-      position:sticky; bottom:0; z-index:5;
-      background:transparent;
-      padding-top:10px;
-      flex-shrink:0;
-    }
-    .scroll-hint{
-      position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
-      z-index:6; pointer-events:none;
-      opacity:0; font-size:36px; color:rgba(199,109,59,.35);
-      letter-spacing:12px;
-      animation: hintBounce 3s ease-in-out forwards;
-    }
+    .slide .slide-body::-webkit-scrollbar-thumb{background:rgba(31,41,51,.15);border-radius:3px;}
+    .slide .slide-body{scrollbar-width:thin;scrollbar-color:rgba(31,41,51,.15) transparent;}
+    .slide .footer-note{position:sticky;bottom:0;z-index:5;background:transparent;padding-top:10px;flex-shrink:0;}
+    .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:6;pointer-events:none;
+      opacity:0;font-size:36px;color:rgba(199,109,59,.35);letter-spacing:12px;
+      animation:hintBounce 3s ease-in-out forwards;}
     @keyframes hintBounce{
-      0%{opacity:0; transform:translateX(-50%) translateY(0);}
-      8%{opacity:.45;}
-      18%{transform:translateX(-50%) translateY(14px);}
-      28%{transform:translateX(-50%) translateY(0);}
-      38%{transform:translateX(-50%) translateY(14px);}
-      48%{transform:translateX(-50%) translateY(0);}
-      58%{transform:translateX(-50%) translateY(10px);}
-      68%{transform:translateX(-50%) translateY(0); opacity:.35;}
-      100%{opacity:0; transform:translateX(-50%) translateY(0);}
-    }
-    .slide.active{display:flex; flex-direction:column; animation: rise .45s ease-out}
-    @keyframes rise{
-      from{transform:translateY(14px) scale(.992); opacity:0}
-      to{transform:translateY(0) scale(1); opacity:1}
-    }
-
-    .progress{
-      position:absolute; top:0; left:0; height:6px;
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      width:0%; transition:width .3s ease;
-      z-index:10; border-radius:0 0 8px 0;
-    }
-
-    .topbar{
-      display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
-      position:relative; z-index:2;
-    }
-    .eyebrow{
-      font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
-      font-weight:700;
-    }
-    .page{
-      font-size:12px; color:var(--muted);
-      background:rgba(255,255,255,.6); border:1px solid rgba(255,255,255,.7);
-      padding:6px 12px; border-radius:999px;
-      box-shadow:0 6px 18px rgba(0,0,0,.05); white-space:nowrap;
-    }
-
-    h1,h2,h3,h4{ margin:0; font-family:"Noto Serif KR",serif; letter-spacing:-.02em; }
-    h1{font-size:clamp(32px,4.5vw,54px); line-height:1.12}
-    h2{font-size:clamp(24px,3.2vw,40px); line-height:1.2}
-    h3{font-size:clamp(18px,2vw,26px); line-height:1.28}
-    h4{font-size:15px; line-height:1.35}
-    p{ margin:0; color:var(--muted); font-size:clamp(14px,1.3vw,17px); line-height:1.7; }
-    ul{margin:0; padding-left:1.1em}
-    li{ margin:.3em 0; color:var(--ink); font-size:clamp(14px,1.3vw,16px); line-height:1.6; }
-
-    /* === PROFILE PHOTO (cover + closing) === */
-    .profile-photo-wrap{
-      width: 150px;
-      height: 195px;
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(31,41,51,.06);
-      border: 3px solid rgba(255,255,255,.9);
-      box-shadow: 0 8px 24px rgba(0,0,0,.12);
-      flex-shrink: 0;
-    }
-
-    /* === IMAGE SLOT (placeholder + real image) === */
-    .img-slot{
-      border-radius:16px;
-      background:rgba(31,41,51,.05);
-      border:2px dashed rgba(31,41,51,.18);
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center;
-      padding:14px 12px;
-      gap:6px;
-      min-height:90px;
-      position:relative;
-      overflow:hidden;
-    }
-    .img-slot::before{
-      content:''; position:absolute; inset:0;
-      background:repeating-linear-gradient(
-        -45deg, transparent, transparent 8px,
-        rgba(0,0,0,.025) 8px, rgba(0,0,0,.025) 9px
-      );
-      pointer-events:none;
-    }
-    .img-slot .slot-icon{
-      font-size:22px; opacity:.35; position:relative; z-index:1;
-    }
-    .img-slot .slot-label{
-      font-size:12px; font-weight:700; color:var(--muted);
-      line-height:1.4; position:relative; z-index:1;
-    }
-    .img-slot .slot-sub{
-      font-size:11px; color:var(--muted); opacity:.7;
-      line-height:1.3; position:relative; z-index:1;
-    }
-    .img-slot.tall{ min-height:160px; }
-    .img-slot.short{ min-height:64px; }
-
-    /* 실제 이미지가 로드되면 슬롯 스타일 덮어씀 */
-    .img-slot.loaded{
-      border:none;
-      background:transparent;
-      padding:0;
-    }
-    .img-slot.loaded::before{ display:none; }
-    .img-slot.loaded .slot-placeholder{ display:none !important; }
-    .img-slot img.portfolio-img{
-      width:100%; height:100%;
-      object-fit:contain;
-      border-radius:14px;
-      display:none; /* JS로 로드 성공 시 표시 */
-    }
-    .img-slot.loaded img.portfolio-img{ display:block; }
-
-    /* === LAYOUT === */
-    .hero{
-      display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:end;
-      position:relative; z-index:2;
-    }
-    .hero h1 span{color:var(--accent-2)}
-    .hero-copy{display:flex; flex-direction:column; gap:16px}
-    .hero-meta{
-      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
-    }
-
-    .glass, .card, .mini, .stat, .feature, .timeline-item{
-      background:var(--card-strong);
-      border:1px solid rgba(255,255,255,.78);
-      box-shadow:0 10px 25px rgba(0,0,0,.06);
-    }
-    .glass{
-      border-radius:24px; padding:20px;
-      display:flex; flex-direction:column; gap:12px; min-height:100%;
-      justify-content:space-between;
-    }
-    .meta-item{
-      padding:12px 14px; border-radius:16px;
-      background:rgba(255,255,255,.72); border:1px solid rgba(31,41,51,.06);
-    }
-    .meta-label{font-size:11px; color:var(--muted); margin-bottom:4px}
-    .meta-value{font-size:14px; font-weight:600; color:var(--ink); word-break:break-all}
-
-    .tags{display:flex; flex-wrap:wrap; gap:8px}
-    .tag{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:6px 12px; border-radius:999px;
-      font-size:13px; font-weight:600;
-      background:rgba(59,111,199,.11); color:var(--accent-2);
-      border:1px solid rgba(59,111,199,.15);
-    }
-    .tag.warm{
-      background:rgba(199,109,59,.11); color:var(--accent);
-      border-color:rgba(199,109,59,.15);
-    }
-
-    .shape,.shape2,.shape3{
-      position:absolute; border-radius:50%; filter:blur(5px); pointer-events:none;
-    }
+      0%{opacity:0;transform:translateX(-50%) translateY(0);}8%{opacity:.45;}
+      18%{transform:translateX(-50%) translateY(14px);}28%{transform:translateX(-50%) translateY(0);}
+      38%{transform:translateX(-50%) translateY(14px);}48%{transform:translateX(-50%) translateY(0);}
+      68%{opacity:.35;}100%{opacity:0;transform:translateX(-50%) translateY(0);}}
+    .slide.active{display:flex;flex-direction:column;animation:rise .45s ease-out}
+    @keyframes rise{from{transform:translateY(14px) scale(.992);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+    .progress{position:absolute;top:0;left:0;height:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      width:0%;transition:width .3s ease;z-index:10;border-radius:0 0 8px 0;}
+    .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;position:relative;z-index:2;}
+    .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+    .page{font-size:12px;color:var(--muted);background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.7);
+      padding:6px 12px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.05);white-space:nowrap;}
+    h1,h2,h3,h4{margin:0;font-family:"Noto Serif KR",serif;letter-spacing:-.02em;}
+    h1{font-size:clamp(32px,4.5vw,54px);line-height:1.12}
+    h2{font-size:clamp(24px,3.2vw,40px);line-height:1.2}
+    h3{font-size:clamp(18px,2vw,26px);line-height:1.28}
+    h4{font-size:15px;line-height:1.35}
+    p{margin:0;color:var(--muted);font-size:clamp(14px,1.3vw,17px);line-height:1.7;}
+    ul{margin:0;padding-left:1.1em}
+    li{margin:.3em 0;color:var(--ink);font-size:clamp(14px,1.3vw,16px);line-height:1.6;}
+    .profile-photo-wrap{width:150px;height:195px;border-radius:18px;overflow:hidden;
+      background:rgba(31,41,51,.06);border:3px solid rgba(255,255,255,.9);
+      box-shadow:0 8px 24px rgba(0,0,0,.12);flex-shrink:0;}
+    .img-slot{border-radius:16px;background:rgba(31,41,51,.05);border:2px dashed rgba(31,41,51,.18);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:14px 12px;gap:6px;min-height:90px;position:relative;overflow:hidden;}
+    .img-slot::before{content:'';position:absolute;inset:0;
+      background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(0,0,0,.025) 8px,rgba(0,0,0,.025) 9px);
+      pointer-events:none;}
+    .img-slot .slot-label{font-size:12px;font-weight:700;color:var(--muted);line-height:1.4;position:relative;z-index:1;}
+    .img-slot.tall{min-height:160px;}
+    .img-slot.loaded{border:none;background:transparent;padding:0;}
+    .img-slot.loaded::before{display:none;}.img-slot.loaded .slot-placeholder{display:none!important;}
+    .img-slot img.portfolio-img{width:100%;height:100%;object-fit:contain;border-radius:14px;display:none;}
+    .img-slot.loaded img.portfolio-img{display:block;}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:end;position:relative;z-index:2;}
+    .hero h1 span{color:var(--accent-2)}.hero-copy{display:flex;flex-direction:column;gap:16px}
+    .hero-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+    .glass,.card,.mini,.stat,.feature,.timeline-item{background:var(--card-strong);
+      border:1px solid rgba(255,255,255,.78);box-shadow:0 10px 25px rgba(0,0,0,.06);}
+    .glass{border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;
+      min-height:100%;justify-content:space-between;}
+    .meta-item{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.72);border:1px solid rgba(31,41,51,.06);}
+    .meta-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+    .meta-value{font-size:14px;font-weight:600;color:var(--ink);word-break:break-all}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+      font-size:13px;font-weight:600;background:rgba(59,111,199,.11);color:var(--accent-2);
+      border:1px solid rgba(59,111,199,.15);}
+    .tag.warm{background:rgba(199,109,59,.11);color:var(--accent);border-color:rgba(199,109,59,.15);}
+    .tag.green{background:rgba(59,111,199,.11);color:var(--accent-2);border-color:rgba(59,111,199,.2);}
+    .shape,.shape2,.shape3{position:absolute;border-radius:50%;filter:blur(5px);pointer-events:none;}
     .shape{width:300px;height:300px;left:-120px;bottom:-120px;background:radial-gradient(circle at 35% 35%,rgba(199,109,59,.24),transparent 68%)}
     .shape2{width:260px;height:260px;right:-70px;top:-80px;background:radial-gradient(circle at 45% 45%,rgba(59,111,199,.22),transparent 68%)}
     .shape3{width:220px;height:220px;right:22%;bottom:-95px;background:radial-gradient(circle at 45% 45%,rgba(104,174,123,.17),transparent 68%)}
-
-    .section-grid{
-      display:grid; grid-template-columns:1.05fr .95fr; gap:20px; min-height:0;
-    }
-    .col{display:flex; flex-direction:column; gap:14px; min-height:0; overflow:visible; flex-shrink:0;}
-    .card{ padding:18px 20px; border-radius:20px; }
-    .lead{font-size:17px; color:var(--ink); font-weight:600; line-height:1.6;}
-
-    .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px;}
-    .stat{
-      border-radius:18px; padding:16px;
-      display:flex; flex-direction:column; gap:6px; justify-content:space-between;
-      min-height:100px;
-    }
-    .stat .num{font-size:26px; font-weight:800; letter-spacing:-.02em; color:var(--ink);}
-    .stat .desc{font-size:13px; line-height:1.5; color:var(--muted);}
-
-    .timeline{display:flex; flex-direction:column; gap:10px;}
-    .timeline-item{
-      border-radius:16px; padding:14px 16px;
-      display:grid; grid-template-columns:108px 1fr; gap:12px; align-items:start;
-    }
-    .time{font-size:12px; font-weight:700; color:var(--accent-2); padding-top:2px;}
-    .time-title{font-size:15px; font-weight:700; margin-bottom:4px;}
-    .time-desc{font-size:13px; color:var(--muted); line-height:1.5;}
-
-    .feature-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
-    .feature{
-      border-radius:16px; padding:16px;
-      display:flex; flex-direction:column; gap:8px;
-    }
-    .feature strong{font-size:15px;}
-    .feature p{font-size:13px;}
-
-    .stack-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
-    .stack-box{
-      border-radius:16px; padding:16px;
-      background:rgba(255,255,255,.78); border:1px solid rgba(31,41,51,.06);
-    }
-    .stack-box h4{margin-bottom:8px; color:var(--ink);}
-    .stack-box p{font-size:13px;}
-
-    /* === PROJECT SLIDES === */
-    .project-hero{
-      display:grid; grid-template-columns:1.1fr .9fr; gap:18px; align-items:stretch;
-    }
-    .project-title{display:flex; flex-direction:column; gap:10px;}
-    .project-title .sub{font-size:13px; color:var(--muted); line-height:1.5;}
-    .pill-row{display:flex; flex-wrap:wrap; gap:6px;}
-    .pill{
-      padding:5px 10px; border-radius:999px; font-size:11px; font-weight:700;
-      background:rgba(31,41,51,.06); color:var(--ink);
-    }
-    .project-highlights{
-      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
-    }
-    .mini{ border-radius:16px; padding:14px; }
-    .mini .k{font-size:11px; color:var(--muted); margin-bottom:4px;}
-    .mini .v{font-size:14px; font-weight:700; line-height:1.45;}
-
-    .quote{
-      padding:14px 16px;
-      border-left:4px solid var(--accent);
-      background:var(--accent-soft);
-      border-radius:14px;
-      color:var(--ink);
-      font-size:14px; line-height:1.65;
-    }
-
-    /* === BEFORE/AFTER TABLE === */
-    .ba-table{ width:100%; border-collapse:separate; border-spacing:0; }
-    .ba-table th{
-      background:rgba(31,41,51,.06); padding:8px 12px;
-      font-size:12px; font-weight:700; color:var(--muted);
-      text-align:left;
-    }
-    .ba-table th:first-child{ border-radius:10px 0 0 0; }
-    .ba-table th:last-child{ border-radius:0 10px 0 0; }
-    .ba-table td{ padding:8px 12px; font-size:13px; border-bottom:1px solid rgba(31,41,51,.06); }
-    .ba-table td:first-child{ color:var(--muted); font-weight:600; }
-    .ba-table .before{ color:var(--muted); }
-    .ba-table .after{ color:#1a7a45; font-weight:700; }
-    .ba-table .note{ color:var(--muted); font-size:11px; }
-
-    /* === SKILLS === */
-    .skill-row{
-      display:flex; align-items:center; gap:12px;
-      padding:10px 14px; border-radius:14px;
-      background:rgba(255,255,255,.72); border:1px solid rgba(31,41,51,.06);
-      margin-bottom:8px;
-    }
-    .skill-name{ font-size:14px; font-weight:700; color:var(--ink); min-width:140px; }
-    .stars{ font-size:14px; letter-spacing:1px; min-width:90px; }
-    .skill-desc{ font-size:13px; color:var(--muted); line-height:1.4; }
-
-    /* === FOOTER === */
-    .footer-note{
-      display:flex; justify-content:space-between; align-items:center; gap:16px;
-      color:#77818a; font-size:12px;
-      position:relative; z-index:2;
-    }
-
-    /* === NAV === */
-    .nav{
-      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
-      display:flex; align-items:center; gap:12px;
-      padding:10px 16px; border-radius:999px;
-      background:rgba(255,255,255,.72);
-      box-shadow:0 16px 40px rgba(0,0,0,.12);
-      border:1px solid rgba(255,255,255,.75);
-      backdrop-filter: blur(10px); z-index:100;
-    }
-    .nav button{
-      border:none; cursor:pointer; border-radius:999px;
-      padding:9px 14px; font-size:13px; font-weight:700;
-      background:var(--accent); color:#fff;
-    }
-    .nav button.secondary{background:#b6bec7; color:#14202b;}
-    .dots{display:flex; gap:6px;}
-    .dot{ width:8px; height:8px; border-radius:50%; background:#c8cfd6; cursor:pointer; }
+    .section-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;min-height:0;}
+    .col{display:flex;flex-direction:column;gap:14px;min-height:0;overflow:visible;flex-shrink:0;}
+    .card{padding:18px 20px;border-radius:20px;}
+    .lead{font-size:17px;color:var(--ink);font-weight:600;line-height:1.6;}
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+    .stat{border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px;
+      justify-content:space-between;min-height:100px;}
+    .stat .num{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ink);}
+    .stat .desc{font-size:13px;line-height:1.5;color:var(--muted);}
+    .timeline{display:flex;flex-direction:column;gap:10px;}
+    .timeline-item{border-radius:16px;padding:14px 16px;
+      display:grid;grid-template-columns:108px 1fr;gap:12px;align-items:start;}
+    .time{font-size:12px;font-weight:700;color:var(--accent-2);padding-top:2px;}
+    .time-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+    .time-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+    .feature-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+    .feature{border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;}
+    .feature strong{font-size:15px;}.feature p{font-size:13px;}
+    .project-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch;}
+    .project-title{display:flex;flex-direction:column;gap:10px;}
+    .project-title .sub{font-size:13px;color:var(--muted);line-height:1.5;}
+    .pill-row{display:flex;flex-wrap:wrap;gap:6px;}
+    .pill{padding:5px 10px;border-radius:999px;font-size:11px;font-weight:700;
+      background:rgba(31,41,51,.06);color:var(--ink);}
+    .pill.hl{background:rgba(199,109,59,.13);color:var(--accent);}
+    .project-highlights{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+    .mini{border-radius:16px;padding:14px;}
+    .mini .k{font-size:11px;color:var(--muted);margin-bottom:4px;}
+    .mini .v{font-size:14px;font-weight:700;line-height:1.45;}
+    .quote{padding:14px 16px;border-left:4px solid var(--accent);background:var(--accent-soft);
+      border-radius:14px;color:var(--ink);font-size:14px;line-height:1.65;}
+    .quote.blue{border-left-color:var(--accent-2);background:var(--accent-soft-2);}
+    .quote.green{border-left-color:var(--accent-2);background:var(--accent-soft-2);}
+    .ba-table{width:100%;border-collapse:separate;border-spacing:0;}
+    .ba-table th{background:rgba(31,41,51,.06);padding:8px 12px;font-size:12px;font-weight:700;
+      color:var(--muted);text-align:left;}
+    .ba-table th:first-child{border-radius:10px 0 0 0;}.ba-table th:last-child{border-radius:0 10px 0 0;}
+    .ba-table td{padding:8px 12px;font-size:13px;border-bottom:1px solid rgba(31,41,51,.06);}
+    .ba-table td:first-child{color:var(--muted);font-weight:600;}
+    .ba-table .before{color:var(--muted);}.ba-table .after{color:var(--accent-2);font-weight:700;}
+    .skill-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;
+      background:rgba(255,255,255,.72);border:1px solid rgba(31,41,51,.06);margin-bottom:8px;}
+    .skill-name{font-size:14px;font-weight:700;color:var(--ink);min-width:140px;}
+    .skill-desc{font-size:13px;color:var(--muted);line-height:1.4;}
+    .footer-note{display:flex;justify-content:space-between;align-items:center;gap:16px;
+      color:#77818a;font-size:12px;position:relative;z-index:2;}
+    .nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;
+      align-items:center;gap:12px;padding:10px 16px;border-radius:999px;
+      background:rgba(255,255,255,.72);box-shadow:0 16px 40px rgba(0,0,0,.12);
+      border:1px solid rgba(255,255,255,.75);backdrop-filter:blur(10px);z-index:100;}
+    .nav button{border:none;cursor:pointer;border-radius:999px;padding:9px 14px;
+      font-size:13px;font-weight:700;background:var(--accent);color:#fff;}
+    .nav button.secondary{background:#b6bec7;color:#14202b;}
+    .dots{display:flex;gap:6px;}
+    .dot{width:8px;height:8px;border-radius:50%;background:#c8cfd6;cursor:pointer;}
     .dot.active{background:var(--accent-2);}
-    .hint{font-size:12px; color:#6d7882;}
-
-    /* === PRINT === */
-    body, p, li, .meta-value, .desc, .time-desc, .sub, .lead, .quote {
-      word-break: keep-all; overflow-wrap: break-word; line-break: strict;
-    }
+    .hint{font-size:12px;color:#6d7882;}
+    /* approach cards */
+    .approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
+    .approach-card{border-radius:14px;padding:12px;border:2px solid transparent;background:rgba(255,255,255,.7);}
+    .approach-card.rejected{border-color:rgba(31,41,51,.08);opacity:.75;}
+    .approach-card.adopted{border-color:var(--accent);background:var(--accent-soft);}
+    .approach-card .ac-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;}
+    .approach-card.adopted .ac-label{color:var(--accent);}
+    .approach-card.rejected .ac-label{color:var(--muted);}
+    .approach-card .ac-title{font-size:13px;font-weight:700;margin-bottom:4px;}
+    .approach-card .ac-desc{font-size:12px;color:var(--muted);line-height:1.45;}
+    .approach-card .ac-verdict{font-size:11px;font-weight:700;margin-top:6px;}
+    .approach-card.adopted .ac-verdict{color:var(--accent);}
+    .approach-card.rejected .ac-verdict{color:var(--muted);}
+    /* troubleshoot cards */
+    .ts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .ts-card{border-radius:14px;padding:14px;background:rgba(255,255,255,.78);border:1px solid rgba(31,41,51,.06);}
+    .ts-card .ts-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+    .ts-card .ts-num{font-size:11px;font-weight:800;color:#fff;background:var(--accent-2);
+      width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .ts-card .ts-title{font-size:14px;font-weight:700;color:var(--ink);}
+    .ts-row{display:grid;grid-template-columns:40px 1fr;gap:4px;margin-bottom:4px;align-items:start;}
+    .ts-label{font-size:10px;font-weight:800;padding-top:1px;text-transform:uppercase;
+      letter-spacing:.06em;color:var(--muted);}
+    .ts-text{font-size:12px;color:var(--muted);line-height:1.45;}
+    /* trouble step boxes */
+    .ts-box{border-radius:10px;padding:10px;margin-bottom:6px;
+      background:rgba(31,41,51,.05);border-left:3px solid rgba(31,41,51,.15);}
+    .ts-box-label{font-size:10px;font-weight:800;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+    .ts-box p{font-size:13px;color:var(--ink);}
+    code{font-family:monospace;font-size:12px;background:rgba(31,41,51,.07);padding:2px 6px;border-radius:5px;color:var(--ink);}
+    body,p,li,.meta-value,.desc,.time-desc,.sub,.lead,.quote{word-break:keep-all;overflow-wrap:break-word;line-break:strict;}
     @media print{
-      @page{ size: A4 landscape; margin: 0; }
-      html, body{ width:297mm; height:auto; overflow:visible; }
-      body{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .deck{ display:block; width:auto; height:auto; padding:0; }
-      .slide{
-        display:flex !important; flex-direction:column; width:297mm; height:210mm;
-        min-height:210mm; max-height:210mm;
-        margin:0; border-radius:0; box-shadow:none; border:none;
-        backdrop-filter:none; break-after: page; page-break-after: always;
-        overflow:hidden;
-      }
-      .slide:last-child{ break-after: auto; }
-      .slide .slide-body{ overflow:hidden; }
-      .nav{ display:none !important; }
-      .grain{ display:none !important; }
+      @page{size:A4 landscape;margin:0;}html,body{width:297mm;height:auto;overflow:visible;}
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+      .deck{display:block;width:auto;height:auto;padding:0;}
+      .slide{display:flex!important;flex-direction:column;width:297mm;height:210mm;min-height:210mm;max-height:210mm;
+        margin:0;border-radius:0;box-shadow:none;border:none;backdrop-filter:none;
+        break-after:page;page-break-after:always;overflow:hidden;}
+      .slide:last-child{break-after:auto;}.slide .slide-body{overflow:hidden;}
+      .nav{display:none!important;}.grain{display:none!important;}
     }
-    @media (max-width: 980px){
-      .slide{height:auto; min-height:min(710px, 88vh); padding:20px;}
+    @media(max-width:980px){
+      .slide{height:auto;min-height:min(710px,88vh);padding:20px;}
       .hero,.section-grid,.project-hero{grid-template-columns:1fr;}
-      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr 1fr;}
-      .timeline-item{grid-template-columns:1fr;}
-      .col{overflow:visible;}
-      .profile-photo-wrap{min-width:120px !important; min-height:155px !important;}
+      .feature-list,.hero-meta,.stats,.project-highlights,.approach-grid,.ts-grid{grid-template-columns:1fr 1fr;}
+      .timeline-item{grid-template-columns:1fr;}.col{overflow:visible;}
     }
-    @media (max-width: 640px){
-      body{overflow:auto;}
-      .deck{padding:2vw; height:auto; min-height:100vh;}
-      .slide{
-        width:100%; height:auto; min-height:auto;
-        border-radius:16px; padding:16px;
-        grid-template-rows:auto auto auto;
-      }
-      h1{font-size:28px;}
-      h2{font-size:22px;}
-      h3{font-size:17px;}
-      .hero,.section-grid,.project-hero{gap:14px;}
-      .feature-list,.stack-grid,.hero-meta,.stats,.project-highlights{grid-template-columns:1fr;}
-      .stats{grid-template-columns:repeat(3,1fr);}
-      .skill-row{flex-direction:column; align-items:flex-start; gap:4px;}
-      .skill-name{min-width:auto;}
-      .stars{min-width:auto;}
-      .nav{padding:8px 12px; gap:8px; bottom:10px;}
-      .nav button{padding:7px 10px; font-size:12px;}
-      .hint{display:none;}
-      .ba-table th, .ba-table td{padding:6px 8px; font-size:11px;}
-      .profile-photo-wrap{min-width:100px !important; min-height:130px !important;}
-      .meta-value{font-size:13px !important;}
-      .page{font-size:11px; padding:4px 8px;}
-      .footer-note{font-size:11px;}
-      .pill{font-size:10px; padding:4px 8px;}
-      .tag{font-size:11px; padding:4px 10px;}
-      .quote{font-size:13px; padding:10px 12px;}
-      .mini .v{font-size:13px;}
-      .img-slot{min-height:120px !important;}
-      .img-slot.tall{min-height:140px !important;}
+    @media(max-width:640px){
+      body{overflow:auto;}.deck{padding:2vw;height:auto;min-height:100vh;}
+      .slide{width:100%;height:auto;min-height:auto;border-radius:16px;padding:16px;}
+      h1{font-size:28px;}h2{font-size:22px;}h3{font-size:17px;}
+      .feature-list,.stats,.project-highlights,.approach-grid,.ts-grid{grid-template-columns:1fr;}
+      .nav{padding:8px 12px;gap:8px;bottom:10px;}.nav button{padding:7px 10px;font-size:12px;}.hint{display:none;}
+      .ba-table th,.ba-table td{padding:6px 8px;font-size:11px;}
     }
   </style>
 </head>
@@ -448,197 +217,111 @@
 <div class="deck">
   <div class="progress" id="progress"></div>
 
-  <!-- ===== 01 COVER ===== -->
+  <!-- 01 COVER -->
   <section class="slide active">
     <div class="shape"></div><div class="shape2"></div><div class="shape3"></div>
-    <div class="topbar">
-      <div class="eyebrow">Full Stack Portfolio</div>
-      <div class="page">01 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Full Stack Portfolio</div><div class="page">01 / 16</div></div>
     <div class="slide-body">
     <div class="hero">
       <div class="hero-copy">
-        <div class="tags">
-          <span class="tag warm">React · TypeScript · Spring Boot</span>
-          <span class="tag">시스템 경계 설계</span>
-        </div>
+        <div class="tags"><span class="tag warm">React · Vue.js · Spring Boot</span><span class="tag">풀스택 (+AI/데이터)</span></div>
         <h1>채지원<br><span>Portfolio</span></h1>
-        <p class="lead">시스템 경계 문제를 설계로 풀어내는 풀스택 개발자. 프론트엔드와 백엔드를 분리하지 않고 데이터 흐름 전체를 설계합니다.</p>
-        <div class="quote">FE-BE 경계에서 발생하는 문제를 직접 분석하고 해결하며, 설계 의사결정에 근거를 남기는 개발자입니다.</div>
+        <p class="lead">기획부터 배포까지 서비스 전체를 설계하고, 도메인 데이터를 코드로 연결하는 풀스택 개발자입니다.</p>
+        <div class="quote">React/Vue.js 프론트엔드와 Spring Boot 백엔드를 동시에 설계·구현하며, AWS 배포와 Redis 실시간 처리까지 서비스 전 사이클을 경험했습니다. 생명과학과 컴퓨터공학 복수전공을 바탕으로, 도메인 데이터를 서비스 로직에 연결하는 데 강점이 있습니다.</div>
       </div>
-      <div class="glass" style="flex-direction:column; gap:14px;">
-        <div style="display:flex; gap:16px; align-items:center;">
-          <div class="profile-photo-wrap" style="min-width:150px; height:auto; min-height:195px;">
-            <img id="profile-cover-img" class="portfolio-img" src="images/profile.jpg" alt="프로필 사진"
-                 style="display:none; width:100%; height:100%; object-fit:cover; object-position:top center;"
-                 onload="this.style.display='block'; document.getElementById('profile-cover-placeholder').style.display='none';"
-                 onerror="">
-            <div id="profile-cover-placeholder" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-              <div style="font-size:28px;opacity:.35;">👤</div>
-              <div style="font-size:11px;font-weight:700;color:#5c6770;">프로필 사진</div>
+      <div class="glass" style="flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="profile-photo-wrap" style="min-width:150px;height:auto;min-height:195px;">
+            <img id="profile-cover-img" class="portfolio-img" src="images/profile.jpg" alt="프로필"
+              style="display:none;width:100%;height:100%;object-fit:cover;object-position:top center;"
+              onload="this.style.display='block';document.getElementById('pcp').style.display='none';" onerror="">
+            <div id="pcp" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+              <div style="font-size:28px;opacity:.35;">👤</div><div style="font-size:11px;font-weight:700;color:#5c6770;">프로필 사진</div>
             </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:8px; flex:1;">
-            <div class="meta-item">
-              <div class="meta-label">성격</div>
-              <div class="meta-value">열정가득 ENFP</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">이메일</div>
-              <div class="meta-value">ppg0226@naver.com</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">GitHub</div>
-              <div class="meta-value">github.com/jiwon0226</div>
-            </div>
+          <div style="display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div class="meta-item"><div class="meta-label">성격</div><div class="meta-value">열정가득 ENFP</div></div>
+            <div class="meta-item"><div class="meta-label">이메일</div><div class="meta-value">ppg0226&#64;naver&#46;com</div></div>
+            <div class="meta-item"><div class="meta-label">GitHub</div><div class="meta-value">github.com/jiwon0226</div></div>
           </div>
         </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div class="meta-item">
-            <div class="meta-label">희망 직무</div>
-            <div class="meta-value" style="font-size:13px;">풀스택 개발자 · 백엔드 개발자</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">학력</div>
-            <div class="meta-value" style="font-size:13px;">경기대학교 생명과학 · 컴퓨터공학 복수전공<br>2020.03 - 2025.02</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">교육</div>
-            <div class="meta-value" style="font-size:13px;">KSEB 3기 · LG CNS AM Inspire Camp 1기 · SSAFY 14기<br>2023.11 - 2026.06</div>
-          </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="meta-item"><div class="meta-label">희망 직무</div><div class="meta-value" style="font-size:13px;">풀스택 개발자 · 백엔드 개발자</div></div>
+          <div class="meta-item"><div class="meta-label">학력</div><div class="meta-value" style="font-size:13px;">경기대학교 생명과학·컴퓨터공학 복수전공 / 2020.03–2025.02</div></div>
+          <div class="meta-item"><div class="meta-label">교육</div><div class="meta-value" style="font-size:13px;">KSEB 3기 · LG CNS AM Inspire Camp 1기 · SSAFY 14기 / 2023.11–2026.06</div></div>
         </div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Full Stack Developer</span>
-      <span>채지원</span>
-    </div>
+    <div class="footer-note"><span>Full Stack Developer</span><span>채지원</span></div>
   </section>
 
-  <!-- ===== 02 ABOUT ===== -->
+  <!-- 02 ABOUT -->
   <section class="slide">
     <div class="shape"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Overview</div>
-      <div class="page">02 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Overview</div><div class="page">02 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>한눈에 보는 프로필</h2>
-        <div class="card">
-          <p>3개의 집중형 부트캠프와 10개 이상의 팀 프로젝트를 거치며, 단순 구현을 넘어 서비스 구조를 설계하고 문제를 수치로 해결하는 개발자로 성장했습니다. 프론트엔드 감각 위에 백엔드·인프라 경험을 더해 실제 서비스 완성도를 높이는 역할을 맡아왔습니다.</p>
-        </div>
+        <div class="card"><p>3개의 집중형 부트캠프와 10개 이상의 팀 프로젝트를 거치며, 단순 구현을 넘어 서비스 구조를 설계하고 문제를 수치로 해결하는 개발자로 성장했습니다. 프론트엔드 감각 위에 백엔드·인프라 경험을 더해, 기획부터 배포까지 서비스 전 사이클을 혼자서도 완성할 수 있습니다.</p></div>
         <div class="stats">
-          <div class="stat">
-            <div class="num">10+</div>
-            <div class="desc">팀 프로젝트 경험<br>기획부터 배포까지 수행</div>
-          </div>
-          <div class="stat">
-            <div class="num">3</div>
-            <div class="desc">집중형 부트캠프 수료<br>웹·모바일·클라우드 실전</div>
-          </div>
-          <div class="stat">
-            <div class="num">대상</div>
-            <div class="desc">LG CNS AM Inspire Camp<br>최종 프로젝트 1위</div>
-          </div>
+          <div class="stat"><div class="num">10+</div><div class="desc">팀 프로젝트 경험<br>기획부터 배포까지</div></div>
+          <div class="stat"><div class="num">3</div><div class="desc">집중형 부트캠프<br>웹·모바일·클라우드</div></div>
+          <div class="stat"><div class="num">대상</div><div class="desc">LG CNS Inspire Camp<br>최종 1위</div></div>
         </div>
-        <div class="card" style="margin-top:4px;">
-          <h4 style="margin-bottom:6px;">대학생활</h4>
-          <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:12px; color:var(--muted); line-height:1.5;">
+        <div class="card" style="margin-top:4px;"><h4 style="margin-bottom:6px;">대학생활</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
             <span class="pill" style="font-size:11px;">융합과학대학 학생회 차장</span>
             <span class="pill" style="font-size:11px;">학과 2학년 대표</span>
-            <span class="pill" style="font-size:11px;">뮤지컬 동아리 배우, 조연출</span>
-            <span class="pill" style="font-size:11px;">볼링 동아리</span>
-            <span class="pill" style="font-size:11px;">캘리그라피 동아리</span>
+            <span class="pill" style="font-size:11px;">뮤지컬 동아리 배우·조연출</span>
+            <span class="pill" style="font-size:11px;">볼링·캘리그라피 동아리</span>
           </div>
         </div>
       </div>
       <div class="col">
-        <div class="card">
-          <h3 style="margin-bottom:10px;">핵심 강점</h3>
+        <div class="card"><h3 style="margin-bottom:10px;">핵심 강점</h3>
           <div class="feature-list">
-            <div class="feature">
-              <strong>시스템 경계 설계</strong>
-              <p>Three.js·React, Unity·React, GeoJSON·게임좌표 등 다중 시스템 경계에서 발생하는 문제 6건 직접 해결.</p>
-            </div>
-            <div class="feature">
-              <strong>DB 쿼리 최적화</strong>
-              <p>N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). Bulk Fetch + Memory Mapping 패턴 적용.</p>
-            </div>
-            <div class="feature">
-              <strong>도메인 지식 기반 설계</strong>
-              <p>주식시장 운영시간을 코드 로직에 반영해 일일 API 호출 60% 감소. 도메인 규칙이 코드를 설명하는 개발자.</p>
-            </div>
-            <div class="feature">
-              <strong>풀스택 시야</strong>
-              <p>FE만 가능한 것에 전달하지 않고, BE에서 데이터가 어떻게 흐르는지 파악하고 FE 설계에 반영.</p>
-            </div>
-            <div class="feature">
-              <strong>분위기 메이커</strong>
-              <p>팀 분위기를 부드럽게 만든다는 평가를 여러 팀에서 받음. 뮤지컬 동아리 조연출 경험으로 조율 역량 체득.</p>
-            </div>
-            <div class="feature">
-              <strong>끈기 + 주도성</strong>
-              <p>없으면 직접 만드는 사고방식. 복수전공생 커뮤니티 직접 생성, 학과 대표·학생회 차장 등 주도적 활동.</p>
-            </div>
+            <div class="feature"><strong>도메인 데이터를 코드로</strong><p>주식 장 마감 시간을 폴링 로직에 반영해 일일 API 60% 감소. 생명과학 복수전공 기반 도메인 연결 사고.</p></div>
+            <div class="feature"><strong>FE + BE 동시 설계</strong><p>버블팝업·아마겟돈·EatIt 3개 프로젝트에서 FE와 BE를 동시 담당. 데이터 흐름 전체를 설계.</p></div>
+            <div class="feature"><strong>설계 기여 · 아키텍처</strong><p>버블팝업에서 3가지 구조 문제를 정의하고 서버 권한형 온디맨드 방안 제안·채택. 인프라 팀과 아키텍처 협업.</p></div>
+            <div class="feature"><strong>서비스 전 사이클</strong><p>EatIt에서 기획→FE→BE→AWS EC2(Nginx, HTTPS, DNS) 전 과정 단독 완성.</p></div>
+            <div class="feature"><strong>시스템 경계 해결</strong><p>Three.js↔React, Unity↔React, GeoJSON↔게임좌표 등 경계 문제 반복 해결.</p></div>
+            <div class="feature"><strong>끈기 + 주도성</strong><p>복수전공생 커뮤니티 직접 생성, 학과 대표·학생회 차장 등 없으면 만드는 사고방식.</p></div>
           </div>
         </div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Summary</span>
-      <span>About Me</span>
-    </div>
+    <div class="footer-note"><span>Summary</span><span>About Me</span></div>
   </section>
 
-  <!-- ===== 03 SKILLS ===== -->
+  <!-- 03 SKILLS -->
   <section class="slide">
     <div class="shape3"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Tech Stack</div>
-      <div class="page">03 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Tech Stack</div><div class="page">03 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>기술 스택</h2>
-        <div class="skill-row">
-          <div class="skill-name">React</div>
-          <div class="stars">★★★★☆</div>
-          <div class="skill-desc">Three.js 연동, 인증 인터셉터, 커스텀 훅, 성능 최적화</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-name">Java / Spring Boot</div>
-          <div class="stars">★★★☆☆</div>
-          <div class="skill-desc">REST API, Spring Security(JWT), Spring Cloud, 스케줄러</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-name">JavaScript / TypeScript</div>
-          <div class="stars">★★★☆☆</div>
-          <div class="skill-desc">SPA 구축, 타입 안전 컴포넌트 설계, 비동기 처리</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-name">Vue.js / React Native</div>
-          <div class="stars">★★★☆☆</div>
-          <div class="skill-desc">Pinia 상태관리, Bare RN 마이그레이션, FCM 알림</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-name">MySQL / Redis</div>
-          <div class="stars">★★★☆☆ / ★★☆☆☆</div>
-          <div class="skill-desc">N+1 해결, ERD 설계, 실시간 카운터, 캐시/fallback 전략</div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-name">Docker / AWS</div>
-          <div class="stars">★★☆☆☆</div>
-          <div class="skill-desc">docker-compose, GitLab CI/CD, S3 Presigned URL, EC2</div>
-        </div>
+        <div class="skill-row"><div class="skill-name">JavaScript / TypeScript</div><div style="font-size:13px;font-weight:700;color:var(--accent);min-width:36px;">중상</div><div class="skill-desc">6개 이상 프로젝트 FE 주도. 디바운싱, IME 처리, 낙관적 업데이트, Custom Event 패턴 등 실전 최적화</div></div>
+        <div class="skill-row"><div class="skill-name">React / React Native</div><div style="font-size:13px;font-weight:700;color:var(--accent);min-width:36px;">중상</div><div class="skill-desc">아마겟돈, 버블팝업(Three.js 3D), KEYWE(Bare RN) 등 5개 프로젝트 FE 주도</div></div>
+        <div class="skill-row"><div class="skill-name">Vue.js 3</div><div style="font-size:13px;font-weight:700;color:var(--accent-2);min-width:36px;">중</div><div class="skill-desc">EatIt — Vue 3 + TypeScript + Pinia SPA 독립 설계·구현</div></div>
+        <div class="skill-row"><div class="skill-name">Java / Spring Boot</div><div style="font-size:13px;font-weight:700;color:var(--accent-2);min-width:36px;">중</div><div class="skill-desc">아마겟돈(학습 API, 업적, N+1 해결), EatIt(게임 로직), 버블팝업(온디맨드 엔진)</div></div>
+        <div class="skill-row"><div class="skill-name">MySQL</div><div style="font-size:13px;font-weight:700;color:var(--accent-2);min-width:36px;">중</div><div class="skill-desc">ERD 설계, 정규화/비정규화 의사결정, 복합키, MyBatis/JPA</div></div>
+        <div class="skill-row"><div class="skill-name">Redis</div><div style="font-size:13px;font-weight:700;color:var(--muted);min-width:36px;">중하</div><div class="skill-desc">업적 카운터(Redis+DB 분리), 게임 실시간 구간 스냅샷 저장</div></div>
+        <div class="skill-row"><div class="skill-name">Docker / AWS</div><div style="font-size:13px;font-weight:700;color:var(--muted);min-width:36px;">중하</div><div class="skill-desc">Docker Compose, GitHub Actions, EC2(Nginx, HTTPS, DNS), S3 Presigned URL</div></div>
+        <div class="skill-row"><div class="skill-name">Hadoop / Spark</div><div style="font-size:13px;font-weight:700;color:var(--muted);min-width:36px;">중하</div><div class="skill-desc">뉴스 ETL, KoNLPy 형태소 분석, 트렌드 score 산출 (버블팝업)</div></div>
       </div>
       <div class="col">
-        <div class="card">
-          <h3 style="margin-bottom:12px;">기술을 다루는 방식</h3>
+        <div class="card"><h3 style="margin-bottom:10px;">숙련도 기준</h3>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="color:#c76d3b;font-weight:700;min-width:36px;">중상</span><span style="color:#5c6770;">주도적 개발, 코드 리뷰·최적화, 실전 패턴 적용</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="color:#3b6fc7;font-weight:700;min-width:36px;">중</span><span style="color:#5c6770;">독립적 개발, 문서 활용하여 최적화</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;"><span style="color:#5c6770;font-weight:700;min-width:36px;">중하</span><span style="color:#5c6770;">문서 참고하여 프로젝트 참여, 기본 구성 가능</span></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:4px;"><h3 style="margin-bottom:10px;">기술을 다루는 방식</h3>
           <ul>
             <li>새로운 도구를 빠르게 익히되, 사용 이유와 제약을 먼저 파악합니다.</li>
             <li>기능 구현보다 데이터 흐름과 상태 정합성을 먼저 설계합니다.</li>
@@ -646,694 +329,570 @@
             <li>FE·BE·인프라 사이의 번역자 역할을 자주 맡았습니다.</li>
           </ul>
         </div>
-        <div class="card" style="margin-top:4px;">
-          <h3 style="margin-bottom:12px;">협업 도구</h3>
-          <div class="tags" style="margin-bottom:14px;">
-            <span class="tag">Git</span>
-            <span class="tag">GitHub</span>
-            <span class="tag">GitLab</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Jira</span>
-            <span class="tag">Notion</span>
-          </div>
-          <h3 style="margin-bottom:10px; font-size:15px;">숙련도 기준</h3>
-          <div style="display:flex; flex-direction:column; gap:6px;">
-            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
-              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★★★☆</span>
-              <span style="color:#5c6770;">핵심 개발 담당, 코드 리뷰·최적화</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
-              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★★☆☆</span>
-              <span style="color:#5c6770;">독립적 개발, 문서 활용하여 최적화</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px; font-size:13px;">
-              <span style="color:#c76d3b; font-weight:700; min-width:80px;">★★☆☆☆</span>
-              <span style="color:#5c6770;">문서 참고하여 프로젝트 참여</span>
-            </div>
-          </div>
-        </div>
+        <div class="card" style="margin-top:4px;"><div class="tags"><span class="tag">Git · GitHub · GitLab</span><span class="tag">Figma · Jira · Notion</span></div></div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Tech & Collaboration</span>
-      <span>Stack</span>
-    </div>
+    <div class="footer-note"><span>Tech & Collaboration</span><span>Stack</span></div>
   </section>
 
-  <!-- ===== 04 EDUCATION & AWARDS ===== -->
+  <!-- 04 EDUCATION -->
   <section class="slide">
     <div class="shape"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Education & Awards</div>
-      <div class="page">04 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Education & Awards</div><div class="page">04 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
         <h2>교육 이수</h2>
         <div class="timeline">
-          <div class="timeline-item">
-            <div class="time">2025.07 — 2026.06</div>
-            <div>
-              <div class="time-title">삼성청년SW·AI아카데미(SSAFY) 14기</div>
-              <div class="time-desc">Java 웹 개발, Vue.js, TypeScript, AI 활용. 알고리즘 A형 전공자 수료 인증 요건 달성, 빅데이터 분산 프로젝트 우수상, 이달의 동료상, CS스터디 우수상.</div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="time">2024.12 — 2025.06</div>
-            <div>
-              <div class="time-title">LG CNS AM Inspire Camp 1기</div>
-              <div class="time-desc">클라우드 아키텍처, MSA 설계, Docker·Kubernetes, CI/CD 중심 실무형 교육. 최종 프로젝트 경연 대상 수상.</div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="time">2023.12 — 2024.11</div>
-            <div>
-              <div class="time-title">KSEB 3기 (623시간)</div>
-              <div class="time-desc">React 기반 프론트엔드, UI/UX 설계, API 연동 실습 중심 교육.</div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="time">2020.03 — 2025.02</div>
-            <div>
-              <div class="time-title">경기대학교 — 생명과학+컴퓨터공학 복수전공</div>
-              <div class="time-desc">자료구조, 알고리즘, OS, 컴퓨터비전, 캡스톤 설계. 복수전공생 커뮤니티 직접 생성 운영.</div>
-            </div>
-          </div>
+          <div class="timeline-item"><div class="time">2025.07 — 2026.06</div><div><div class="time-title">삼성청년SW·AI아카데미(SSAFY) 14기</div><div class="time-desc">Java 웹 개발, Vue.js/TypeScript, AI 기초. 팀 프로젝트 3회(EatIt·아마겟돈·버블팝업). 알고리즘 A형, 이달의 동료상, CS 스터디 우수상, 빅데이터 분산 우수상.</div></div></div>
+          <div class="timeline-item"><div class="time">2024.12 — 2025.06</div><div><div class="time-title">LG CNS AM Inspire Camp 1기</div><div class="time-desc">MSA, Docker/Kubernetes, CI/CD, 애자일 팀 개발. 최종 프로젝트 대상(KEYWE). 미니프로젝트 비공식 1위(취업봇다리).</div></div></div>
+          <div class="timeline-item"><div class="time">2023.12 — 2024.11</div><div><div class="time-title">K-Software Empowerment BootCamp 3기 (623h)</div><div class="time-desc">React 기반 프론트엔드, UI/UX 설계, API 연동 실습 중심 교육.</div></div></div>
+          <div class="timeline-item"><div class="time">2020.03 — 2025.02</div><div><div class="time-title">경기대학교 생명과학+컴퓨터공학 복수전공</div><div class="time-desc">자료구조, 알고리즘, OS, 컴퓨터비전, 캡스톤. 복수전공생 커뮤니티 직접 생성 운영.</div></div></div>
         </div>
       </div>
       <div class="col">
         <h2>수상 및 성과</h2>
         <div class="stats" style="grid-template-columns:1fr 1fr 1fr;">
-          <div class="stat">
-            <div class="num">대상</div>
-            <div class="desc">LG CNS AM Inspire Camp 1기<br>최종 프로젝트 1위</div>
-          </div>
-          <div class="stat">
-            <div class="num">A형</div>
-            <div class="desc">SSAFY 알고리즘 역량 인증<br>전공자 수료 인증 요건 달성</div>
-          </div>
-          <div class="stat">
-            <div class="num">우수상</div>
-            <div class="desc">SSAFY 14기 2학기<br>빅데이터 분산 프로젝트</div>
-          </div>
-          <div class="stat">
-            <div class="num">동상</div>
-            <div class="desc">한국정보기술학회<br>Byte The Blue · 미용 예약 통합</div>
-          </div>
-          <div class="stat">
-            <div class="num">IH</div>
-            <div class="desc">OPIc Intermediate High<br>2025.08 취득</div>
-          </div>
+          <div class="stat"><div class="num">대상</div><div class="desc">LG CNS Inspire Camp 1기 최종 1위</div></div>
+          <div class="stat"><div class="num">A형</div><div class="desc">SSAFY 알고리즘 역량 인증</div></div>
+          <div class="stat"><div class="num">우수상</div><div class="desc">SSAFY 빅데이터 분산 프로젝트</div></div>
+          <div class="stat"><div class="num">동상×2</div><div class="desc">한국정보기술학회 논문 2편</div></div>
+          <div class="stat"><div class="num">IH</div><div class="desc">OPIc 2025.08 취득</div></div>
         </div>
-        <div class="card">
-          <p>학습 과정에서 끝내지 않고, 결과물을 대회·발표·문서화 형태로 마무리해 성과로 연결해왔습니다.</p>
-        </div>
+        <div class="card"><p>이달의 동료상은 팀원들이 직접 선정한 수상으로, 협업 방식을 가장 잘 보여주는 증거입니다. 학습 결과를 대회·발표·문서화로 마무리해 성과로 연결해왔습니다.</p></div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Growth Journey</span>
-      <span>Education</span>
-    </div>
+    <div class="footer-note"><span>Growth Journey</span><span>Education</span></div>
   </section>
 
-  <!-- ===== 05 PROJECT 01 — 버블팝업 개요 ===== -->
+  <!-- 05 버블팝업 Overview -->
   <section class="slide">
     <div class="shape2"></div><div class="shape3"></div>
-    <div class="topbar">
-      <div class="eyebrow">Project 01 — Overview</div>
-      <div class="page">05 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Project 01 — Overview</div><div class="page">05 / 16</div></div>
     <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
         <h2>버블팝업</h2>
-        <p class="sub">서울시 유동인구·교통량 데이터와 뉴스 데이터 기반 실시간 팝업스토어 경영 시뮬레이션 · SSAFY 빅데이터 분산 도메인 우수상<br>React 19 · TypeScript · Three.js(React Three Fiber) · Spring Boot · Redis · Spark · Kafka</p>
+        <p class="sub">실제 뉴스 데이터 기반 트렌드 분석이 게임 플레이에 영향을 주는 실시간 팝업스토어 경영 시뮬레이션 · SSAFY 빅데이터 분산 도메인 우수상<br>React 19 · TypeScript · Three.js · Spring Boot · Redis · HDFS · Spark · KoNLPy · AWS EC2/S3 · GitLab CI/CD</p>
         <div class="pill-row">
-          <span class="pill">3D 서울 지도</span>
-          <span class="pill">실시간 게임 서버</span>
-          <span class="pill">Unity·React 하이브리드</span>
-          <span class="pill">온디맨드 계산 아키텍처</span>
+          <span class="pill hl">🏆 서버 권한형 구조 제안·채택</span>
+          <span class="pill">3D 서울 지도</span><span class="pill">Unity·React 하이브리드</span><span class="pill">Spark ETL</span>
         </div>
-        <div class="quote">GeoJSON Douglas-Peucker 적용으로 좌표 포인트 60% 감소. Three.js·React 하이브리드 구조에서 발생한 시스템 경계 문제 6건 직접 해결.</div>
-        <div class="project-highlights" style="margin-top:4px;">
-          <div class="mini">
-            <div class="k">내 역할</div>
-            <div class="v">기획·설계 참여, FE — 3D 지도, Unity·React 하이브리드 UI, 인증 시스템, 랜딩 페이지, BE — 액션 도메인 개발 참여</div>
-          </div>
-          <div class="mini">
-            <div class="k">팀 구성</div>
-            <div class="v">6인 (풀스택 5명 + 인프라·Unity 1명) / 2026.03~2026.04</div>
-          </div>
-          <div class="mini" style="grid-column:1/3;">
-            <div class="k">핵심 설계</div>
-            <div class="v">온디맨드 계산 아키텍처 — 10초 틱 상시 계산 대신, 액션/이벤트/재접속 시점에만 구간 계산. Redis(실시간 상태) + MySQL(영구 저장) 이원화.<br>FE 연출용 계산 → 서버 응답 덮어쓰기(서버 권한형)</div>
-          </div>
+        <div class="project-highlights" style="margin-top:6px;">
+          <div class="mini"><div class="k">FE 기여 50%</div><div class="v">3D 서울 지도(V1→V3), Unity 오버레이 게임 UI, 랜딩·대시보드, 인증(Zustand+토큰 갱신)</div></div>
+          <div class="mini"><div class="k">BE 기여 50%</div><div class="v">구간 기반 온디맨드 계산, 시즌 시작/종료, 스케줄러 분리, 외부 API 배치+캐시+fallback</div></div>
+          <div class="mini"><div class="k">기획·설계 기여</div><div class="v">3가지 구조 문제 정의 → 온디맨드 서버 권한형 방안 제안·채택 → 인프라 팀과 아키텍처 협업</div></div>
+          <div class="mini"><div class="k">팀 구성</div><div class="v">6인 (풀스택 5 + 인프라·Unity 1) / 2026.03~04</div></div>
         </div>
+        <div class="quote">GeoJSON Douglas-Peucker로 좌표 60% 감소. 게임 동기화·위변조 문제를 해결하는 구조적 방안을 내가 제안하고 팀이 채택했습니다.</div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="img-slot tall">
-          <img class="portfolio-img" src="images/bubble_main.png" alt="서비스 대표 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-
-            <div class="slot-label">서비스 대표 화면</div>
-          </div>
-        </div>
-        <div class="img-slot">
-          <img class="portfolio-img" src="images/bubble_ui.png" alt="게임 UI 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-
-            <div class="slot-label">게임 UI 화면</div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="img-slot tall"><img class="portfolio-img" src="images/bubble_main.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">서비스 대표 화면</div></div></div>
+        <div class="img-slot"><img class="portfolio-img" src="images/bubble_ui.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">게임 UI 화면</div></div></div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Realtime · 3D Visualization · Architecture</span>
-      <span>Bubble Pop-Up 01</span>
-    </div>
+    <div class="footer-note"><span>Realtime · 3D · Data Pipeline · Architecture</span><span>Bubble Pop-Up 01</span></div>
   </section>
 
-  <!-- ===== 06 PROJECT 01 — 버블팝업 기술/문제해결 ===== -->
+  <!-- 06 버블팝업 FE -->
   <section class="slide">
-    <div class="shape"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Project 01 — Tech & Problem Solving</div>
-      <div class="page">06 / 11</div>
-    </div>
+    <div class="shape3"></div><div class="shape2"></div>
+    <div class="topbar"><div class="eyebrow">Project 01 — Frontend</div><div class="page">06 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
-        <h3>FE 구현</h3>
+        <h3>3D 서울 지도 — V1 → V2 → V3 진화</h3>
         <div class="card">
           <ul>
-            <li><strong>3D 서울 지도:</strong> 공공 GeoJSON 직접 가공. Douglas-Peucker로 좌표 60% 감소. 한강 메시 생성.</li>
-            <li><strong>Unity+React 하이브리드 UI:</strong> bg-transparent 레이어. 액션 5개 모달, ModalWrapper 공통화.</li>
-            <li><strong>인증 시스템:</strong> 401 interceptor + failedQueue 큐 패턴. 무한루프 방지.</li>
+            <li><strong>V1 (수동 좌표):</strong> 8개 구역 꼭짓점을 직접 입력. 빠른 프로토타입이었지만 정확도 낮음.</li>
+            <li><strong>V2 (공유 꼭짓점):</strong> 인접 구역이 경계를 공유하도록 개선. 틈새·겹침 해결.</li>
+            <li><strong>V3 (공공 GeoJSON):</strong> 서울시 공공 GeoJSON 직접 가공. Douglas-Peucker로 좌표 포인트 <strong>60% 감소</strong>. 한강 메시 별도 생성.</li>
           </ul>
         </div>
-        <h3 style="margin-top:4px;">BE 설계 · 액션 도메인</h3>
+        <h3 style="margin-top:4px;">Unity + React 하이브리드 UI</h3>
         <div class="card">
           <ul>
-            <li><strong>온디맨드 계산 아키텍처:</strong> 유입률·판매가 변경 시점을 구간으로 나누고, 액션/이벤트/재접속 시에만 계산. 상시 계산 대비 불필요 연산 제거.</li>
-            <li><strong>역할 분리:</strong> FE는 화면 연출용 값 자체 계산 → 서버 응답으로 덮어쓰기. BE가 최종 상태 확정(서버 권한형).</li>
-            <li><strong>트러블슈팅:</strong> Spark score 스케일 불일치로 손님 수 0 → 틱 로그 추적 후 계산식 재설계. 시즌 시작 지연 시 게임 시간 밀림 → startTime 실시간 갱신으로 해결.</li>
+            <li><strong>레이어 구조:</strong> Unity 3D 배경 위에 React bg-transparent 오버레이. z-index 충돌 문제 직접 해결.</li>
+            <li><strong>5개 액션 모달:</strong> 발주·가격·홍보·인플루언서·이벤트. ModalWrapper 공통화로 일관된 진입/퇴장 애니메이션.</li>
           </ul>
         </div>
-        <h3 style="margin-top:4px;">문제 해결: z-index 충돌</h3>
+        <h3 style="margin-top:4px;">인증 — Zustand + failedQueue</h3>
         <div class="card">
+          <ul>
+            <li>401 응답 시 failedQueue 패턴으로 동시 갱신 요청 처리. 토큰 갱신 도중 들어온 요청을 큐에 보관, 갱신 완료 후 일괄 재전송. 무한루프 방지 로직 별도 구현.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div style="display:flex;gap:10px;flex:1;min-height:160px;">
+          <div class="img-slot" style="flex:1;"><img class="portfolio-img" src="images/bubble_map_v1.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1;width:100%;"><div class="slot-label">V1 & V2 (수동 좌표 → 공유 꼭짓점)</div></div></div>
+          <div class="img-slot" style="flex:1;"><img class="portfolio-img" src="images/bubble_map_diff.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;z-index:1;width:100%;"><div class="slot-label">V3 (GeoJSON)</div></div></div>
+        </div>
+        <div class="img-slot" style="flex:1;min-height:130px;"><img class="portfolio-img" src="images/bubble_ui.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">Unity 오버레이 게임 UI</div></div></div>
+        <div class="quote blue" style="font-size:13px;">"대부분의 문제가 두 시스템의 경계에서 발생했다. Three.js↔React DOM, GeoJSON↔게임좌표계, Unity↔React 레이어. 경계를 분석하는 능력이 풀스택 개발자의 핵심."</div>
+      </div>
+    </div>
+    </div>
+    <div class="footer-note"><span>3D Map V1→V3 · Hybrid UI · Auth</span><span>Bubble Pop-Up — FE</span></div>
+  </section>
+
+  <!-- 07 버블팝업 BE Architecture Decision -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar"><div class="eyebrow">Project 01 — Architecture Decision</div><div class="page">07 / 16</div></div>
+    <div class="slide-body">
+    <div class="section-grid">
+      <div class="col">
+        <h3>설계 기여 — 구조 문제 정의 & 방안 제안</h3>
+        <div class="card" style="margin-bottom:8px;">
+          <h4 style="margin-bottom:8px;color:var(--accent);">팀이 직면한 3가지 구조적 문제</h4>
+          <ul>
+            <li><strong>시즌 로그 과부하:</strong> 게임 1회당 1만+ 건 이상 로그 → RDB 직접 저장 시 부하</li>
+            <li><strong>FE-BE 동기화 불일치:</strong> 일정 주기 동기화 사이 발생한 상태 변화를 어떻게 반영할 것인가</li>
+            <li><strong>클라이언트 위변조:</strong> localStorage 재고·잔액 → 개발자 도구로 수정 가능 → 공정성 붕괴</li>
+          </ul>
+        </div>
+        <div class="approach-grid">
+          <div class="approach-card rejected"><div class="ac-label">방안 1</div><div class="ac-title">전체 파이프라인형</div><div class="ac-desc">Redis + Kafka + Spark 상시 파이프라인. 모든 틱을 이벤트로 처리.</div><div class="ac-verdict">복잡도 과도 — 미채택</div></div>
+          <div class="approach-card adopted"><div class="ac-label">방안 2 — 채택 · 내 제안</div><div class="ac-title">온디맨드 구간 계산</div><div class="ac-desc">서버 권한형. 평상시 계산 없음. 액션/이벤트/재접속 시점에만 구간 계산. 시드로 재현 가능.</div><div class="ac-verdict">채택 — 팀 전체 동의</div></div>
+          <div class="approach-card rejected"><div class="ac-label">방안 3</div><div class="ac-title">Zustand + 스냅샷형</div><div class="ac-desc">클라이언트 메모리 계산 + localStorage 스냅샷 + 서버 승인.</div><div class="ac-verdict">위변조 잔존 — 미채택</div></div>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:6px;">방안 2 — 5가지 서버 개입 타이밍</h4>
           <table class="ba-table">
-            <tr><th>항목</th><th class="before">Before</th><th class="after">After</th></tr>
-            <tr><td>모달 노출</td><td class="before">3D 라벨에 가려 클릭 불가</td><td class="after">정상 노출 및 클릭 가능</td></tr>
-            <tr><td>좌표 포인트</td><td class="before">[원본 수치]</td><td class="after">약 60% 감소</td></tr>
+            <tr><th>타이밍</th><th>서버가 하는 일</th></tr>
+            <tr><td>영업 준비</td><td style="color:var(--ink);">hourlySchedule·시드·이벤트 스케줄 전달. Redis 초기값 저장.</td></tr>
+            <tr><td>액션 발생</td><td style="color:var(--ink);">마지막 저장~현재까지 구간 계산. 유입률/판매가 변경. Redis 스냅샷 추가.</td></tr>
+            <tr><td>재접속</td><td style="color:var(--ink);">Redis 이력으로 현재 시점까지 온디맨드 계산 → 완벽 복원.</td></tr>
+            <tr><td>영업 마감</td><td style="color:var(--ink);">최종 구간 계산. 정산. MySQL 저장. Kafka 발행.</td></tr>
           </table>
         </div>
       </div>
       <div class="col">
-        <div class="img-slot tall">
-          <img class="portfolio-img" src="images/bubble_arch.png" alt="시스템 아키텍처 다이어그램"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
+        <div class="img-slot" style="min-height:90px;"><img class="portfolio-img" src="images/bubble_be_erd.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">BE ERD</div></div></div>
+        <div class="img-slot tall"><img class="portfolio-img" src="images/bubble_arch.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">전체 아키텍처 다이어그램</div></div></div>
+        <div class="card">
+          <h4 style="margin-bottom:6px;">시드(Seed) 방식 — 재현 가능한 랜덤성</h4>
+          <p style="font-size:13px;">손님 구매량(0~3개)을 그때그때 <code>Math.random()</code>으로 결정하면 서버 검증 불가 + 재접속 복원 불가. 시즌 시작 전 서버가 유저별 시드 배정. 서버·FE가 같은 시드를 순서대로 소모 → 어느 쪽에서 계산해도 동일한 결과. SSE 없이도 클라이언트가 이벤트 스케줄을 들고 있다가 시각이 되면 서버에 직접 요청.</p>
+        </div>
+        <div class="quote green" style="font-size:13px;">이 방안 채택 후 인프라 역할자와 Redis 이력 구조 및 Kafka 연동 방식을 함께 설계했습니다.</div>
+      </div>
+    </div>
+    </div>
+    <div class="footer-note"><span>Architecture Decision · On-Demand · Seed</span><span>Bubble Pop-Up — 설계</span></div>
+  </section>
 
-            <div class="slot-label">시스템 아키텍처 다이어그램</div>
+  <!-- 08 버블팝업 BE Implementation -->
+  <section class="slide">
+    <div class="shape3"></div><div class="shape"></div>
+    <div class="topbar"><div class="eyebrow">Project 01 — Backend Implementation</div><div class="page">08 / 16</div></div>
+    <div class="slide-body">
+    <div class="section-grid">
+      <div class="col">
+        <h3>BE 구현 상세</h3>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">① 스케줄러 기능 분리</h4>
+          <ul>
+            <li><strong>GameTickScheduler (10초):</strong> 실시간 상태 조회·브로드캐스트만 담당. 계산 로직 없음.</li>
+            <li><strong>SeasonDayClosingScheduler:</strong> 하루 마감 처리 전담 — 최종 구간 계산, MySQL 정산 저장, Kafka 발행. 관심사를 명확히 분리해 유지보수성 향상.</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:8px;">② Redis 이력 구조 (구간 스냅샷)</h4>
+          <p style="font-size:13px;margin-bottom:8px;">유입률·판매가·유동인구배수가 바뀌는 순간마다 스냅샷을 Redis에 누적. 이 이력만 있으면 어느 시점에서든 잔액·재고를 독립 재계산 가능.</p>
+          <div style="background:rgba(31,41,51,.05);border-radius:10px;padding:10px;font-size:12px;font-family:monospace;color:var(--ink);line-height:1.7;">
+            { 시각:"10:00", 유입률:0.147, 판매가:4000, 유동인구배수:1.1, 시드위치:0 }<br>
+            { 시각:"12:30", 유입률:0.396, 판매가:3200, 유동인구배수:1.1, 시드위치:38 }<br>
+            { 시각:"14:00", 유입률:0.475, 판매가:3200, 유동인구배수:1.265, 시드위치:74 }
           </div>
         </div>
-        <div class="img-slot">
-          <img class="portfolio-img" src="images/bubble_map_diff.png" alt="3D 서울 지도 Before/After"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-
-            <div class="slot-label">3D 서울 지도 Before/After</div>
-          </div>
+      </div>
+      <div class="col">
+        <div class="card" style="margin-bottom:8px;">
+          <h4 style="margin-bottom:8px;">③ 외부 API 배치 + 캐시 + fallback</h4>
+          <ul>
+            <li>뉴스·유동인구 외부 API 호출은 배치로 처리해 부하 분산.</li>
+            <li>Redis 캐시로 중복 호출 방지. fallback: API 실패 시 이전 캐시 데이터 사용.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 style="margin-bottom:8px;color:var(--accent);">트러블슈팅 — Spark ETL 스케일 불일치</h4>
+          <div class="ts-box prob"><div class="ts-box-label">PROBLEM</div><p>게임 내 손님 수가 계속 0으로 산출됨. 매출이 발생하지 않아 게임 정상 진행 불가.</p></div>
+          <div class="ts-box cause"><div class="ts-box-label">ROOT CAUSE</div><p>Spark ETL이 유동인구 원본 데이터를 0~20 score로 정규화했는데, BE 손님 수 계산식은 수천 단위의 실제 수치를 전제로 설계됨. 두 시스템의 scale이 불일치.</p></div>
+          <div class="ts-box solve"><div class="ts-box-label">SOLUTION</div><p>10초 틱 로그에 <code>customerCount</code>·<code>cash</code>·<code>totalStock</code> 추가해 원인 추적. Spark score 범위(0~20) 기준으로 손님 수 계산식 전면 재설계. <strong>손님 수 0 → 정상 범위 산출, 매출 정상 발생.</strong></p></div>
         </div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Problem Solving · System Design</span>
-      <span>Bubble Pop-Up 02</span>
-    </div>
+    <div class="footer-note"><span>Scheduler Split · Redis Snapshot · Spark Troubleshooting</span><span>Bubble Pop-Up — BE</span></div>
   </section>
 
-  <!-- ===== 07 PROJECT 02 — 아마Get돈 ===== -->
+  <!-- 09 아마겟돈 Overview -->
   <section class="slide">
     <div class="shape"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Project 02</div>
-      <div class="page">07 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Project 02 — Overview</div><div class="page">09 / 16</div></div>
     <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
         <h2>아마Get돈</h2>
-        <p class="sub">한국투자증권 API 기반 투자 초보자를 위한 모의 투자 · 학습 · 업적 서비스. 핵심 서비스 설계 및 개발 주도<br>React 18 · TypeScript · lightweight-charts · Spring Boot 3 · JPA · Redis · FastAPI</p>
+        <p class="sub">20~30대 초보 투자자를 위한 투자 성향 기반 맞춤 학습 + 모의투자 금융 학습 플랫폼<br>React 18 · TypeScript · lightweight-charts · Spring Boot 3 · JPA · Redis · FastAPI</p>
         <div class="pill-row">
-          <span class="pill">FE + BE 동시 담당</span>
-          <span class="pill">N+1 해결</span>
-          <span class="pill">폴링 최적화</span>
-          <span class="pill">업적 시스템</span>
+          <span class="pill">FE 60% + BE 40% 동시</span><span class="pill">N+1 해결 98%↓</span><span class="pill">API 호출 60%↓</span><span class="pill">업적 시스템</span>
         </div>
         <div class="project-highlights" style="margin-top:6px;">
-          <div class="mini">
-            <div class="k">FE 구현</div>
-            <div class="v">투자 페이지, 학습, 업적, AI 성향분석, 헤더, 라우트 가드</div>
-          </div>
-          <div class="mini">
-            <div class="k">BE 구현</div>
-            <div class="v">학습 로드맵 API (N+1 해결), 업적 시스템 (Redis), AI 성향분석 프록시</div>
-          </div>
-          <div class="mini">
-            <div class="k">핵심 설계</div>
-            <div class="v">복합키 설계, 파생 상태 실시간 계산, Redis+DB 이원화</div>
-          </div>
-          <div class="mini">
-            <div class="k">팀 구성</div>
-            <div class="v">6인 / 2026.01~2026.02</div>
-          </div>
+          <div class="mini"><div class="k">FE 기여 60%</div><div class="v">투자 페이지(캔들차트·매매UI·관심종목), 학습·업적·성향분석, 헤더(Custom Event), 라우팅 가드</div></div>
+          <div class="mini"><div class="k">BE 기여 40%</div><div class="v">학습 로드맵(복합키+순차잠금+N+1 해결), 업적 시스템(Redis+상수 클래스), FastAPI 프록시</div></div>
+          <div class="mini"><div class="k">도메인 배경</div><div class="v">금융을 몰랐기 때문에 선택. 주식 장 마감 시간을 코드에 반영 → 불필요 API 60% 제거</div></div>
+          <div class="mini"><div class="k">팀 구성</div><div class="v">6인 (FE 2, BE 3, INFRA 1) / 2026.01~02</div></div>
         </div>
-        <div class="quote" style="margin-top:6px;">N+1 해결로 DB 쿼리 ~100번 → 2번(98% 감소). 장 마감 후 폴링 중단으로 일일 API 호출 60% 감소.</div>
+        <div class="quote" style="margin-top:6px;">N+1 해결 DB 쿼리 ~100회 → 2회(98%↓). 장 마감 폴링 자동 중단으로 일일 API ~50,000건 → ~20,000건(60%↓).</div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="img-slot" style="flex:1;">
-          <img class="portfolio-img" src="images/amagetdon_main.png" alt="서비스 대표 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">서비스 대표 화면</div>
-          </div>
-        </div>
-        <div class="img-slot" style="flex:1;">
-          <img class="portfolio-img" src="images/amagetdon_sub.png" alt="학습/업적 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">학습/업적 화면</div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="img-slot" style="flex:1;"><img class="portfolio-img" src="images/amagetdon_main.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">캔들차트 + 매매 UI</div></div></div>
+        <div class="img-slot" style="flex:1;"><img class="portfolio-img" src="images/amagetdon_sub.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">학습 · 업적 화면</div></div></div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Performance · Domain Design · Full Stack</span>
-      <span>아마Get돈</span>
-    </div>
+    <div class="footer-note"><span>Full Stack · Performance · Domain Design</span><span>아마Get돈</span></div>
   </section>
 
-  <!-- ===== 08 PROJECT 02 — 아마Get돈 상세 ===== -->
+  <!-- 10 아마겟돈 FE -->
   <section class="slide">
-    <div class="shape3"></div><div class="shape"></div>
-    <div class="topbar">
-      <div class="eyebrow">Project 02 — Detail</div>
-      <div class="page">08 / 11</div>
-    </div>
+    <div class="shape3"></div><div class="shape2"></div>
+    <div class="topbar"><div class="eyebrow">Project 02 — Frontend</div><div class="page">10 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
-        <h3>6가지 기술적 의사결정</h3>
+        <h3>FE 핵심 구현 6가지</h3>
         <div class="feature-list">
-          <div class="feature">
-            <strong>① N+1 해결 (Bulk Fetch + Memory Mapping)</strong>
-            <p>챕터별 진행 내역 도회 → Map O(1) 루프 조회로 전환. DB 쿼리 ~100번 → 2번.</p>
-          </div>
-          <div class="feature">
-            <strong>② 복합키 설계 (내부 static class)</strong>
-            <p>user_id + chapter_id 복합키. 소규모 프로젝트에서 가시성 우선 판단으로 내부 static class 방식 선택.</p>
-          </div>
-          <div class="feature">
-            <strong>③ 순차 잠금 해제 알고리즘</strong>
-            <p>파생 데이터 저장 대신 매 요청마다 실시간 계산. prevCompleted 플래그 기반 구현.</p>
-          </div>
-          <div class="feature">
-            <strong>④ 업적 시스템 (Redis + 상수 클래스)</strong>
-            <p>빈번한 카운터는 Redis, 영구 기록은 DB. AchievementIdCode 상수 클래스로 하드코딩 제거.</p>
-          </div>
-          <div class="feature">
-            <strong>⑤ usePolling 커스텀 훅 (장 마감 자동 중단)</strong>
-            <p>평일 09:00~15:30 체크 함수 작성. 컴포넌트별 폴링 주기 분리(1초·7초·6분).</p>
-          </div>
-          <div class="feature">
-            <strong>⑥ Custom Event 패턴 (헤더 상태 동기화)</strong>
-            <p>헤더 정보만을 위한 전역 상태 도입은 과하다 판단. window.dispatchEvent 기반 느슨한 결합.</p>
-          </div>
+          <div class="feature"><strong>① 실시간 캔들차트</strong><p>lightweight-charts 기반 주식 시세 시각화. 컴포넌트별 폴링 주기 분리 — 실시간 1초, 내종목 7초, 차트 6분.</p></div>
+          <div class="feature"><strong>② usePolling + isMarketOpen()</strong><p>평일 09:00~15:30 체크 함수. 장 마감 후 폴링 자동 중단 → 일일 ~50,000건 → ~20,000건(60%↓). 도메인 규칙이 코드를 설명.</p></div>
+          <div class="feature"><strong>③ 낙관적 업데이트 (관심종목)</strong><p>클릭 즉시 UI 반영, 서버 실패 시 rollback. UX 지연 없음.</p></div>
+          <div class="feature"><strong>④ Custom Event (헤더 동기화)</strong><p>닉네임·성향 변경 시 <code>window.dispatchEvent</code>. 전역 상태 대신 느슨한 결합 선택.</p></div>
+          <div class="feature"><strong>⑤ 라우팅 가드 3종</strong><p>Private(로그인), Public(비로그인), Survey(성향 미완료). 서비스 접근 제어 전 체계 설계.</p></div>
+          <div class="feature"><strong>⑥ FastAPI AI 프록시 연동</strong><p>성향 분석 AI를 BE 경유하는 프록시 구조. 클라이언트가 FastAPI 직접 호출 안 함.</p></div>
         </div>
       </div>
       <div class="col">
-        <div class="img-slot" style="flex:1;">
-          <img class="portfolio-img" src="images/amagetdon_arch.png" alt="시스템 아키텍처 다이어그램"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">시스템 아키텍처 다이어그램</div>
-          </div>
-        </div>
-        <div class="img-slot" style="flex:1;">
-          <img class="portfolio-img" src="images/amagetdon_erd.png" alt="ERD (데이터베이스 설계도)"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">ERD (데이터베이스 설계도)</div>
-          </div>
-        </div>
+        <div class="img-slot tall"><img class="portfolio-img" src="images/amagetdon_main.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">투자 페이지 전체 화면</div></div></div>
+        <div class="img-slot"><img class="portfolio-img" src="images/amagetdon_fe_sub.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">학습 · 성향분석 화면</div></div></div>
+        <div class="quote blue" style="font-size:13px;">"도메인 지식(주식 장 마감 시간)을 코드에 직접 반영하는 것이 실질적 성능 개선으로 이어진다는 것을 체감했습니다."</div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Architecture · Optimization · Decision Making</span>
-      <span>아마Get돈 Detail</span>
-    </div>
+    <div class="footer-note"><span>Polling · Chart · Optimistic Update · Custom Event</span><span>아마Get돈 — FE</span></div>
   </section>
 
-  <!-- ===== 09 PROJECT 03 — KEYWE ===== -->
+  <!-- 11 아마겟돈 BE -->
   <section class="slide">
-    <div class="shape3"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Project 03</div>
-      <div class="page">09 / 11</div>
+    <div class="shape"></div><div class="shape3"></div>
+    <div class="topbar"><div class="eyebrow">Project 02 — Backend</div><div class="page">11 / 16</div></div>
+    <div class="slide-body">
+    <div class="section-grid">
+      <div class="col">
+        <h3>BE 핵심 의사결정 4가지</h3>
+        <div class="card">
+          <h4 style="margin-bottom:6px;">① N+1 해결 — Bulk Fetch + Memory Mapping</h4>
+          <p style="font-size:13px;margin-bottom:8px;">챕터별 진행 내역 조회 시 JPA N+1 발생. 전체 진행 내역을 한 번에 조회 후 Map 변환, 루프에서 O(1) 조회.</p>
+          <table class="ba-table">
+            <tr><th>항목</th><th class="before">Before</th><th class="after">After</th></tr>
+            <tr><td>DB 쿼리 수</td><td class="before">~100회 (챕터 수 비례)</td><td class="after">2회 (고정)</td></tr>
+          </table>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:6px;">② 복합키 + 순차 잠금 알고리즘</h4>
+          <p style="font-size:13px;">user_id + chapter_id 복합키. 소규모에서 가시성 우선 → 내부 static class 선택. prevCompleted 플래그 기반 순차 잠금 해제 — 파생 상태를 저장하지 않고 매 요청마다 실시간 계산. <strong>"파생 데이터는 계산이 정합성에 유리하다"</strong> 체득.</p>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:6px;">③ 업적 시스템 — Redis + 상수 클래스</h4>
+          <p style="font-size:13px;">빈번한 카운터 → Redis. 영구 기록 → DB. AchievementIdCode 상수 클래스로 하드코딩 제거. 행동 시점에만 체크하는 이벤트 기반 설계.</p>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:6px;">④ FastAPI 프록시 구조</h4>
+          <p style="font-size:13px;">Python 기반 AI를 독립 서비스로 운영. Spring Boot BE를 경유하는 프록시 구조 → 아키텍처 일관성 유지.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="img-slot" style="flex:1;min-height:170px;"><img class="portfolio-img" src="images/amagetdon_arch.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">시스템 아키텍처 다이어그램</div></div></div>
+        <div class="img-slot" style="flex:1;min-height:170px;"><img class="portfolio-img" src="images/amagetdon_erd.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">ERD (DB 설계도)</div></div></div>
+      </div>
     </div>
+    </div>
+    <div class="footer-note"><span>N+1 · Composite Key · Achievement · FastAPI</span><span>아마Get돈 — BE</span></div>
+  </section>
+
+  <!-- 12 EatIt Overview -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape3"></div>
+    <div class="topbar"><div class="eyebrow">Project 03 — Overview</div><div class="page">12 / 16</div></div>
     <div class="slide-body">
     <div class="project-hero">
       <div class="project-title">
-        <h2>KEYWE</h2>
-        <p class="sub">DID 기반 병원 통합 출입증 모바일 앱 · React Native (Bare) · Zustand · FCM · Credo</p>
+        <h2>EatIt</h2>
+        <p class="sub">SSAFY 교육생에게 식단 관리와 CS 학습을 게이미피케이션으로 연결해 학습 지속성을 높이는 서비스<br>Vue.js 3 · TypeScript · Pinia / Spring Boot · MyBatis / AWS EC2 · Nginx · Let's Encrypt</p>
         <div class="pill-row">
-          <span class="pill">Bare RN 마이그레이션 주도</span>
-          <span class="pill">DID 신기술</span>
-          <span class="pill">대상 수상</span>
-          <span class="pill">평균 103ms / 에러율 0.01%</span>
+          <span class="pill">2인팀 중도 합류</span><span class="pill">FE 90% 단독</span>
+          <span class="pill">AWS 배포 100% 단독</span><span class="pill">BE 40%</span>
         </div>
-        <div class="quote">LG CNS AM Inspire Camp 1기 최종 경연 대상(1위) 수상. 평균 응답속도 103ms·에러율 0.01% 달성. Expo 제약 분석 후 Bare RN 전환 주도, 실사용 트러블슈팅 6케이스 직접 해결.</div>
-        <div class="project-highlights" style="margin-top:8px;">
-          <div class="mini">
-            <div class="k">핵심 역할</div>
-            <div class="v">UI/UX 설계, 출입증·알림·마이페이지 구현, Bare RN 마이그레이션 주도</div>
-          </div>
-          <div class="mini">
-            <div class="k">기술 선택</div>
-            <div class="v">Credo(DID) 라이브러리 네이티브 접근 필요 → Expo 제약 확인 후 Bare RN 전환</div>
-          </div>
-          <div class="mini">
-            <div class="k">트러블슈팅</div>
-            <div class="v">알림 미갱신, 배지 동기화, 로그인 유지 실패, 인증 모달 UX 불안정 6건 해결</div>
-          </div>
-          <div class="mini">
-            <div class="k">팀 구성</div>
-            <div class="v">8인 (FE 웹 2명, FE 앱 2명, BE 3명, INFRA 1명) / 2025.04~2025.06</div>
-          </div>
+        <div class="project-highlights" style="margin-top:6px;">
+          <div class="mini"><div class="k">기획 기여</div><div class="v">HP 비례 XP 공식 직접 설계. CS 컨텐츠 스토리텔링 기획("스택/큐 = 설거지 접시", "TCP = 배달앱 주문") + SQL INSERT 직접 작성</div></div>
+          <div class="mini"><div class="k">FE (90%)</div><div class="v">전체 화면 구현, API 연동, FoodSearch UX(디바운싱+IME+스켈레톤), 라우팅</div></div>
+          <div class="mini"><div class="k">BE (40%)</div><div class="v">HP/XP 게임 로직, gainedHp rollback 구조, 코드 UPSERT</div></div>
+          <div class="mini"><div class="k">인프라 (100%)</div><div class="v">AWS EC2 배포 전 과정 단독 — Nginx 리버스 프록시, Let's Encrypt HTTPS, DNS, 세션 쿠키 문제 해결</div></div>
         </div>
+        <div class="quote" style="margin-top:4px;">87점 획득(1위 92점). 중도 합류 상황에서 기획·FE·BE·AWS 배포까지 2인팀 내 대부분을 단독 담당.</div>
       </div>
-      <div style="display:flex; flex-direction:row; gap:10px;">
-        <div class="img-slot" style="flex:1; min-height:200px;">
-          <img class="portfolio-img" src="images/keywe_screens.png" alt="모바일 앱 주요 화면"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">모바일 앱 주요 화면</div>
-          </div>
-        </div>
-        <div class="img-slot" style="flex:1; min-height:200px;">
-          <img class="portfolio-img" src="images/keywe_flip.png" alt="출입증 Flip 애니메이션"
-               onload="this.parentElement.classList.add('loaded')"
-               onerror="">
-          <div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;">
-            <div class="slot-label">출입증 Flip 애니메이션</div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="img-slot tall"><img class="portfolio-img" src="images/eatit_main.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">메인 화면</div></div></div>
+        <div class="img-slot"><img class="portfolio-img" src="images/eatit_sub.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">CS 학습 · 식단 화면</div></div></div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Mobile App · Security UX · DID</span>
-      <span>KEYWE</span>
-    </div>
+    <div class="footer-note"><span>Full Cycle · Vue.js · Gamification</span><span>EatIt — Overview</span></div>
   </section>
 
-  <!-- ===== 10 OTHER PROJECTS ===== -->
+  <!-- 13 EatIt Tech Deep Dive -->
   <section class="slide">
-    <div class="shape"></div><div class="shape2"></div>
-    <div class="topbar">
-      <div class="eyebrow">Other Projects</div>
-      <div class="page">10 / 11</div>
-    </div>
+    <div class="shape2"></div><div class="shape3"></div>
+    <div class="topbar"><div class="eyebrow">Project 03 — Tech Deep Dive</div><div class="page">13 / 16</div></div>
     <div class="slide-body">
     <div class="section-grid">
       <div class="col">
-        <h2>그 외 프로젝트</h2>
-        <div class="feature-list">
-          <div class="feature">
-            <strong>EatIt</strong>
-            <p>식단 분석 + CS 게이미피케이션 서비스. AWS 배포·HTTPS·DNS 전 과정 직접 수행. gainedHp rollback 로직 설계.</p>
-            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.11~2026.12 · Vue.js · Spring Boot · MySQL · AWS EC2</p>
+        <h3>설계 의사결정 3가지</h3>
+        <div class="card">
+          <h4 style="margin-bottom:8px;">① HP 비례 XP 공식 — 게임 루프 설계</h4>
+          <p style="font-size:13px;margin-bottom:8px;">식단 등록 안 하면 HP가 줄고, HP가 낮을수록 XP도 줄어드는 구조. 학습보다 식단 등록을 먼저 유도하는 게임 루프.</p>
+          <div style="background:rgba(59,111,199,.07);border-radius:10px;padding:10px;font-family:monospace;font-size:13px;color:var(--ink);">
+            XP = 20 + (현재HP × 0.2)<br>
+            HP 100 → 40XP &nbsp;·&nbsp; HP 50 → 30XP &nbsp;·&nbsp; HP 0 → 20XP<br>
+            <span style="font-weight:700;color:var(--ink);">HP &lt; 10 → 학습 불가 (식단 등록 유도)</span>
           </div>
-          <div class="feature">
-            <strong>MealLink</strong>
-            <p>레시피·식단·구매 통합 서비스. 기획 주도, ERD 및 API 명세, 정규화 vs 비정규화 의사결정 기록.</p>
-            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.11~2025.11 · Vue.js · Spring Boot · MySQL</p>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:8px;">② gainedHp rollback — source of truth 설계</h4>
+          <p style="font-size:13px;margin-bottom:6px;">식단 삭제 시 HP를 얼마나 되돌릴 것인가. <strong>등록 당시 실제로 회복된 양</strong>을 저장해야 정합성 보장.</p>
+          <div style="background:rgba(26,122,69,.06);border-radius:10px;padding:10px;font-family:monospace;font-size:12px;color:var(--ink);">
+            actualGain = min(회복량, 100 - currentHP_at_registration)<br>
+            삭제 시: currentHP -= actualGain &nbsp;→&nbsp; 정확한 복원
           </div>
-          <div class="feature">
-            <strong>취업봇다리 / 취업레고</strong>
-            <p>채용 정보 분석 서비스 + MSA·AWS 확장. FE 아키텍처, S3 Presigned URL, LG CNS 미니프로젝트 팀 비공식 1위 달성.</p>
-            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2025.02~2025.03 · React · Spring Boot · Spring Cloud · AWS · Docker</p>
-          </div>
-          <div class="feature">
-            <strong>Byte The Blue / 견벳팅 / Sky Step</strong>
-            <p>감정 분석 채팅 서비스(한국정보기술학회 동상), 도메인 기반 설계, Unity 물리엔진 디버깅.</p>
-            <p style="font-size:11px; color:var(--accent-2); margin-top:2px;">2023.12~2024.07 · React · Spring Boot · Unity · Python</p>
-          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:6px;">"source of truth를 동작 시점의 실제값으로 채워야 한다" — 이 설계에서 체득한 원칙.</p>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <h4 style="margin-bottom:8px;">③ FoodSearch UX 최적화 3가지</h4>
+          <ul>
+            <li><strong>디바운싱(300ms):</strong> 타이핑마다 API 호출 방지.</li>
+            <li><strong>한글 IME 처리:</strong> compositionstart/end 이벤트로 조합 중인 글자를 검색어로 전송 방지.</li>
+            <li><strong>스켈레톤 최소 노출:</strong> 결과가 빠르면 스켈레톤 깜빡임 없이 바로 렌더.</li>
+          </ul>
         </div>
       </div>
       <div class="col">
         <div class="card">
-          <h3 style="margin-bottom:10px;">대내외 활동</h3>
-          <ul>
-            <li>복수전공생 커뮤니티를 직접 모집·운영하며 정보 격차 해소와 제도 개선에 기여</li>
-            <li>K-MOOC ABMM 학습그룹 최우수상 수상</li>
-            <li>진로 멘토단 활동으로 커리큘럼 기획과 설명 역량 강화</li>
-            <li>OPIc IH 취득 (2025.08, 유효기간 2027.08)</li>
-          </ul>
+          <h4 style="margin-bottom:8px;color:var(--accent);">트러블슈팅 — HTTPS 전환 후 세션 쿠키 차단</h4>
+          <div class="ts-box prob"><div class="ts-box-label">PROBLEM</div><p>로그인 후 모든 API에서 403 반환. 서비스 전체 사용 불가.</p></div>
+          <div class="ts-box cause"><div class="ts-box-label">ROOT CAUSE</div><p>HTTP → HTTPS 전환 후 브라우저 SameSite/Secure 정책으로 세션 쿠키 자동 차단. Spring Boot 기본 설정이 HTTPS 환경을 인식하지 못해 Secure 플래그 없이 쿠키 발행.</p></div>
+          <div class="ts-box solve"><div class="ts-box-label">SOLUTION</div><p><code>application.properties</code>에 <code>secure=true</code>, <code>same-site=none</code>, <code>forward-headers-strategy=native</code> 추가. Nginx 프록시 헤더가 Spring에 전달되도록 설정. <strong>전체 API 403 → 정상 응답.</strong></p></div>
         </div>
-        <div class="card" style="margin-top:4px;">
-          <h3 style="margin-bottom:10px;">일하는 태도</h3>
-          <ul>
-            <li>필요한 것이 없으면 직접 만들고, 부족한 부분은 빠르게 학습으로 메움</li>
-            <li>구현자에 머무르지 않고 구조를 정리하고 팀이 움직일 수 있도록 돕는 역할</li>
-            <li>기획부터 배포까지 전 과정 경험, 설계 의사결정을 기록으로 남기는 습관</li>
-            <li>중도 합류·이동 상황에서도 빠르게 코드베이스를 파악하고 기여하는 적응력</li>
-          </ul>
+        <div style="background:rgba(31,41,51,.04);border-radius:14px;padding:14px;margin-top:8px;">
+          <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:10px;letter-spacing:.06em;text-transform:uppercase;">XP 공식 흐름</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:var(--accent-soft);border:1px solid rgba(199,109,59,.2);border-radius:8px;padding:6px 10px;font-weight:700;color:var(--accent);white-space:nowrap;">식단 등록</div>
+              <div style="color:var(--muted);">→</div>
+              <div style="background:rgba(255,255,255,.8);border:1px solid rgba(31,41,51,.1);border-radius:8px;padding:6px 10px;color:var(--ink);font-size:12px;">HP 회복 (actualGain = min(회복량, 100−HP))</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:var(--accent-soft-2);border:1px solid rgba(59,111,199,.2);border-radius:8px;padding:6px 10px;font-weight:700;color:var(--accent-2);white-space:nowrap;">학습 시도</div>
+              <div style="color:var(--muted);">→</div>
+              <div style="background:rgba(255,255,255,.8);border:1px solid rgba(31,41,51,.1);border-radius:8px;padding:6px 10px;color:var(--ink);font-size:12px;">HP ≥ 10 확인 → <strong>XP = 20 + (HP × 0.2)</strong> 지급</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="background:rgba(31,41,51,.06);border:1px solid rgba(31,41,51,.1);border-radius:8px;padding:6px 10px;font-weight:700;color:var(--muted);white-space:nowrap;">HP &lt; 10</div>
+              <div style="color:var(--muted);">→</div>
+              <div style="background:rgba(255,255,255,.8);border:1px solid rgba(31,41,51,.1);border-radius:8px;padding:6px 10px;color:var(--ink);font-size:12px;">학습 차단 → 식단 등록 유도 메시지</div>
+            </div>
+          </div>
         </div>
+        <div class="quote green" style="font-size:13px;margin-top:4px;">"운영 환경(HTTPS, 세션 쿠키, DNS)을 직접 경험해야 서비스 전체 흐름을 이해할 수 있다는 것을 확인했습니다."</div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>Projects & Activities</span>
-      <span>Beyond Core</span>
-    </div>
+    <div class="footer-note"><span>XP Formula · gainedHp · FoodSearch · AWS HTTPS</span><span>EatIt — Tech</span></div>
   </section>
 
-  <!-- ===== 11 CLOSING ===== -->
+  <!-- 14 KEYWE Overview -->
+  <section class="slide">
+    <div class="shape3"></div><div class="shape2"></div>
+    <div class="topbar"><div class="eyebrow">Project 04 — Overview</div><div class="page">14 / 16</div></div>
+    <div class="slide-body">
+    <div class="project-hero">
+      <div class="project-title">
+        <h2>KEYWE</h2>
+        <p class="sub">DID 기반 병원 통합 출입증 모바일 앱 · React Native (Bare) · Zustand · FCM · Credo<br>LG CNS AM Inspire Camp 1기 최종 프로젝트 <strong>대상(1위)</strong></p>
+        <div class="pill-row">
+          <span class="pill hl">🏆 대상 수상 (1위)</span>
+          <span class="pill">Bare RN 마이그레이션 주도</span><span class="pill">DID 신기술</span>
+        </div>
+        <div class="project-highlights" style="margin-top:8px;">
+          <div class="mini"><div class="k">핵심 역할</div><div class="v">UI/UX 설계, 출입증·알림·마이페이지 구현, Bare RN 마이그레이션 주도</div></div>
+          <div class="mini"><div class="k">기술 선택 근거</div><div class="v">Credo(DID) 라이브러리가 네이티브 모듈 직접 접근 필요 → Expo SDK 네이티브 링킹 차단 확인 → Bare Workflow 전환. 스타일이 아닌 라이브러리 제약에서 출발한 판단.</div></div>
+          <div class="mini"><div class="k">팀 구성</div><div class="v">8인 (FE 웹 2, FE 앱 2, BE 3, INFRA 1) / 2025.04~06</div></div>
+          <div class="mini"><div class="k">성능 결과</div><div class="v">JMeter 부하 테스트 기준 평균 응답속도 103ms · 에러율 0.01%</div></div>
+        </div>
+        <div class="quote">Expo 제약을 직접 분석하고 Bare RN으로 전환을 주도했습니다. 단순 기술 채택이 아니라 제약 조건을 먼저 파악하고 판단하는 방식으로 접근했습니다.</div>
+      </div>
+      <div style="display:flex;flex-direction:row;gap:10px;">
+        <div class="img-slot" style="flex:1;min-height:200px;"><img class="portfolio-img" src="images/keywe_screens.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">앱 주요 화면</div></div></div>
+        <div class="img-slot" style="flex:1;min-height:200px;"><img class="portfolio-img" src="images/keywe_flip.png" onload="this.parentElement.classList.add('loaded')" onerror=""><div class="slot-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;width:100%;"><div class="slot-label">출입증 Flip 애니메이션</div></div></div>
+      </div>
+    </div>
+    </div>
+    <div class="footer-note"><span>Mobile · DID · Bare RN · Performance</span><span>KEYWE — Overview</span></div>
+  </section>
+
+  <!-- 15 KEYWE Troubleshooting -->
+  <section class="slide">
+    <div class="shape"></div><div class="shape2"></div>
+    <div class="topbar"><div class="eyebrow">Project 04 — Troubleshooting 6건</div><div class="page">15 / 16</div></div>
+    <div class="slide-body">
+    <div style="margin-bottom:10px;">
+      <h3 style="font-size:18px;">실사용 기반 트러블슈팅 — 6건</h3>
+    </div>
+    <div class="ts-grid">
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">1</div><div class="ts-title">FCM 알림 미갱신</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">앱이 백그라운드 → 포그라운드로 복귀해도 알림 목록이 갱신되지 않음. 새 알림이 도착해도 화면에 표시 안 됨.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">React Native AppState 이벤트를 구독하지 않아 전환 시 재조회 트리거가 없었음.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text">AppState 이벤트 리스너 등록 + 포그라운드 진입 시 알림 목록 재조회 API 자동 호출.</span></div>
+      </div>
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">2</div><div class="ts-title">배지 카운트 동기화 불일치</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">알림을 읽어도 상단 배지 숫자가 줄지 않음. 사용자 입장에서 읽음 처리가 적용 안 된 것처럼 보임.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">읽음 처리 후 로컬 상태만 변경하고 서버 전체 미읽음 수를 재조회하지 않아 불일치 발생.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text">읽음 처리 API 응답 콜백에서 전체 미읽음 수 재조회 추가. 서버 숫자를 단일 source of truth로 유지.</span></div>
+      </div>
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">3</div><div class="ts-title">로그인 유지 실패</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">앱 재실행 시 로그인 상태가 사라지고 매번 다시 로그인 요구. 사용자 불편 심각.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">AsyncStorage에 저장한 토큰이 앱 업데이트나 캐시 정리 시 삭제됨. 보안 저장소 미사용.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text">react-native-keychain(SecureStore) 기반 토큰 영속화. 앱 실행 시 유효성 검사 후 자동 로그인.</span></div>
+      </div>
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">4</div><div class="ts-title">인증 모달 중복 표시</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">여러 API가 동시에 401 반환 시 인증 갱신 모달이 여러 번 표시되어 화면이 불안정해짐.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">각 API 응답 인터셉터가 독립적으로 모달 트리거. 동시 401이 들어오면 N번 실행됨.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text">전역 isRefreshing 플래그 + failedQueue 패턴. 갱신 중 후속 요청을 큐에 보관, 완료 후 일괄 처리.</span></div>
+      </div>
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">5</div><div class="ts-title">Bare RN 네이티브 모듈 충돌</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">Credo 라이브러리 설치 후 Android 빌드 실패. 다른 라이브러리와의 충돌로 앱 실행 불가.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">자동 링킹이 다른 네이티브 모듈과 충돌. 패키지 버전 불일치로 ABI 호환 문제 발생.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text">package.json 의존성 버전 고정 + react-native.config.js에 링킹 대상 수동 명시로 충돌 해소.</span></div>
+      </div>
+      <div class="ts-card">
+        <div class="ts-head"><div class="ts-num">6</div><div class="ts-title">출입증 Flip 애니메이션 버벅임</div></div>
+        <div class="ts-row"><span class="ts-label prob">문제</span><span class="ts-text">Android에서 출입증 카드 뒤집기 3D 애니메이션이 끊기고 프레임 드롭 발생.</span></div>
+        <div class="ts-row"><span class="ts-label cause">원인</span><span class="ts-text">Animated가 JS Thread에서 처리되어 UI Thread를 블로킹. rotateY 범위가 최적화되지 않음.</span></div>
+        <div class="ts-row"><span class="ts-label solve">해결</span><span class="ts-text"><code>useNativeDriver:true</code> 설정으로 Native Thread 분리. rotateY interpolate 범위(0→180도) 명확히 지정.</span></div>
+      </div>
+    </div>
+    </div>
+    <div class="footer-note"><span>AppState · SecureStore · failedQueue · NativeDriver</span><span>KEYWE — Troubleshooting</span></div>
+  </section>
+
+  <!-- 16 CLOSING -->
   <section class="slide">
     <div class="shape"></div><div class="shape2"></div><div class="shape3"></div>
-    <div class="topbar">
-      <div class="eyebrow">Closing</div>
-      <div class="page">11 / 11</div>
-    </div>
+    <div class="topbar"><div class="eyebrow">Closing</div><div class="page">16 / 16</div></div>
     <div class="slide-body">
     <div class="hero" style="align-items:center;">
       <div class="hero-copy">
-        <div class="tags">
-          <span class="tag warm">감사합니다</span>
-          <span class="tag">채지원</span>
-        </div>
-        <h1>시스템 경계를<br>설계하는 개발자</h1>
-        <p class="lead">FE-BE 경계를 직접 설계하고, 어려운 문제를 수치로 풀어내는 풀스택 개발자입니다. 설계 의사결정에 근거를 만들고, 그 과정을 기록으로 남깁니다.</p>
+        <div class="tags"><span class="tag warm">감사합니다</span><span class="tag">채지원</span></div>
+        <h1>도메인 데이터를<br>코드로 <span>연결</span>하는</h1>
+        <p class="lead">기획부터 배포까지 서비스 전체를 설계하고, 도메인 데이터를 서비스 로직에 연결하는 풀스택 개발자입니다. FE-BE 경계를 직접 설계하고, 어려운 문제를 수치로 풀어내며, 구조적 문제를 팀에 제안할 수 있는 개발자입니다.</p>
         <div class="quote">기술을 배우는 속도보다, 문제를 끝까지 붙드는 힘으로 증명하겠습니다.</div>
       </div>
-      <div class="glass" style="justify-content:center; gap:20px;">
+      <div class="glass" style="justify-content:center;gap:20px;">
         <h3 style="margin-bottom:4px;">Contact</h3>
         <div class="hero-meta" style="grid-template-columns:1fr;">
-          <div class="meta-item">
-            <div class="meta-label">이메일</div>
-            <div class="meta-value" style="font-size:18px;">ppg0226@naver.com</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">GitHub</div>
-            <div class="meta-value" style="font-size:18px;">github.com/jiwon0226</div>
-          </div>
+          <div class="meta-item"><div class="meta-label">이메일</div><div class="meta-value" style="font-size:18px;">ppg0226&#64;naver&#46;com</div></div>
+          <div class="meta-item"><div class="meta-label">GitHub</div><div class="meta-value" style="font-size:18px;">github.com/jiwon0226</div></div>
         </div>
         <div class="tags" style="margin-top:8px;">
-          <span class="tag warm">React</span>
-          <span class="tag warm">TypeScript</span>
-          <span class="tag">Spring Boot</span>
-          <span class="tag">풀스택</span>
+          <span class="tag warm">React</span><span class="tag warm">Vue.js</span>
+          <span class="tag">Spring Boot</span><span class="tag">풀스택</span><span class="tag green">AI/데이터</span>
         </div>
       </div>
     </div>
     </div>
-    <div class="footer-note">
-      <span>감사합니다</span>
-      <span>End</span>
-    </div>
+    <div class="footer-note"><span>감사합니다</span><span>End</span></div>
   </section>
 
-</div><!-- /.deck -->
+</div>
 
-<div class="nav" aria-label="슬라이드 네비게이션">
+<div class="nav">
   <button class="secondary" id="prev">이전</button>
   <div class="dots" id="dots"></div>
   <span class="hint">← → / Space / Swipe</span>
   <button id="next">다음</button>
 </div>
 
-<script>
-  // ── 이미지 자동 확장자 감지 ──────────────────────────────────────
-  // jpg → jpeg → png → webp → gif 순서로 시도.
-  // portfolio-img 클래스를 가진 모든 img 태그에 적용.
-  const EXTS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-
-  function tryLoadImage(img) {
-    const base = img.src.replace(/\.[^.]+$/, '');
-    let tried = 0;
-
-    function attempt(ext) {
-      const t = new Image();
-      t.onload = () => {
-        img.src = t.src;
-        // 프로필 사진 슬롯 (id 기준)
-        if (img.id === 'profile-cover-img') {
-          img.style.display = 'block';
-          const ph = document.getElementById('profile-cover-placeholder');
-          if (ph) ph.style.display = 'none';
-        } else if (img.id === 'profile-closing-img') {
-          img.style.display = 'block';
-          const ph = document.getElementById('profile-closing-placeholder');
-          if (ph) ph.style.display = 'none';
-        } else {
-          // 일반 슬롯
-          img.parentElement.classList.add('loaded');
-        }
-      };
-      t.onerror = () => {
-        tried++;
-        if (tried < EXTS.length) attempt(EXTS[tried]);
-        // 모두 실패 → 플레이스홀더 유지
-      };
-      t.src = base + '.' + ext;
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const EXTS=['jpg','jpeg','png','webp','gif'];
+  function tryLoadImage(img){
+    const base=img.src.replace(/\.[^.]+$/,'');let tried=0;
+    function attempt(ext){
+      const t=new Image();
+      t.onload=()=>{img.src=t.src;if(img.id==='profile-cover-img'){img.style.display='block';const ph=document.getElementById('pcp');if(ph)ph.style.display='none';}else{img.parentElement.classList.add('loaded');}};
+      t.onerror=()=>{tried++;if(tried<EXTS.length)attempt(EXTS[tried]);};
+      t.src=base+'.'+ext;
     }
-
     attempt(EXTS[0]);
   }
-
   document.querySelectorAll('img.portfolio-img').forEach(tryLoadImage);
-  // ────────────────────────────────────────────────────────────────
 
-  const slides = Array.from(document.querySelectorAll(".slide"));
-  const progress = document.getElementById("progress");
-  const dotsWrap = document.getElementById("dots");
-  let index = 0;
-
-  const dots = slides.map((_, i) => {
-    const dot = document.createElement("div");
-    dot.className = "dot";
-    dot.addEventListener("click", () => go(i));
-    dotsWrap.appendChild(dot);
-    return dot;
-  });
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const progress=document.getElementById('progress');
+  const dotsWrap=document.getElementById('dots');
+  let index=0;
+  const dots=slides.map((_,i)=>{const d=document.createElement('div');d.className='dot';d.addEventListener('click',()=>go(i));dotsWrap.appendChild(d);return d;});
 
   function showScrollHint(slide){
-    // 기존 힌트 제거
-    const old = slide.querySelector('.scroll-hint');
-    if(old) old.remove();
-    const body = slide.querySelector('.slide-body');
-    if(!body) return;
-    // 스크롤 가능한지 체크
-    setTimeout(() => {
-      if(body.scrollHeight > body.clientHeight + 10){
-        body.scrollTop = 0;
-        const hint = document.createElement('div');
-        hint.className = 'scroll-hint';
-        hint.textContent = '▾ ▾ ▾';
-        slide.appendChild(hint);
-        // 애니메이션 끝나면 제거
-        hint.addEventListener('animationend', () => hint.remove());
-        // 스크롤하면 즉시 제거
-        body.addEventListener('scroll', () => hint.remove(), {once:true});
-      }
-    }, 500);
+    const old=slide.querySelector('.scroll-hint');if(old)old.remove();
+    const body=slide.querySelector('.slide-body');if(!body)return;
+    setTimeout(()=>{if(body.scrollHeight>body.clientHeight+10){body.scrollTop=0;const h=document.createElement('div');h.className='scroll-hint';h.textContent='▾ ▾ ▾';slide.appendChild(h);h.addEventListener('animationend',()=>h.remove());body.addEventListener('scroll',()=>h.remove(),{once:true});}},500);
   }
-
   function go(next){
-    slides[index].classList.remove("active");
-    dots[index].classList.remove("active");
-    index = (next + slides.length) % slides.length;
-    slides[index].classList.add("active");
-    dots[index].classList.add("active");
-    progress.style.width = (((index + 1) / slides.length) * 100) + "%";
+    slides[index].classList.remove('active');dots[index].classList.remove('active');
+    index=(next+slides.length)%slides.length;
+    slides[index].classList.add('active');dots[index].classList.add('active');
+    progress.style.width=(((index+1)/slides.length)*100)+'%';
     showScrollHint(slides[index]);
   }
-
   go(0);
-
-  document.getElementById("prev").addEventListener("click", () => go(index - 1));
-  document.getElementById("next").addEventListener("click", () => go(index + 1));
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") go(index + 1);
-    if (e.key === "ArrowLeft" || e.key === "PageUp") go(index - 1);
+  document.getElementById('prev').addEventListener('click',()=>go(index-1));
+  document.getElementById('next').addEventListener('click',()=>go(index+1));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')go(index+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')go(index-1);
   });
-
-  let startX = null;
-  document.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; });
-  document.addEventListener("touchend", (e) => {
-    if (startX === null) return;
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) go(diff > 0 ? index + 1 : index - 1);
-    startX = null;
-  });
+  let startX=null;
+  document.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+  document.addEventListener('touchend',e=>{if(startX===null)return;const diff=startX-e.changedTouches[0].clientX;if(Math.abs(diff)>40)go(diff>0?index+1:index-1);startX=null;});
 </script>
 <!--
 =======================================================
- 📁 이미지 폴더 설정 방법
+ 이미지 폴더 (v3 — 16슬라이드)
 =======================================================
-이 HTML 파일과 같은 위치에 "images" 폴더를 만들고
-아래 이름으로 이미지를 넣으면 자동으로 반영됩니다.
+[05-08] 버블팝업
+  bubble_main / bubble_ui
+  bubble_map_v1 / bubble_map_diff  (슬라이드 06)
+  bubble_arch                       (슬라이드 07)
+  bubble_be_erd                     (슬라이드 08, 신규)
 
-★ 확장자는 자유 — jpg / jpeg / png / webp / gif 모두 가능
-  예) profile.jpg  profile.png  profile.webp  모두 OK
-
-[필수 - 높은 우선순위]
-  images/profile          → 프로필 사진 (슬라이드 01, 11)
-  images/bubble_main      → 버블팝업 서비스 대표 화면 (슬라이드 05)
-  images/bubble_arch      → 버블팝업 시스템 아키텍처 다이어그램 (슬라이드 06)
-  images/bubble_map_diff  → 3D 서울 지도 V1 vs V3 Before/After (슬라이드 06)
-  images/amagetdon_main   → 아마겟돈 서비스 대표 화면 (슬라이드 07)
-  images/amagetdon_query  → DB 쿼리 수 개선 증거 캡처 (슬라이드 07)
-  images/keywe_screens    → KEYWE 모바일 앱 화면 3장 (슬라이드 09)
-  images/keywe_jmeter     → JMeter 테스트 결과 캡처 103ms (슬라이드 09)
-
-[권장 - 중간 우선순위]
-  images/bubble_ui        → 버블팝업 게임 UI 화면 (슬라이드 05)
-  images/bubble_auth_code → 인증 흐름 코드 스니펫 또는 Lighthouse (슬라이드 06)
-  images/amagetdon_arch   → 아마겟돈 시스템 아키텍처 다이어그램 (슬라이드 08)
-  images/amagetdon_erd    → 아마겟돈 ERD (슬라이드 08)
-  images/keywe_flip       → KEYWE 출입증 Flip 애니메이션 (슬라이드 09)
-
-[선택 - 낮은 우선순위]
-  images/skills_chart     → 기술 스택 레이더/숙련도 차트 (슬라이드 03)
-  images/bubble_qr        → 버블팝업 시연 영상 QR (슬라이드 06)
-  images/amagetdon_qr     → 아마겟돈 시연 영상 QR (슬라이드 08)
-  images/award_lgcns      → LG CNS 대상 수상 인증서 또는 사진 (슬라이드 10)
-
-이미지 없는 슬롯은 점선 플레이스홀더가 그대로 유지됩니다.
-권장 이미지 크기: 가로 1200px 이하, 용량 500KB 이하
-=======================================================
--->
-</body>
-</html>
+[09-11] 아마겟돈
+  amagetdon_main / amagetdon_sub
+  amagetdon_f
